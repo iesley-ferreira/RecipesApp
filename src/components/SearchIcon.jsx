@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { fetchRecipesByFirstLetter,
   fetchRecipesByIngredient, fetchRecipesByName } from '../services/fetchAPI';
 
@@ -7,6 +7,24 @@ function SeachIcon() {
   const [radioButton, setRadioButton] = useState('');
   const [recipes, setRecipes] = useState([]);
   const [input, setInput] = useState('');
+
+  // redireciona para a página de detalhes da receita caso só tenha uma receita
+  useEffect(() => {
+    let array = [];
+    if (recipes) {
+      array = recipes.meals || recipes.drinks;
+    }
+
+    if (array && array.length === 1) {
+      const { pathname } = window.location;
+      let id = 0;
+      if (pathname === '/meals') {
+        id = array[0].idMeal;
+      } else { id = array[0].idDrink; }
+
+      window.location.href = `${pathname}/${id}`;
+    }
+  }, [recipes]);
 
   // para o lint não reclamar que está repetindo o nome
   const firstLetter = 'first-letter';
@@ -107,21 +125,3 @@ function SeachIcon() {
 }
 
 export default SeachIcon;
-
-// 11 - Implemente 3 radio buttons na barra de busca: Ingredient, Name e First letter
-
-// Observações técnicas
-// A barra de busca deve possuir 3 radio buttons: Ingredient, Name e First letter. Eles, em conjunto com a search-input, devem mudar a forma como serão filtradas as receitas após clicar no botão Search. Os endpoints da API que você deve usar podem ser consultados aqui para a API de comidas e aqui para a API de bebidas.
-// Se o radio selecionado for Ingredient, a busca na API é feita corretamente pelo ingrediente. O endpoint utilizado deve ser https://www.themealdb.com/api/json/v1/1/filter.php?i={ingrediente};
-// Se o radio selecionado for Name, a busca na API é feita corretamente pelo nome. O endpoint utilizado deve ser https://www.themealdb.com/api/json/v1/1/search.php?s={nome};
-// Se o radio selecionado for First letter, a busca na API é feita corretamente pela primeira letra. O endpoint utilizado deve ser https://www.themealdb.com/api/json/v1/1/search.php?f={primeira-letra};
-// Se o radio selecionado for First letter e a busca na API for feita com mais de uma letra, deve-se exibir um alert com a mensagem "Your search must have only 1 (one) character".
-// bulb Exemplo: Ao selecionar Ingredient e buscar por chicken, deve-se utilizar o endpoint https://www.themealdb.com/api/json/v1/1/filter.php?i=chicken.
-// bulb Atenção: Utilize global.alert para evitar os warnings do eslint sobre o uso de alert no código.
-// bulb Observação: Para esse requisito será verificada apenas a tela principal de receitas de comidas.
-
-// O que será verificado
-// Se o radio selecionado for Ingredient, a busca na API é feita corretamente pelo ingrediente
-// Se o radio selecionado for Name, a busca na API é feita corretamente pelo nome
-// Se o radio selecionado for First letter, a busca na API é feita corretamente pela primeira letra
-// Se o radio selecionado for First letter e a busca na API for feita com mais de uma letra, deve-se exibir um alert
