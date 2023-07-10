@@ -8,7 +8,7 @@ const fetchRecipesByIngredient = async (ingredient, pathname) => {
   }
 
   const data = await response.json();
-  console.log(data);
+  // console.log(data);
 
   return data;
 };
@@ -23,7 +23,7 @@ const fetchRecipesByName = async (name, pathname) => {
   }
 
   const data = await response.json();
-  console.log(data);
+  // console.log(data);
 
   return data;
 };
@@ -38,7 +38,7 @@ const fetchRecipesByFirstLetter = async (firstLetter, pathname) => {
   }
 
   const data = await response.json();
-  console.log(data);
+  // console.log(data);
 
   return data;
 };

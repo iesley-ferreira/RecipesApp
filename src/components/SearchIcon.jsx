@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { fetchRecipesByFirstLetter, fetchRecipesByIngredient, fetchRecipesByName } from '../services/fetchAPI';
+import { fetchRecipesByFirstLetter,
+  fetchRecipesByIngredient, fetchRecipesByName } from '../services/fetchAPI';
 
 function SeachIcon() {
   const [showInput, setShowInput] = useState(false);
@@ -92,6 +93,8 @@ function SeachIcon() {
       </button>
     </div>
   );
+
+  console.log(recipes);
 
   return (
     <div className="search">
