@@ -34,7 +34,7 @@ function Recipes() {
       // console.log(recipes);
     };
     fetchRecipes();
-  }, [food, pathname]);
+  }, [food, pathname, setUsualRecipes, setCounter]);
 
   // Para redirecionar quando só tiver uma receita
   useEffect(() => {
@@ -43,7 +43,7 @@ function Recipes() {
       // console.log('função');
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
     }
-  }, [usualRecipes]);
+  }, [usualRecipes, counter]);
 
   const title = pathname === '/meals' ? 'Meals' : 'Drinks';
 
