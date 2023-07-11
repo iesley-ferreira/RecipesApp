@@ -69,11 +69,6 @@ function Recipes() {
           {categoryName.strCategory}
         </button>
       ))}
-  // console.log(usualRecipes);
-
-  return (
-    <div className="recipes-container">
-      <Header title={ title } />
       <SeachBar recipes={ usualRecipes } setRecipes={ setUsualRecipes } />
       {usualRecipes.map((recipe, index) => (
         <Card
