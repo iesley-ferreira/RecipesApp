@@ -9,6 +9,7 @@ function Recipes() {
   const location = useLocation();
   const { pathname } = location;
   const [usualRecipes, setUsualRecipes] = useState([]);
+  const [categories] = useState([]);
 
   const food = pathname === '/meals' ? 'meals' : 'drinks';
   const idFood = pathname === '/meals' ? 'idMeal' : 'idDrink';
@@ -28,10 +29,33 @@ function Recipes() {
 
   const title = pathname === '/meals' ? 'Meals' : 'Drinks';
 
+  const handleCategory = async (category) => {
+    if (location.pathname === '/meals') {
+      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
+      const data = await response.json();
+      console.log(data);
+      setUsualRecipes(data.meals);
+    } else if (location.pathname === '/Drinks') {
+      const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`);
+      const data = await response.json();
+      console.log(data);
+      setUsualRecipes(data.drinks);
+    }
+  };
+
   return (
     <div className="recipes-container">
       <Header title={ title } />
       <SeachIcon />
+      {categories.map((categoryName) => (
+        <button
+          key={ categoryName }
+          data-testid={ `${categoryName}-category-filter` }
+          onClick={ handleCategory(categoryName) }
+        >
+          {categoryName}
+        </button>
+      ))}
       {usualRecipes.map((recipe, index) => (
         <Card
           key={ recipe[idFood] }
