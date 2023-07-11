@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Switch } from 'react-router-dom';
@@ -20,9 +20,25 @@ import NotFound from './pages/NotFound';
 
 function App() {
   const [optionRecipes] = useState([]);
+  const [usualRecipes, setUsualRecipes] = useState([]);
+  const [counter, setCounter] = useState(0);
+  const [categories, setCategories] = useState([]);
+
+  // usualRecipes = receitas
+  // counter = variável para identificar se Recipes foi renderizado ou não
+
+  const contextValue = useMemo(() => ({
+    optionRecipes,
+    usualRecipes,
+    setUsualRecipes,
+    counter,
+    setCounter,
+    categories,
+    setCategories,
+  }), [usualRecipes, counter, optionRecipes, categories]);
 
   return (
-    <receitasContext.Provider value={ optionRecipes }>
+    <receitasContext.Provider value={ contextValue }>
       <Switch>
         <Route path="/" component={ Login } exact />
         <Route path="/meals" component={ Recipes } />

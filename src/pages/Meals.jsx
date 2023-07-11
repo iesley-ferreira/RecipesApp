@@ -1,6 +1,6 @@
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import SeachIcon from '../components/SearchIcon';
+import SeachIcon from '../components/SearchBar';
 
 function Meals() {
   return (

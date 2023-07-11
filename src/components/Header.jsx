@@ -1,6 +1,6 @@
 import profileIcon from '../images/iconePerfil.png';
 import './styles/Header.css';
-import SeachIcon from './SearchIcon';
+import SearchBar from './SearchBar';
 import logoRecipes from '../images/logoRecipes.png';
 import iconeRecipes2 from '../images/iconeRecipes2.png';
 
@@ -27,7 +27,7 @@ function Header() {
       </div>
       <div className="links-container">
         {
-          search && (<SeachIcon />)
+          search && (<SearchBar />)
         }
         <button onClick={ redirectToProfile }>
           <img src={ profileIcon } alt="profile icon" data-testid="profile-top-btn" />

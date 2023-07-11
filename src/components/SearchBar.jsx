@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { fetchRecipesByFirstLetter,
   fetchRecipesByIngredient, fetchRecipesByName } from '../services/fetchAPI';
 import iconePesquisar from '../images/iconePesquisar.png';
 
-function SearchBar() {
+function SeachIcon({ recipes, setRecipes }) {
   const [showInput, setShowInput] = useState(false);
   const [radioButton, setRadioButton] = useState('');
-  const [recipes, setRecipes] = useState([]);
+  // const [recipes, setRecipes] = useState([]);
   const [input, setInput] = useState('');
 
   // redireciona para a página de detalhes da receita caso só tenha uma receita
@@ -113,7 +114,7 @@ function SearchBar() {
     </div>
   );
 
-  console.log(recipes);
+  // console.log(recipes);
 
   return (
     <div className="search">
@@ -125,4 +126,9 @@ function SearchBar() {
   );
 }
 
-export default SearchBar;
+SeachIcon.propTypes = {
+  recipes: PropTypes.arrayOf(PropTypes.obje).isRequired,
+  setRecipes: PropTypes.func.isRequired,
+};
+
+export default SeachIcon;
