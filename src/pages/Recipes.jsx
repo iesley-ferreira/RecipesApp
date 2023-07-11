@@ -9,6 +9,9 @@ import receitasContext from '../context/receitasContext';
 function Recipes() {
   const location = useLocation();
   const { pathname } = location;
+  const [usualRecipes, setUsualRecipes] = useState([]);
+  const [categories, setCategories] = useState([]);
+ 
   const {
     // optionRecipes,
     usualRecipes,
@@ -21,15 +24,22 @@ function Recipes() {
   const idFood = pathname === '/meals' ? 'idMeal' : 'idDrink';
 
   useEffect(() => {
-    // console.log('aqui');
     const fetchRecipes = async () => {
       const recipesNum = 12;
+      const categoryNum = 5;
       const path = pathname === '/meals' ? 'themeal' : 'thecocktail';
-
+      // recipes
       const response = await fetch(`https://www.${path}db.com/api/json/v1/1/search.php?s=`);
       const data = await response.json();
       const recipes = data[food].filter((meal, index) => index < recipesNum);
       setUsualRecipes(recipes);
+      // categories
+      const responseCategory = await fetch(`https://www.${path}db.com/api/json/v1/1/list.php?c=list`);
+      const dataCategory = await responseCategory.json();
+      const filterCategory = dataCategory[food]
+        .filter((meal, index) => index < categoryNum);
+
+      setCategories(filterCategory);
       setCounter(1);
       // console.log(recipes);
     };
@@ -47,6 +57,18 @@ function Recipes() {
 
   const title = pathname === '/meals' ? 'Meals' : 'Drinks';
 
+  return (
+    <div className="recipes-container">
+      <Header title={ title } />
+      <SeachIcon recipes={ usualRecipes } setRecipes={ setUsualRecipes } />
+      {categories.map((categoryName, index) => (
+        <button
+          key={ index }
+          data-testid={ `${categoryName.strCategory}-category-filter` }
+        >
+          {categoryName.strCategory}
+        </button>
+      ))}
   // console.log(usualRecipes);
 
   return (

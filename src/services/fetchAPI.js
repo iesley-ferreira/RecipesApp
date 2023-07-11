@@ -80,12 +80,6 @@ const fetchRecipesByFirstLetter = async (firstLetter, pathname) => {
   return recipes;
 };
 
-const fetchApiCategorias = async () => {
-  const responde = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
-  const data = await responde.json();
-  return data;
-};
-
 const fetchApiNacionalidades = async () => {
   const responde = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
   const data = await responde.json();
@@ -99,7 +93,6 @@ const fetchApiFotos = async (name) => {
 };
 
 export {
-  fetchApiCategorias,
   fetchApiNacionalidades,
   fetchRecipesByIngredient,
   fetchRecipesByName,
