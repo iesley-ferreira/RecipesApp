@@ -4,7 +4,7 @@ function DoneRecipes() {
   return (
     <div>
       <Header title="Done Recipes" />
-      <h1 data-testid="page-title">Receitas Feitas</h1>
+      <h1>Done Recipes</h1>
     </div>
   );
 }

@@ -65,7 +65,8 @@
   border-radius: 5px;
   box-sizing: border-box;
   color: #41197f;
-  font-size: 16px;
+  font-size: 14px;
+  font-weight: 300;
   height: 40px;
   padding: 0 10px;
   width: 276px;
@@ -95,7 +96,12 @@
   width: 276px;
 }
 
+.login-container button:disabled {
+  background: #faba1996;
+  color: white;
+}
+
 .login-container button:hover {
-  background: #fcc436;
+  background: #faba19;
   color: white;
 }

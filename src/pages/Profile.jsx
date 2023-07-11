@@ -5,6 +5,7 @@ function Profile() {
   return (
     <div>
       <Header title="Profile" />
+      <h1 data-testid="page-title">Profile</h1>
       <Footer />
     </div>
   );

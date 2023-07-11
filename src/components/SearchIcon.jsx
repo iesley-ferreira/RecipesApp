@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { fetchRecipesByFirstLetter,
   fetchRecipesByIngredient, fetchRecipesByName } from '../services/fetchAPI';
+import iconePesquisar from '../images/iconePesquisar.png';
 
 function SeachIcon() {
   const [showInput, setShowInput] = useState(false);
@@ -117,7 +118,7 @@ function SeachIcon() {
   return (
     <div className="search">
       <button onClick={ handleInput }>
-        <img src="searchIcon.svg" alt="search icon" data-testid="search-top-btn" />
+        <img src={ iconePesquisar } alt="search icon" data-testid="search-top-btn" />
       </button>
       {showInput ? inputs : null}
     </div>

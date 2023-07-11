@@ -1,0 +1,32 @@
+.header-container {
+  align-items: center;
+  background-color: #fcdc36;
+  display: flex;
+  height: 52px;
+  justify-content: space-between;
+  position: absolute;
+  top: 0;
+  width: 360px;
+}
+
+.logo-container {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding-left: 20px;
+}
+
+.links-container {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+  padding-right: 15px;
+}
+
+.links-container button {
+  background-color: #fcdc36;
+  border: none;
+  color: #41197f;
+}

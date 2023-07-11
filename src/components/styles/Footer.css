@@ -1,0 +1,13 @@
+.footer-container {
+  align-items: center;
+  background-color: #41197f;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  width: 360px;
+}
+
+.footer-container img {
+  padding: 10px 35px;
+}

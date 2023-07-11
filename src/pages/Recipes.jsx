@@ -4,6 +4,9 @@ import Card from '../components/Card';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import SeachIcon from '../components/SearchIcon';
+import './styles/Recipes.css';
+import iconeBebida from '../images/iconeBebida.png';
+import iconePrato from '../images/iconePrato.png';
 
 function Recipes() {
   const location = useLocation();
@@ -28,11 +31,14 @@ function Recipes() {
   }, [food, pathname]);
 
   const title = pathname === '/meals' ? 'Meals' : 'Drinks';
-
+  const icon = pathname === '/meals' ? iconePrato : iconeBebida;
   return (
     <div className="recipes-container">
-      <Header title={ title } />
-      <SeachIcon />
+      <Header />
+      <div className="title-container">
+        <img src={ icon } alt={ icon } />
+        <h1 data-testid="page-title">{ title }</h1>
+      </div>
       {usualRecipes.map((recipe, index) => (
         <Card
           key={ recipe[idFood] }
