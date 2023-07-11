@@ -20,6 +20,7 @@ function Recipes() {
       const data = await response.json();
       const recipes = data[food].filter((meal, index) => index < recipesNum);
       setUsualRecipes(recipes);
+      console.log(recipes);
     };
     fetchRecipes();
   }, [food, pathname]);
