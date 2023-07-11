@@ -1,3 +1,4 @@
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 import SeachIcon from '../components/SearchIcon';
 
@@ -6,6 +7,7 @@ function Meals() {
     <div>
       <Header title="Meals" />
       <SeachIcon />
+      <Footer />
     </div>
   );
 }
