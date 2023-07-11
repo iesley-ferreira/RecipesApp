@@ -1,11 +1,10 @@
-import propTypes from 'prop-types';
 import profileIcon from '../images/iconePerfil.png';
 import './styles/Header.css';
 import SeachIcon from './SearchIcon';
 import logoRecipes from '../images/logoRecipes.png';
 import iconeRecipes2 from '../images/iconeRecipes2.png';
 
-function Header({ title }) {
+function Header() {
   const { pathname } = window.location;
   const redirectToProfile = () => {
     if (pathname === '/profile') return;
@@ -34,13 +33,8 @@ function Header({ title }) {
           <img src={ profileIcon } alt="profile icon" data-testid="profile-top-btn" />
         </button>
       </div>
-      {/* <h1 data-testid="page-title">{title}</h1> */}
     </div>
   );
 }
-
-Header.propTypes = {
-  title: propTypes.string.isRequired,
-};
 
 export default Header;

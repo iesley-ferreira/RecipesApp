@@ -3,7 +3,6 @@ import { useLocation } from 'react-router-dom';
 import Card from '../components/Card';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import SeachIcon from '../components/SearchIcon';
 import './styles/Recipes.css';
 import iconeBebida from '../images/iconeBebida.png';
 import iconePrato from '../images/iconePrato.png';
