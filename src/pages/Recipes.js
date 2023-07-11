@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Card from '../components/Card';
 import Footer from '../components/Footer';
+import Header from '../components/Header';
+import SeachIcon from '../components/SearchIcon';
 
 function Recipes() {
   const location = useLocation();
@@ -24,8 +26,12 @@ function Recipes() {
     fetchRecipes();
   }, [food, pathname]);
 
+  const title = pathname === '/meals' ? 'Meals' : 'Drinks';
+
   return (
     <div className="recipes-container">
+      <Header title={ title } />
+      <SeachIcon />
       {usualRecipes.map((recipe, index) => (
         <Card
           key={ recipe[idFood] }
