@@ -1,27 +1,34 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 export default function Login() {
-  const [email, setEmail] = useState('');
+  const history = useHistory();
+  const [emaill, setEmaill] = useState('');
   const [password, setPassword] = useState('');
   const [disabled, setDisabled] = useState(true);
 
   useEffect(() => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const max = 6;
-    if (emailRegex.test(email) && password.length > max) {
+    if (emailRegex.test(emaill) && password.length > max) {
       setDisabled(false);
     } else {
       setDisabled(true);
     }
-  }, [email, password]);
+  }, [emaill, password]);
 
   const handleChangeEmail = ({ target }) => {
-    setEmail(target.value);
+    setEmaill(target.value);
   };
 
   const handleChangePass = ({ target }) => {
     setPassword(target.value);
   };
+
+  function handleSubmit() {
+    localStorage.setItem('user', JSON.stringify({ email: emaill }));
+    history.push('/meals');
+  }
 
   return (
     <div>
@@ -29,9 +36,9 @@ export default function Login() {
       <label>
         Email
         <input
-          type="email"
-          name="email"
-          value={ email }
+          type="emaill"
+          name="emaill"
+          value={ emaill }
           data-testid="email-input"
           onChange={ handleChangeEmail }
         />
@@ -51,6 +58,7 @@ export default function Login() {
         name="game"
         disabled={ disabled }
         data-testid="login-submit-btn"
+        onClick={ handleSubmit }
       >
         Login
       </button>
