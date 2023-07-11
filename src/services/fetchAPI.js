@@ -8,9 +8,20 @@ const fetchRecipesByIngredient = async (ingredient, pathname) => {
   }
 
   const data = await response.json();
-  // console.log(data);
 
-  return data;
+  const food = pathname === '/meals' ? 'meals' : 'drinks';
+  const recipesNum = 12;
+
+  let recipes = [].data[food].filter((meal, index) => index < recipesNum);
+
+  if (pathname === '/meals') {
+    recipes = data.meals.data[food].filter((meal, index) => index < recipesNum);
+  } else {
+    recipes = data.drinks.data[food].filter((meal, index) => index < recipesNum);
+  }
+  console.log(data);
+
+  return recipes;
 };
 
 const fetchRecipesByName = async (name, pathname) => {
@@ -23,9 +34,15 @@ const fetchRecipesByName = async (name, pathname) => {
   }
 
   const data = await response.json();
+  let recipes = [];
+  if (pathname === '/meals') {
+    recipes = data.meals;
+  } else {
+    recipes = data.drinks;
+  }
   // console.log(data);
 
-  return data;
+  return recipes;
 };
 
 const fetchRecipesByFirstLetter = async (firstLetter, pathname) => {
@@ -38,9 +55,15 @@ const fetchRecipesByFirstLetter = async (firstLetter, pathname) => {
   }
 
   const data = await response.json();
+  let recipes = [];
+  if (pathname === '/meals') {
+    recipes = data.meals;
+  } else {
+    recipes = data.drinks;
+  }
   // console.log(data);
 
-  return data;
+  return recipes;
 };
 
 const fetchApiCategorias = async () => {
