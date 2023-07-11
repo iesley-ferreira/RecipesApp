@@ -3,7 +3,6 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Switch } from 'react-router-dom';
 import receitasContext from './context/receitasContext';
-
 import Login from './pages/Login';
 import Recipes from './pages/Recipes';
 // import Meals from './pages/Meals';
