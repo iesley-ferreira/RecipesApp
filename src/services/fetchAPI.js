@@ -12,12 +12,12 @@ const fetchRecipesByIngredient = async (ingredient, pathname) => {
   const food = pathname === '/meals' ? 'meals' : 'drinks';
   const recipesNum = 12;
 
-  let recipes = [].data[food].filter((meal, index) => index < recipesNum);
+  let recipes = [];
 
   if (pathname === '/meals') {
-    recipes = data.meals.data[food].filter((meal, index) => index < recipesNum);
+    recipes = data[food].filter((meal, index) => index < recipesNum);
   } else {
-    recipes = data.drinks.data[food].filter((meal, index) => index < recipesNum);
+    recipes = data[food].filter((meal, index) => index < recipesNum);
   }
   console.log(data);
 
@@ -33,12 +33,15 @@ const fetchRecipesByName = async (name, pathname) => {
     response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`);
   }
 
+  const food = pathname === '/meals' ? 'meals' : 'drinks';
+  const recipesNum = 12;
+
   const data = await response.json();
   let recipes = [];
   if (pathname === '/meals') {
-    recipes = data.meals;
+    recipes = data[food].filter((meal, index) => index < recipesNum);
   } else {
-    recipes = data.drinks;
+    recipes = data[food].filter((meal, index) => index < recipesNum);
   }
   // console.log(data);
 
@@ -54,12 +57,15 @@ const fetchRecipesByFirstLetter = async (firstLetter, pathname) => {
     response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${firstLetter}`);
   }
 
+  const food = pathname === '/meals' ? 'meals' : 'drinks';
+  const recipesNum = 12;
+
   const data = await response.json();
   let recipes = [];
   if (pathname === '/meals') {
-    recipes = data.meals;
+    recipes = data[food].filter((meal, index) => index < recipesNum);
   } else {
-    recipes = data.drinks;
+    recipes = data[food].filter((meal, index) => index < recipesNum);
   }
   // console.log(data);
 
