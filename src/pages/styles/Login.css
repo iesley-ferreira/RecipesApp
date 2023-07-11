@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,900;1,200;1,300&display=swap');
+
+.login-container {
+  align-items: center;
+  box-sizing: border-box;
+  color: #41197f;
+  display: flex;
+  flex-direction: column;
+  font-family: Epilogue , sans-serif;
+  height: 800px;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+  width: 360px;
+}
+
+.purpleBackground {
+  align-items: center;
+  background: #41197f;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  width: 360px;
+}
+
+.purpleBackground .img1 {
+  position: relative;
+  top: 79px;
+  width: 197px;
+}
+
+.purpleBackground .img2 {
+  position: relative;
+  top: 121px;
+  width: 360px;
+
+}
+
+.login-inputs h1 {
+  font-size: 20px;
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: 3.3px;
+  line-height: normal;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.login-inputs {
+  align-items: center;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  top: 600px;
+  width: 360px;
+}
+
+.login-inputs input {
+  border: 1px solid #41197f;
+  border-radius: 5px;
+  box-sizing: border-box;
+  color: #41197f;
+  font-size: 16px;
+  height: 40px;
+  padding: 0 10px;
+  width: 276px;
+}
+
+.login-inputs input::placeholder {
+  color: #41197f;
+  font-size: 14px;
+  font-weight: 300;
+  padding: 0 10px;
+}
+
+.login-container button {
+  background: #fcc436;
+  border: none;
+  border-radius: 5px;
+  box-sizing: border-box;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  height: 40px;
+  letter-spacing: 0.42px;
+  line-height: normal;
+  text-transform: uppercase;
+  width: 276px;
+}
+
+.login-container button:hover {
+  background: #fcc436;
+  color: white;
+}
