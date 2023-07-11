@@ -1,4 +1,11 @@
+import Footer from '../components/Footer';
+import Recipes from './Recipes';
+
 export default function Login() {
-  const title = 'Hello World';
-  return (<h1>{ title }</h1>);
+  return (
+    <>
+      <Recipes />
+      <Footer />
+    </>
+  );
 }
