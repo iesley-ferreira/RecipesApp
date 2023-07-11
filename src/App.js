@@ -22,6 +22,7 @@ function App() {
   const [optionRecipes] = useState([]);
   const [usualRecipes, setUsualRecipes] = useState([]);
   const [counter, setCounter] = useState(0);
+  const [categories, setCategories] = useState([]);
 
   // usualRecipes = receitas
   // counter = variável para identificar se Recipes foi renderizado ou não
@@ -32,7 +33,9 @@ function App() {
     setUsualRecipes,
     counter,
     setCounter,
-  }), [usualRecipes, counter, optionRecipes]);
+    categories,
+    setCategories,
+  }), [usualRecipes, counter, optionRecipes, categories]);
 
   return (
     <receitasContext.Provider value={ contextValue }>

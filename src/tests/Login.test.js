@@ -12,7 +12,7 @@ describe('Testes page Login', () => {
     const { history } = renderWithRouter(<Login />);
     const email = screen.getByTestId(EMAILINPUT);
     const password = screen.getByTestId(PASSINPUT);
-    const button = screen.getByRole('button', { name: /login/i });
+    const button = screen.getByRole('button', { name: /enter/i });
     userEvent.type(email, 'example@example.com');
     userEvent.type(password, 'senha1234');
     userEvent.click(button);
@@ -22,7 +22,7 @@ describe('Testes page Login', () => {
     renderWithRouter(<Login />);
     const email = screen.getByTestId(EMAILINPUT);
     const password = screen.getByTestId(PASSINPUT);
-    const button = screen.getByRole('button', { name: /login/i });
+    const button = screen.getByRole('button', { name: /enter/i });
     expect(email).toBeInTheDocument();
     expect(password).toBeInTheDocument();
     expect(button).toBeInTheDocument();
@@ -32,7 +32,7 @@ describe('Testes page Login', () => {
     renderWithRouter(<Login />);
     const email = screen.getByTestId(EMAILINPUT);
     const password = screen.getByTestId(PASSINPUT);
-    const button = screen.getByRole('button', { name: /login/i });
+    const button = screen.getByRole('button', { name: /enter/i });
     userEvent.type(email, 'test@test.com');
     userEvent.type(password, 'senha1234');
     expect(button).not.toBeDisabled();
@@ -42,8 +42,8 @@ describe('Testes page Login', () => {
     renderWithRouter(<Login />);
     const email = screen.getByTestId(EMAILINPUT);
     const password = screen.getByTestId(PASSINPUT);
-    const button = screen.getByRole('button', { name: /login/i });
-    userEvent.type(email, 'emailnvalido');
+    const button = screen.getByRole('button', { name: /enter/i });
+    userEvent.type(email, 'emailinvalido');
     userEvent.type(password, '123');
     expect(button).toBeDisabled();
   });

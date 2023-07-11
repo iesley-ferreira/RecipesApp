@@ -4,7 +4,7 @@ function FavoriteRecipes() {
   return (
     <div>
       <Header title="Favorite Recipes" />
-      <h1>Favorite Recipes</h1>
+      <h1 data-testid="page-title">Favorite Recipes</h1>
     </div>
   );
 }

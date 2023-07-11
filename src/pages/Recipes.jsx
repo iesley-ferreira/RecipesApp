@@ -3,17 +3,16 @@ import { useLocation } from 'react-router-dom';
 import Card from '../components/Card';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import SeachBar from '../components/SearchBar';
+import './styles/Recipes.css';
+import iconeBebida from '../images/iconeBebida.png';
+import iconePrato from '../images/iconePrato.png';
 import receitasContext from '../context/receitasContext';
 
 function Recipes() {
   const location = useLocation();
   const { pathname } = location;
-  const [usualRecipes, setUsualRecipes] = useState([]);
-  const [categories, setCategories] = useState([]);
- 
+
   const {
-    // optionRecipes,
     usualRecipes,
     setUsualRecipes,
     counter,
@@ -41,7 +40,6 @@ function Recipes() {
 
       setCategories(filterCategory);
       setCounter(1);
-      // console.log(recipes);
     };
     fetchRecipes();
   }, [food, pathname, setUsualRecipes, setCounter]);
@@ -50,26 +48,19 @@ function Recipes() {
   useEffect(() => {
     console.log(usualRecipes, counter);
     if (counter > 0 && usualRecipes.length === 0) {
-      // console.log('função');
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
     }
   }, [usualRecipes, counter]);
 
   const title = pathname === '/meals' ? 'Meals' : 'Drinks';
-
+  const icon = pathname === '/meals' ? iconePrato : iconeBebida;
   return (
     <div className="recipes-container">
-      <Header title={ title } />
-      <SeachIcon recipes={ usualRecipes } setRecipes={ setUsualRecipes } />
-      {categories.map((categoryName, index) => (
-        <button
-          key={ index }
-          data-testid={ `${categoryName.strCategory}-category-filter` }
-        >
-          {categoryName.strCategory}
-        </button>
-      ))}
-      <SeachBar recipes={ usualRecipes } setRecipes={ setUsualRecipes } />
+      <Header />
+      <div className="title-container">
+        <img src={ icon } alt={ icon } />
+        <h1 data-testid="page-title">{ title }</h1>
+      </div>
       {usualRecipes.map((recipe, index) => (
         <Card
           key={ recipe[idFood] }
