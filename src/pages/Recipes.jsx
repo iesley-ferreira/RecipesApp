@@ -15,6 +15,7 @@ function Recipes() {
   const idFood = pathname === '/meals' ? 'idMeal' : 'idDrink';
 
   useEffect(() => {
+    // console.log('aqui');
     const fetchRecipes = async () => {
       const recipesNum = 12;
       const path = pathname === '/meals' ? 'themeal' : 'thecocktail';
@@ -23,6 +24,7 @@ function Recipes() {
       const data = await response.json();
       const recipes = data[food].filter((meal, index) => index < recipesNum);
       setUsualRecipes(recipes);
+      // console.log(recipes);
     };
     fetchRecipes();
   }, [food, pathname]);
@@ -46,7 +48,7 @@ function Recipes() {
   return (
     <div className="recipes-container">
       <Header title={ title } />
-      <SeachIcon />
+      <SeachIcon recipes={ usualRecipes } setRecipes={ setUsualRecipes } />
       {categories.map((categoryName) => (
         <button
           key={ categoryName }
