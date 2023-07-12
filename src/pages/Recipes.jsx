@@ -16,6 +16,7 @@ function Recipes() {
     setUsualRecipes,
     counter,
     setCounter,
+    categories,
     setCategories,
   } = useContext(receitasContext);
 
@@ -59,7 +60,14 @@ function Recipes() {
         <SearchBar />
       </div>
       <div className="categories-container">
-        <p>Categorias Aqui</p>
+        {categories.map((categoryName, index) => (
+          <button
+            key={ index }
+            data-testid={ `${categoryName.strCategory}-category-filter` }
+          >
+            {categoryName.strCategory}
+          </button>
+        ))}
       </div>
       <div className="cards-container">
         {usualRecipes.map((recipe, index) => (
