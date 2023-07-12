@@ -10,13 +10,14 @@ import Recipes from './pages/Recipes';
 // import Drinks from './pages/Drinks';
 import RecipeMeal from './pages/RecipeMeal';
 import RecipeDrink from './pages/RecipeDrink';
-import RecipeMealsInProgress from './pages/RecipeMealInProgress';
-import RecipeDrinkInProgress from './pages/RecipeDrinkInProgress';
+// import RecipeMealsInProgress from './pages/RecipeMealInProgress';
+// import RecipeDrinkInProgress from './pages/RecipeDrinkInProgress';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import Profile from './pages/Profile';
 import Details from './pages/Details';
 import NotFound from './pages/NotFound';
+import RecipeInProgress from './pages/RecipeInProgress';
 
 function App() {
   const [optionRecipes] = useState([]);
@@ -50,17 +51,17 @@ function App() {
     <receitasContext.Provider value={ contextValue }>
       <Switch>
         <Route path="/" component={ Login } exact />
-        <Route path="/meals" component={ Recipes } />
-        <Route path="/drinks" component={ Recipes } />
-        <Route path="/meals/:id-da-receita" component={ RecipeMeal } />
-        <Route path="/drinks/:id-da-receita" component={ RecipeDrink } />
+        <Route exact path="/meals" component={ Recipes } />
+        <Route exact path="/drinks" component={ Recipes } />
+        <Route exact path="/meals/:id-da-receita" component={ RecipeMeal } />
+        <Route exact path="/drinks/:id-da-receita" component={ RecipeDrink } />
         <Route
           path="/meals/:id-da-receita/in-progress"
-          component={ (RecipeMealsInProgress) }
+          component={ RecipeInProgress }
         />
         <Route
           path="/drinks/:id-da-receita/in-progress"
-          component={ (RecipeDrinkInProgress) }
+          component={ RecipeInProgress }
         />
         <Route path="/profile" component={ Profile } />
         <Route path="/detalhes" component={ Details } />
