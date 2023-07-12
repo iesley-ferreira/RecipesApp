@@ -43,7 +43,14 @@
   display: flex;
   flex-flow: row wrap;
   flex-direction: row;
+  font-size: 12px;
   justify-content: space-evenly;
   margin-top: 15px;
   width: 333px;
+}
+
+.categories-container button {
+  background-color: transparent;
+  border: none;
+  color: #797d86;
 }
