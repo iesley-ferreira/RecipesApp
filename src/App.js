@@ -23,6 +23,9 @@ function App() {
   const [usualRecipes, setUsualRecipes] = useState([]);
   const [counter, setCounter] = useState(0);
   const [categories, setCategories] = useState([]);
+  const [showInput, setShowInput] = useState(false);
+  const [radioButton, setRadioButton] = useState('');
+  const [input, setInput] = useState('');
 
   // usualRecipes = receitas
   // counter = variável para identificar se Recipes foi renderizado ou não
@@ -35,7 +38,13 @@ function App() {
     setCounter,
     categories,
     setCategories,
-  }), [usualRecipes, counter, optionRecipes, categories]);
+    showInput,
+    setShowInput,
+    radioButton,
+    setRadioButton,
+    input,
+    setInput,
+  }), [usualRecipes, counter, optionRecipes, categories, showInput, radioButton, input]);
 
   return (
     <receitasContext.Provider value={ contextValue }>
