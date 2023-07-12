@@ -1,14 +1,17 @@
-import { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import { useContext, useEffect, useState } from 'react';
 import { fetchRecipesByFirstLetter,
   fetchRecipesByIngredient, fetchRecipesByName } from '../services/fetchAPI';
+import receitasContext from '../context/receitasContext';
 import iconePesquisar from '../images/iconePesquisar.png';
 
-function SeachIcon({ recipes, setRecipes }) {
+function SeachIcon() {
   const [showInput, setShowInput] = useState(false);
   const [radioButton, setRadioButton] = useState('');
-  // const [recipes, setRecipes] = useState([]);
   const [input, setInput] = useState('');
+
+  const { usualRecipes, setUsualRecipes } = useContext(receitasContext);
+  const recipes = usualRecipes;
+  const setRecipes = setUsualRecipes;
 
   // redireciona para a página de detalhes da receita caso só tenha uma receita
   useEffect(() => {
@@ -125,10 +128,5 @@ function SeachIcon({ recipes, setRecipes }) {
     </div>
   );
 }
-
-SeachIcon.propTypes = {
-  recipes: PropTypes.arrayOf(PropTypes.obje).isRequired,
-  setRecipes: PropTypes.func.isRequired,
-};
 
 export default SeachIcon;

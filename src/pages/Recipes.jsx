@@ -32,6 +32,7 @@ function Recipes() {
       const data = await response.json();
       const recipes = data[food].filter((meal, index) => index < recipesNum);
       setUsualRecipes(recipes);
+      setCounter(1);
       // categories
       const responseCategory = await fetch(`https://www.${path}db.com/api/json/v1/1/list.php?c=list`);
       const dataCategory = await responseCategory.json();
@@ -39,7 +40,6 @@ function Recipes() {
         .filter((meal, index) => index < categoryNum);
 
       setCategories(filterCategory);
-      setCounter(1);
     };
     fetchRecipes();
   }, [food, pathname, setUsualRecipes, setCounter]);
@@ -59,7 +59,7 @@ function Recipes() {
       <Header />
       <div className="title-container">
         <img src={ icon } alt={ icon } />
-        <h1 data-testid="page-title">{ title }</h1>
+        <header><h1 data-testid="page-title">{ title }</h1></header>
       </div>
       {usualRecipes.map((recipe, index) => (
         <Card
