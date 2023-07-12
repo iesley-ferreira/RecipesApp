@@ -4,8 +4,9 @@
   bottom: 0;
   display: flex;
   justify-content: space-between;
-  position: absolute;
-  width: 100%;
+  position: fixed;
+  width: 400px;
+  z-index: 99;
 }
 
 .footer-container img {
