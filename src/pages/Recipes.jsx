@@ -61,14 +61,19 @@ function Recipes() {
         <img src={ icon } alt={ icon } />
         <header><h1 data-testid="page-title">{ title }</h1></header>
       </div>
-      {usualRecipes.map((recipe, index) => (
-        <Card
-          key={ recipe[idFood] }
-          option={ pathname }
-          recipe={ recipe }
-          index={ index }
-        />
-      ))}
+      <div className="searchBar-container">
+        <p>SearchBar Aqui</p>
+      </div>
+      <div className="cards-container">
+        {usualRecipes.map((recipe, index) => (
+          <Card
+            key={ recipe[idFood] }
+            option={ pathname }
+            recipe={ recipe }
+            index={ index }
+          />
+        ))}
+      </div>
       <Footer />
     </div>
   );

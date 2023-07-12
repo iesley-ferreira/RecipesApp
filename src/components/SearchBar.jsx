@@ -3,6 +3,7 @@ import { fetchRecipesByFirstLetter,
   fetchRecipesByIngredient, fetchRecipesByName } from '../services/fetchAPI';
 import receitasContext from '../context/receitasContext';
 import iconePesquisar from '../images/iconePesquisar.png';
+import './styles/SearchBar.css';
 
 function SeachIcon() {
   const [showInput, setShowInput] = useState(false);
