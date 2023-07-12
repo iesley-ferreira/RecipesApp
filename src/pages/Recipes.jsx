@@ -4,9 +4,8 @@ import Card from '../components/Card';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import './styles/Recipes.css';
-import iconeBebida from '../images/iconeBebida.png';
-import iconePrato from '../images/iconePrato.png';
 import receitasContext from '../context/receitasContext';
+import SearchBar from '../components/SearchBar';
 
 function Recipes() {
   const location = useLocation();
@@ -17,6 +16,7 @@ function Recipes() {
     setUsualRecipes,
     counter,
     setCounter,
+    setCategories,
   } = useContext(receitasContext);
 
   const food = pathname === '/meals' ? 'meals' : 'drinks';
@@ -42,7 +42,7 @@ function Recipes() {
       setCategories(filterCategory);
     };
     fetchRecipes();
-  }, [food, pathname, setUsualRecipes, setCounter]);
+  }, [food, pathname, setUsualRecipes, setCounter, setCategories]);
 
   // Para redirecionar quando só tiver uma receita
   useEffect(() => {
@@ -52,17 +52,14 @@ function Recipes() {
     }
   }, [usualRecipes, counter]);
 
-  const title = pathname === '/meals' ? 'Meals' : 'Drinks';
-  const icon = pathname === '/meals' ? iconePrato : iconeBebida;
   return (
     <div className="recipes-container">
       <Header />
-      <div className="title-container">
-        <img src={ icon } alt={ icon } />
-        <header><h1 data-testid="page-title">{ title }</h1></header>
-      </div>
       <div className="searchBar-container">
-        <p>SearchBar Aqui</p>
+        <SearchBar />
+      </div>
+      <div className="categories-container">
+        <p>Categorias Aqui</p>
       </div>
       <div className="cards-container">
         {usualRecipes.map((recipe, index) => (

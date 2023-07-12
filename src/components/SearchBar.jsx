@@ -1,16 +1,20 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { fetchRecipesByFirstLetter,
   fetchRecipesByIngredient, fetchRecipesByName } from '../services/fetchAPI';
 import receitasContext from '../context/receitasContext';
-import iconePesquisar from '../images/iconePesquisar.png';
 import './styles/SearchBar.css';
 
-function SeachIcon() {
-  const [showInput, setShowInput] = useState(false);
-  const [radioButton, setRadioButton] = useState('');
-  const [input, setInput] = useState('');
+function SearchBar() {
+  const {
+    usualRecipes,
+    setUsualRecipes,
+    showInput,
+    radioButton,
+    setRadioButton,
+    input,
+    setInput,
+  } = useContext(receitasContext);
 
-  const { usualRecipes, setUsualRecipes } = useContext(receitasContext);
   const recipes = usualRecipes;
   const setRecipes = setUsualRecipes;
 
@@ -34,11 +38,6 @@ function SeachIcon() {
 
   // para o lint não reclamar que está repetindo o nome
   const firstLetter = 'first-letter';
-
-  // mostra ou esconde os inputs
-  const handleInput = () => {
-    setShowInput(!showInput);
-  };
 
   // faz a busca de acordo com o radio button selecionado
   const searchRecipes = async () => {
@@ -74,60 +73,66 @@ function SeachIcon() {
 
   // cria os inputs, mostrados quando se clica no ícone de busca
   const inputs = (
-    <div>
-      <input
-        type="text"
-        data-testid="search-input"
-        onChange={ changeInput }
-      />
+    <div className="search-content">
+      <div className="search-input-text">
+        <input
+          type="text"
+          data-testid="search-input"
+          onChange={ changeInput }
+          placeholder="Search"
+        />
+      </div>
+      <div className="search-radio-buttons">
+        <label htmlFor="ingredient">
+          <input
+            type="radio"
+            data-testid="ingredient-search-radio"
+            id="ingredient"
+            onChange={ () => setRadioButton('ingredient') }
+            checked={ radioButton === 'ingredient' }
+          />
+          Ingrediente
+        </label>
 
-      <label htmlFor="ingredient">Ingrediente</label>
-      <input
-        type="radio"
-        data-testid="ingredient-search-radio"
-        id="ingredient"
-        onChange={ () => setRadioButton('ingredient') }
-        checked={ radioButton === 'ingredient' }
-      />
+        <label htmlFor="name">
 
-      <label htmlFor="name">Nome</label>
-      <input
-        type="radio"
-        data-testid="name-search-radio"
-        id="name"
-        onChange={ () => setRadioButton('name') }
-        checked={ radioButton === 'name' }
-      />
+          <input
+            type="radio"
+            data-testid="name-search-radio"
+            id="name"
+            onChange={ () => setRadioButton('name') }
+            checked={ radioButton === 'name' }
+          />
+          Nome
+        </label>
 
-      <label htmlFor="first-letter">Primeira letra</label>
-      <input
-        type="radio"
-        data-testid="first-letter-search-radio"
-        id="first-letter"
-        onChange={ () => setRadioButton(firstLetter) }
-        checked={ radioButton === firstLetter }
-      />
+        <label htmlFor="first-letter">
+          <input
+            type="radio"
+            data-testid="first-letter-search-radio"
+            id="first-letter"
+            onChange={ () => setRadioButton(firstLetter) }
+            checked={ radioButton === firstLetter }
+          />
+          Primeira letra
+        </label>
+      </div>
       <button
         type="button"
         data-testid="exec-search-btn"
         onClick={ searchRecipes }
       >
-        Buscar
+        Search
 
       </button>
     </div>
   );
 
-  // console.log(recipes);
-
   return (
     <div className="search">
-      <button onClick={ handleInput }>
-        <img src={ iconePesquisar } alt="search icon" data-testid="search-top-btn" />
-      </button>
       {showInput ? inputs : null}
     </div>
   );
 }
 
-export default SeachIcon;
+export default SearchBar;

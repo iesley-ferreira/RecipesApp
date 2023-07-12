@@ -10,12 +10,16 @@ function Card(props) {
 
   return (
     <div className="card-container" data-testid={ `${index}-recipe-card` }>
-      <img
-        data-testid={ `${index}-card-img` }
-        src={ recipe[foodThumb] }
-        alt={ recipe[foodName] }
-      />
-      <h2 data-testid={ `${index}-card-name` }>{recipe[foodName]}</h2>
+      <div className="card-img">
+        <img
+          data-testid={ `${index}-card-img` }
+          src={ recipe[foodThumb] }
+          alt={ recipe[foodName] }
+        />
+      </div>
+      <div className="card-h2">
+        <h2 data-testid={ `${index}-card-name` }>{recipe[foodName]}</h2>
+      </div>
     </div>
   );
 }
