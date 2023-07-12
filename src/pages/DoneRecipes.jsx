@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import DoneRecipeCard from '../components/DoneRecipeCard';
 import iconeBebida from '../images/iconeBebida.png';
+import iconePrato from '../images/iconePrato.png';
+import iconFastFood from '../images/iconFastFood.png';
+import './styles/DoneRecipes.css';
 
 function DoneRecipes() {
   const [doneRecipesData, setDoneRecipesData] = useState([]);
@@ -27,34 +30,40 @@ function DoneRecipes() {
     <div>
       <Header />
       <div className="doneRecipes-categories-container">
-        <button
-          data-testid="filter-by-all-btn"
-          type="button"
-          name="all"
-          onClick={ ({ name }) => filterByCategory(name) }
-          src={ iconeBebida }
-        >
+        <div className="filter-by-category">
+          <button
+            data-testid="filter-by-all-btn"
+            type="button"
+            name="all"
+            onClick={ ({ name }) => filterByCategory(name) }
+          >
+            <img src={ iconFastFood } alt="all icon" />
+          </button>
           All
-        </button>
-        <button
-          data-testid="filter-by-meal-btn"
-          type="button"
-          onClick={ ({ name }) => filterByCategory(name) }
-          src={ iconeBebida }
-        >
+        </div>
+        <div className="filter-by-category">
+          <button
+            data-testid="filter-by-meal-btn"
+            type="button"
+            onClick={ ({ name }) => filterByCategory(name) }
+          >
+            <img src={ iconePrato } alt="meal icon" />
+          </button>
           Meals
-        </button>
-        <button
-          data-testid="filter-by-drink-btn"
-          type="button"
-          onClick={ ({ name }) => filterByCategory(name) }
-          src={ iconeBebida }
-        >
+        </div>
+        <div className="filter-by-category">
+          <button
+            data-testid="filter-by-drink-btn"
+            type="button"
+            onClick={ ({ name }) => filterByCategory(name) }
+          >
+            <img src={ iconeBebida } alt="" />
+          </button>
           Drinks
-        </button>
+        </div>
       </div>
       <div className="doneRecipes-card-container">
-        {
+        {/* {
           fillDoneRecipes.length === 0 ? (
             doneRecipesData.map((recipe, index) => (
               <DoneRecipeCard
@@ -72,7 +81,7 @@ function DoneRecipes() {
               />
             ))
           )
-        }
+        } */}
       </div>
     </div>
   );
