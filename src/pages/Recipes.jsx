@@ -4,7 +4,7 @@ import Card from '../components/Card';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import './styles/Recipes.css';
-import receitasContext from '../context/receitasContext';
+import receitasContext from '../context/ReceitasContext';
 import SearchBar from '../components/SearchBar';
 
 function Recipes() {
