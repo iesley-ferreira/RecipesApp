@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import './styles/Card.css';
 
 function Card(props) {
   const { recipe, index, option } = props;
@@ -8,13 +9,13 @@ function Card(props) {
   // console.log(foodName, foodThumb, option, recipe);
 
   return (
-    <div data-testid={ `${index}-recipe-card` }>
-      <h2 data-testid={ `${index}-card-name` }>{recipe[foodName]}</h2>
+    <div className="card-container" data-testid={ `${index}-recipe-card` }>
       <img
         data-testid={ `${index}-card-img` }
         src={ recipe[foodThumb] }
         alt={ recipe[foodName] }
       />
+      <h2 data-testid={ `${index}-card-name` }>{recipe[foodName]}</h2>
     </div>
   );
 }

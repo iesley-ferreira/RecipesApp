@@ -1,0 +1,26 @@
+.card-container {
+  align-items: start;
+  border: 1px solid #b1b1b1;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  height: 166px;
+  justify-content: space-between;
+  width: 163px;
+}
+
+.card-container img {
+  border-radius: 5px 5px 0 0;
+  height: 134px;
+  width: 163px;
+}
+
+.card-container h2 {
+  color: #1a1b1c;
+  font-family: Epilogue , sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding-left: 15px;
+}

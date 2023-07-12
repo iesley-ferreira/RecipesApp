@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { fetchRecipesByFirstLetter,
   fetchRecipesByIngredient, fetchRecipesByName } from '../services/fetchAPI';
 import iconePesquisar from '../images/iconePesquisar.png';
+import './styles/SearchBar.css';
 
 function SeachIcon({ recipes, setRecipes }) {
   const [showInput, setShowInput] = useState(false);
