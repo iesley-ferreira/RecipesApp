@@ -47,11 +47,29 @@ function Recipes() {
 
   // Para redirecionar quando só tiver uma receita
   useEffect(() => {
-    console.log(usualRecipes, counter);
+    // console.log(usualRecipes, counter);
     if (counter > 0 && usualRecipes.length === 0) {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
     }
   }, [usualRecipes, counter]);
+
+  const handleCategory = async (categoryName) => {
+    const path = pathname === '/meals' ? 'themeal' : 'thecocktail';
+    const num = 12;
+    const response = await fetch(`https://www.${path}db.com/api/json/v1/1/filter.php?c=${categoryName}`);
+    const data = await response.json();
+    const recipes = data[food].splice(0, num);
+    setUsualRecipes(recipes);
+  };
+
+  const handleAll = async () => {
+    const path = pathname === '/meals' ? 'themeal' : 'thecocktail';
+    const num = 12;
+    const response = await fetch(`https://www.${path}db.com/api/json/v1/1/search.php?s=`);
+    const data = await response.json();
+    const filterCategory = data[food].splice(0, num);
+    setUsualRecipes(filterCategory);
+  };
 
   return (
     <div className="recipes-container">
@@ -60,10 +78,17 @@ function Recipes() {
         <SearchBar />
       </div>
       <div className="categories-container">
+        <button
+          data-testid="All-category-filter"
+          onClick={ () => handleAll() }
+        >
+          All
+        </button>
         {categories.map((categoryName, index) => (
           <button
             key={ index }
             data-testid={ `${categoryName.strCategory}-category-filter` }
+            onClick={ () => handleCategory(categoryName.strCategory) }
           >
             {categoryName.strCategory}
           </button>
@@ -76,6 +101,7 @@ function Recipes() {
             option={ pathname }
             recipe={ recipe }
             index={ index }
+            data-testid="usual-recipes-card"
           />
         ))}
       </div>

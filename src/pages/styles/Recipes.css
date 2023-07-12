@@ -41,6 +41,7 @@
   align-items: center;
   border: 1px solid #413c49;
   display: flex;
+  flex-flow: row wrap;
   flex-direction: row;
   font-size: 12px;
   justify-content: space-evenly;
