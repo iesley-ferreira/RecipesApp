@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react';
 import { fetchRecipesByFirstLetter,
   fetchRecipesByIngredient, fetchRecipesByName } from '../services/fetchAPI';
-import receitasContext from '../context/receitasContext';
+import receitasContext from '../context/ReceitasContext';
 import './styles/SearchBar.css';
 
 function SearchBar() {

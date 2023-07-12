@@ -4,7 +4,7 @@ import './styles/Header.css';
 import logoRecipes from '../images/logoRecipes.png';
 import iconeRecipes2 from '../images/iconeRecipes2.png';
 // import iconePesquisar from '../images/iconePesquisar.png';
-import receitasContext from '../context/receitasContext';
+import receitasContext from '../context/ReceitasContext';
 import iconeBebida from '../images/iconeBebida.png';
 import iconePrato from '../images/iconePrato.png';
 import profileIcon from '../images/profileIcon.svg';
