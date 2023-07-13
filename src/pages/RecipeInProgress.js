@@ -96,15 +96,26 @@ function RecipeInProgress() {
 
   // console.log(ingredientsChecked, Object.values(ingredientsChecked).includes(false));
 
-  // função que salva a receita no localStorage
+  // função que salva a receita no localStorage e redireciona para a página de receitas feitas
   function saveRecipe() {
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
 
+    const data = new Date();
+    const date = `${data.getDate()}/${data.getMonth() + 1}/${data.getFullYear()}`;
+
     if (!doneRecipes) {
-      localStorage.setItem('doneRecipes', JSON.stringify([recipe]));
+      localStorage.setItem(
+        'doneRecipes',
+        JSON.stringify([{ ...recipe, doneDate: date }]),
+      );
     } else {
-      localStorage.setItem('doneRecipes', JSON.stringify([...doneRecipes, recipe]));
+      localStorage.setItem(
+        'doneRecipes',
+        JSON.stringify([...doneRecipes, { ...recipe, doneDate: date }]),
+      );
     }
+
+    window.location.href = '/done-recipes';
   }
 
   return (
