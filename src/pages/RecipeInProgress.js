@@ -5,6 +5,7 @@ import iconeRecipes2 from '../images/iconeRecipes2.png';
 import { DRINK_RECIPE, MEAL_RECIPE } from '../services/data_Recipes';
 import getIngredients from '../services/getIngredients';
 import './styles/RecipeInProgress.css';
+import { saveRecipeInProgress } from '../services/saveRecipeInProgress';
 
 function RecipeInProgress() {
   // recebe o id da receita
@@ -36,7 +37,6 @@ function RecipeInProgress() {
         // seta o array dos ingredientes da receita
         setIngredients(getIngredients(recipeFound));
 
-        // seta um objeto com os ingredientes e boloeleanos para identificar se estão marcados
         setIngredientsChecked(getIngredients(recipeFound).reduce((acc, curr) => ({
           ...acc,
           [curr]: false,
@@ -44,6 +44,20 @@ function RecipeInProgress() {
       }
     }
   }, [id, usualRecipes, pathname, recipe]);
+
+  // seta um objeto com os ingredientes e boloeleanos para identificar se estão marcados
+  useEffect(() => {
+    // verifica se a receita está em progresso e seta os ingredientes marcados
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    let isInProgress = false;
+    if (inProgressRecipes) {
+      isInProgress = Object.keys(inProgressRecipes).includes(id);
+    }
+
+    if (isInProgress) {
+      setIngredientsChecked(inProgressRecipes[id]);
+    }
+  }, [id]);
 
   function addFavoriteRecipe() {
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -58,20 +72,40 @@ function RecipeInProgress() {
     }
   }
 
+  // marca ou desmarca o ingrediente
   function checkIngredient(ingredient) {
     setIngredientsChecked({
       ...ingredientsChecked,
       [ingredient]: !ingredientsChecked[ingredient],
     });
+  }
 
+  // verifica se todos os ingredientes estão marcados e habilita o botão de finalizar receita
+  useEffect(() => {
+    // salva o progresso da receita no localStorage
+    console.log(ingredientsChecked);
+    saveRecipeInProgress(id, ingredientsChecked);
+
+    // verifica se todos os ingredientes estão marcados
     if (Object.values(ingredientsChecked).includes(false)) {
       setAllIngredientsChecked(false);
     } else {
       setAllIngredientsChecked(true);
     }
-  }
+  }, [ingredientsChecked, id]);
 
-  console.log(ingredientsChecked, Object.values(ingredientsChecked).includes(false));
+  // console.log(ingredientsChecked, Object.values(ingredientsChecked).includes(false));
+
+  // função que salva a receita no localStorage
+  function saveRecipe() {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+
+    if (!doneRecipes) {
+      localStorage.setItem('doneRecipes', JSON.stringify([recipe]));
+    } else {
+      localStorage.setItem('doneRecipes', JSON.stringify([...doneRecipes, recipe]));
+    }
+  }
 
   return (
     <div>
@@ -141,8 +175,9 @@ function RecipeInProgress() {
         type="button"
         data-testid="finish-recipe-btn"
         disabled={ !allIngredientsChecked }
+        onClick={ saveRecipe }
       >
-        Finalizar Receita
+        Finish Recipe
       </button>
     </div>
   );
