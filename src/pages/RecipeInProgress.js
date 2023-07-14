@@ -5,7 +5,6 @@ import iconeRecipes2 from '../images/iconeRecipes2.png';
 import getIngredients from '../services/getIngredients';
 import './styles/RecipeInProgress.css';
 import { saveRecipeInProgress } from '../services/saveRecipeInProgress';
-import { getIngredientsChecked } from '../services/getIngredientsChecked';
 
 function RecipeInProgress() {
   // recebe o id da receita
@@ -17,8 +16,6 @@ function RecipeInProgress() {
   const [recipe, setRecipe] = useState({});
   const [ingredients, setIngredients] = useState([]);
   const [ingredientsChecked, setIngredientsChecked] = useState({});
-  // console.log(ingredientsChecked);
-  const [allIngredientsChecked, setAllIngredientsChecked] = useState(false);
 
   // esse useEffect faz a requisição da receita e seta o estado local toda vez que o componente for montado
   useEffect(() => {
@@ -36,6 +33,17 @@ function RecipeInProgress() {
       setRecipe(recipeData);
     };
 
+    // verifica se a receita está em progresso e seta os ingredientes marcados
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    let isInProgress = false;
+    if (inProgressRecipes) {
+      isInProgress = Object.keys(inProgressRecipes).includes(id);
+    }
+
+    if (isInProgress) {
+      setIngredientsChecked(inProgressRecipes[id]);
+    }
+
     fetchRecipe();
   }, [id, pathname]);
 
@@ -44,27 +52,15 @@ function RecipeInProgress() {
     // seta o array dos ingredientes da receita
       setIngredients(getIngredients(recipe));
 
-      setIngredientsChecked(getIngredients(recipe).reduce((acc, curr) => ({
-        ...acc,
-        [curr]: false,
-      }), {}));
+      if (!ingredientsChecked) {
+        setIngredientsChecked(getIngredients(recipe).reduce((acc, curr) => ({
+          ...acc,
+          [curr]: false,
+        }), {}));
+      }
     },
-    [recipe],
+    [recipe, ingredientsChecked],
   );
-
-  // seta um objeto com os ingredientes e boloeleanos para identificar se estão marcados
-  // useEffect(() => {
-  //   // verifica se a receita está em progresso e seta os ingredientes marcados
-  //   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  //   let isInProgress = false;
-  //   if (inProgressRecipes) {
-  //     isInProgress = Object.keys(inProgressRecipes).includes(id);
-  //   }
-
-  //   if (isInProgress) {
-  //     setIngredientsChecked(inProgressRecipes[id]);
-  //   }
-  // }, [id]);
 
   function addFavoriteRecipe() {
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -87,25 +83,12 @@ function RecipeInProgress() {
     });
   }
 
-  // verifica se todos os ingredientes estão marcados e habilita o botão de finalizar receita
+  // salva o progresso da receita no localStorage
   useEffect(() => {
-    console.log('aqui');
-    // salva o progresso da receita no localStorage
     saveRecipeInProgress(id, ingredientsChecked);
-
-    // verifica se todos os ingredientes estão marcados
-    if (Object.values(ingredientsChecked).includes(false)) {
-      setAllIngredientsChecked(false);
-    } else {
-      setAllIngredientsChecked(true);
-    }
   }, [ingredientsChecked, id]);
 
-  // console.log(ingredientsChecked, Object.values(ingredientsChecked).includes(false));
-
   // função que salva a receita no localStorage e redireciona para a página de receitas feitas
-
-  // salva a receita no localStorage no formato do expectedDoneRecipes
   function saveRecipe() {
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
 
@@ -138,6 +121,15 @@ function RecipeInProgress() {
 
     window.location.href = '/done-recipes';
   }
+
+  let isDisableFinishRecipe = true;
+
+  if (Object.values(ingredientsChecked).length > 0) {
+    const test = Object.values(ingredientsChecked).some((check) => !check);
+    isDisableFinishRecipe = test;
+  }
+
+  console.log(isDisableFinishRecipe);
 
   return (
     <div>
@@ -205,7 +197,7 @@ function RecipeInProgress() {
       <button
         type="button"
         data-testid="finish-recipe-btn"
-        disabled={ !allIngredientsChecked }
+        disabled={ isDisableFinishRecipe }
         onClick={ saveRecipe }
       >
         Finish Recipe

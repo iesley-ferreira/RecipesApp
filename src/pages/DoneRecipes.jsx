@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Header from '../components/Header';
-import DoneRecipeCard from '../components/DoneRecipeCard';
+// import DoneRecipeCard from '../components/DoneRecipeCard';
 import iconeBebida from '../images/iconeBebida.png';
 import iconePrato from '../images/iconePrato.png';
 import iconFastFood from '../images/iconFastFood.png';
@@ -25,6 +25,8 @@ function DoneRecipes() {
       setFillDoneRecipes(filteredRecipes);
     }
   };
+
+  console.log(fillDoneRecipes);
 
   return (
     <div>
