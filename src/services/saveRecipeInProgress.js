@@ -6,6 +6,7 @@
 
 export const saveRecipeInProgress = (id, ingredients) => {
   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
   const newInProgressRecipes = {
     ...inProgressRecipes,
     [id]: ingredients,

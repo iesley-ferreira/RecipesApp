@@ -28,11 +28,11 @@ function App() {
         <Route exact path="/meals/:id-da-receita" component={ RecipeMeal } />
         <Route exact path="/drinks/:id-da-receita" component={ RecipeDrink } />
         <Route
-          path="/meals/:id-da-receita/in-progress"
+          path="/meals/:id/in-progress"
           component={ RecipeInProgress }
         />
         <Route
-          path="/drinks/:id-da-receita/in-progress"
+          path="/drinks/:id/in-progress"
           component={ RecipeInProgress }
         />
         <Route path="/profile" component={ Profile } />
