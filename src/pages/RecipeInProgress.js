@@ -123,9 +123,10 @@ function RecipeInProgress() {
   }
 
   let isDisableFinishRecipe = true;
+  const comparacao = (ingredients.length === Object.values(ingredientsChecked).length);
 
-  if (Object.values(ingredientsChecked).length > 0) {
-    const test = Object.values(ingredientsChecked).some((check) => !check);
+  if (Object.values(ingredientsChecked).length > 0 && comparacao) {
+    const test = Object.values(ingredientsChecked).some((check) => check === false);
     isDisableFinishRecipe = test;
   }
 
