@@ -27,6 +27,8 @@ function DoneRecipes() {
     }
   };
 
+  console.log(fillDoneRecipes);
+
   return (
     <div>
       <Header />
