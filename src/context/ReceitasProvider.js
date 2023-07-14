@@ -29,7 +29,6 @@ function ReceitasProvider({ children }) {
     setInput,
   }
   ), [usualRecipes, counter, categories, showInput, radioButton, input, optionRecipes]);
-  ), [optionRecipes, usualRecipes, counter, categories, showInput, radioButton, input]);
 
   return (
     <ReceitasContext.Provider value={ context }>
