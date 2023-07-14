@@ -80,6 +80,26 @@ const fetchRecipesByFirstLetter = async (firstLetter, pathname) => {
   return recipes;
 };
 
+const fetchRecipesDetailsApi = async (food, id) => {
+  const pathnameFood = (food === 'meals') ? 'themeal' : 'thecocktail';
+  const response = await fetch(`https://www.${pathnameFood}db.com/api/json/v1/1/lookup.php?i=${id}`);
+  const data = await response.json();
+  return data[food];
+};
+
+const fetchRecipesSugestionsApi = async (food) => {
+  const pathnameFood = (food === 'meals') ? 'thecocktail' : 'themeal';
+  const reverseFood = (food === 'meals') ? 'drinks' : 'meals';
+  const response = await fetch(`https://www.${pathnameFood}db.com/api/json/v1/1/search.php?s=`);
+  const data = await response.json();
+  const sugestions = [];
+  const MAGIC_NUMBER = 6;
+  for (let i = 0; i < MAGIC_NUMBER; i += 1) {
+    sugestions.push(data[reverseFood][i]);
+  }
+  return sugestions;
+};
+
 const fetchApiNacionalidades = async () => {
   const responde = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
   const data = await responde.json();
@@ -97,5 +117,7 @@ export {
   fetchRecipesByIngredient,
   fetchRecipesByName,
   fetchRecipesByFirstLetter,
+  fetchRecipesDetailsApi,
+  fetchRecipesSugestionsApi,
   fetchApiFotos,
 };

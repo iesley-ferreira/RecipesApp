@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import Card from '../components/Card';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -96,13 +96,14 @@ function Recipes() {
       </div>
       <div className="cards-container">
         {usualRecipes.map((recipe, index) => (
-          <Card
-            key={ recipe[idFood] }
-            option={ pathname }
-            recipe={ recipe }
-            index={ index }
-            data-testid="usual-recipes-card"
-          />
+          <Link to={ `/${food}/:${recipe[idFood]}` } key={ `${food}-${recipe[idFood]}` }>
+            <Card
+              key={ recipe[idFood] }
+              option={ pathname }
+              recipe={ recipe }
+              index={ index }
+            />
+          </Link>
         ))}
       </div>
       <Footer />
