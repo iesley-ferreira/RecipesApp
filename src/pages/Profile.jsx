@@ -1,11 +1,47 @@
+import { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom/';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import doneRecipes from '../images/doneRecipes.png';
+import logout from '../images/logout.png';
+import favoriteRecipes from '../images/favoriteRecipes.png';
+import './styles/Profile.css';
 
 function Profile() {
+  const history = useHistory();
+  const [userEmail, setUserEmail] = useState('');
+  useEffect(() => {
+    const data = localStorage.getItem('user');
+    const { email } = JSON.parse(data);
+    setUserEmail(email);
+  }, [userEmail]);
+
+  const handleLogout = (path) => {
+    localStorage.clear();
+    history.push(path);
+  };
   return (
     <div className="profile-page-container">
       <Header title="Profile" />
-      <h1 data-testid="page-title">Profile</h1>
+      <main className="profile-container">
+        <h4>{ userEmail }</h4>
+        <div className="profile-buttons-container">
+          <button onClick={ () => handleLogout('/done-recipes') }>
+            <img src={ doneRecipes } alt="done-recipes" />
+            <p>Done recipes</p>
+          </button>
+          <br />
+          <button onClick={ () => handleLogout('/favorite-recipes') }>
+            <img src={ favoriteRecipes } alt="done-recipes" />
+            <p>Favorite recipes</p>
+          </button>
+          <br />
+          <button onClick={ () => handleLogout('/') }>
+            <img src={ logout } alt="done-recipes" />
+            <p>Logout</p>
+          </button>
+        </div>
+      </main>
       <Footer />
     </div>
   );
