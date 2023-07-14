@@ -7,8 +7,8 @@ import ReceitasProvider from '../context/ReceitasProvider';
 const renderWithRouter = (
   component,
   {
-    initialEntries = ['/'],
-    history = createMemoryHistory({ initialEntries }),
+    location = ['/'],
+    history = createMemoryHistory({ location }),
   } = {},
 ) => ({
   ...render(

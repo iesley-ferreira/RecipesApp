@@ -1,5 +1,6 @@
 import { useContext, useEffect } from 'react';
 // import profileIcon from '../images/iconePerfil.png';
+import PropTypes from 'prop-types';
 import './styles/Header.css';
 import logoRecipes from '../images/logoRecipes.png';
 import iconeRecipes2 from '../images/iconeRecipes2.png';
@@ -10,7 +11,7 @@ import iconePrato from '../images/iconePrato.png';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
-function Header() {
+function Header({ showBtn }) {
   const { pathname } = window.location;
 
   const str = pathname;
@@ -45,14 +46,6 @@ function Header() {
     window.location.href = '/profile';
   };
 
-  let search = true;
-
-  if (pathname === '/meals' || pathname === '/drinks') {
-    search = true;
-  } else {
-    search = false;
-  }
-
   const showSearchInputs = () => {
     setShowInput(!showInput);
   };
@@ -69,7 +62,7 @@ function Header() {
         </div>
         <div className="links-container">
           {
-            search && (
+            showBtn && (
               <button
                 data-testid="search-top-btn"
                 src={ searchIcon }
@@ -98,5 +91,9 @@ function Header() {
     </header>
   );
 }
+
+Header.propTypes = {
+  showBtn: PropTypes.bool.isRequired,
+};
 
 export default Header;

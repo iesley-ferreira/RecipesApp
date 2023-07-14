@@ -23,7 +23,7 @@ describe('Teste a Página SearchBar', () => {
     renderWithRouter(<SearchBar />);
 
     await act(async () => {
-    //   userEvent.click(screen.getByTestId('exec-search-btn'));
+      // userEvent.click(screen.getByTestId('exec-search-btn'));
     });
 
     expect(fetchRecipesByIngredient).toHaveBeenCalledWith(ingredientMock);

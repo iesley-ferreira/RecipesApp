@@ -73,7 +73,7 @@ function Recipes() {
 
   return (
     <div className="recipes-container">
-      <Header />
+      <Header showBtn />
       <div className="searchBar-container">
         <SearchBar />
       </div>
