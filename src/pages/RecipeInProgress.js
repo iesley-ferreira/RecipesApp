@@ -173,14 +173,11 @@ function RecipeInProgress() {
             <label
               htmlFor={ ingredient }
               data-testid={ `${index}-ingredient-step` }
+              className={ (
+                ingredientsChecked[ingredient] ? 'ingredient-checked' : 'null'
+              ) }
             >
-              <div
-                className={ (
-                  ingredientsChecked[ingredient] ? 'ingredient-checked' : 'null'
-                ) }
-              >
-                {ingredient}
-              </div>
+              {ingredient}
               <input
                 id={ ingredient }
                 type="checkbox"
