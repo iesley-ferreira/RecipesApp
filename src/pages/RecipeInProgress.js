@@ -2,30 +2,34 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import logoRecipes from '../images/logoRecipes.png';
 import iconeRecipes2 from '../images/iconeRecipes2.png';
+import { MEAL_RECIPE, DRINK_RECIPE } from '../services/data_Recipes';
 import getIngredients from '../services/getIngredients';
 import './styles/RecipeInProgress.css';
 import { saveRecipeInProgress } from '../services/saveRecipeInProgress';
 
 function RecipeInProgress() {
   // recebe o id da receita
-  const param = useParams();
-  const { id } = param;
+  const { id } = useParams();
+
+  // acessa o array de receitas do Context
+  // const { usualRecipes } = useContext(receitasContext);
+
+  // acessa o pathname da url
   const { pathname } = useLocation();
+
+  // ganbiarra até o redirecionamento para essa página estiver funcionando
+  const usualRecipes = pathname.includes('meals') ? MEAL_RECIPE : DRINK_RECIPE;
 
   // estado local para guardar a receita com o id recebido
   const [recipe, setRecipe] = useState({});
   const [ingredients, setIngredients] = useState([]);
   const [ingredientsChecked, setIngredientsChecked] = useState({});
+  const [allIngredientsChecked, setAllIngredientsChecked] = useState(false);
 
-  // esse useEffect faz a requisição da receita e seta o estado local toda vez que o componente for montado
   useEffect(() => {
-    const fetchRecipe = async () => {
-      let reciperequest;
-      if (pathname.includes('meals')) {
-        reciperequest = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
-      } else {
-        reciperequest = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
-      }
+    if (usualRecipes) {
+      const recipeFound = usualRecipes.find((item) => item.idMeal === id
+      || item.idDrink === id);
 
       const recipeJson = await reciperequest.json();
       const test = pathname.includes('meals');
@@ -47,10 +51,8 @@ function RecipeInProgress() {
     fetchRecipe();
   }, [id, pathname]);
 
-  useEffect(
-    () => {
-    // seta o array dos ingredientes da receita
-      setIngredients(getIngredients(recipe));
+        // seta o array dos ingredientes da receita
+        setIngredients(getIngredients(recipeFound));
 
       if (!ingredientsChecked) {
         setIngredientsChecked(getIngredients(recipe).reduce((acc, curr) => ({
@@ -61,6 +63,28 @@ function RecipeInProgress() {
     },
     [recipe, ingredientsChecked],
   );
+        setIngredientsChecked(getIngredients(recipeFound).reduce((acc, curr) => ({
+          ...acc,
+          [curr]: false,
+        }), {}));
+      }
+    }
+  }, [id, usualRecipes, pathname, recipe]);
+
+  // seta um objeto com os ingredientes e boloeleanos para identificar se estão marcados
+  useEffect(() => {
+    // verifica se a receita está em progresso e seta os ingredientes marcados
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    let isInProgress = false;
+    if (inProgressRecipes) {
+      isInProgress = Object.keys(inProgressRecipes).includes(id);
+    }
+
+    if (isInProgress) {
+      setIngredientsChecked(inProgressRecipes[id]);
+    }
+    console.log(id);
+  }, [id]);
 
   function addFavoriteRecipe() {
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -85,6 +109,8 @@ function RecipeInProgress() {
 
   // salva o progresso da receita no localStorage
   useEffect(() => {
+    // salva o progresso da receita no localStorage
+    console.log(ingredientsChecked);
     saveRecipeInProgress(id, ingredientsChecked);
   }, [ingredientsChecked, id]);
 
@@ -92,30 +118,18 @@ function RecipeInProgress() {
   function saveRecipe() {
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
 
-    let data = new Date();
-    data = data.toISOString();
-
-    const doneRecipe = {
-      id: recipe.idMeal || recipe.idDrink,
-      nationality: recipe.strArea || '',
-      name: recipe.strMeal || recipe.strDrink,
-      category: recipe.strCategory || '',
-      image: recipe.strMealThumb || recipe.strDrinkThumb,
-      tags: recipe.strTags ? recipe.strTags.split(',') : [],
-      alcoholicOrNot: recipe.strAlcoholic || '',
-      type: recipe.strMeal ? 'meal' : 'drink',
-      doneDate: data,
-    };
+    const data = new Date();
+    const date = `${data.getDate()}/${data.getMonth() + 1}/${data.getFullYear()}`;
 
     if (!doneRecipes) {
       localStorage.setItem(
         'doneRecipes',
-        JSON.stringify([{ ...doneRecipe }]),
+        JSON.stringify([{ ...recipe, doneDate: date }]),
       );
     } else {
       localStorage.setItem(
         'doneRecipes',
-        JSON.stringify([...doneRecipes, { ...doneRecipe }]),
+        JSON.stringify([...doneRecipes, { ...recipe, doneDate: date }]),
       );
     }
 
@@ -144,10 +158,11 @@ function RecipeInProgress() {
         <button type="button" data-testid="share-btn">Compartilhar</button>
         <button
           type="button"
-          data-testid="favorite-btn"
+          data-testid="btn-favorite"
           onClick={ addFavoriteRecipe }
         >
           Favoritar
+
         </button>
       </section>
 

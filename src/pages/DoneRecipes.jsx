@@ -19,6 +19,7 @@ function DoneRecipes() {
   const filterByCategory = (category) => {
     if (category === 'all') {
       setFillDoneRecipes(doneRecipesData);
+      console.log(fillDoneRecipes);
     } else {
       const filteredRecipes = doneRecipesData
         .filter((recipe) => recipe.type === category);
