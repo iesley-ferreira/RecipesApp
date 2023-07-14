@@ -1,4 +1,4 @@
-export const MEAL_RECIPE = [
+const MEAL_RECIPE = [
   {
     idMeal: '52977',
     strMeal: 'Corba',
@@ -73,7 +73,7 @@ export const MEAL_RECIPE = [
   },
 ];
 
-export const DRINK_RECIPE = [
+const DRINK_RECIPE = [
   {
     idDrink: '15997',
     strDrink: 'GG',
@@ -132,3 +132,5 @@ export const DRINK_RECIPE = [
     dateModified: '2016-07-18 22:06:00',
   },
 ];
+
+export { MEAL_RECIPE, DRINK_RECIPE };

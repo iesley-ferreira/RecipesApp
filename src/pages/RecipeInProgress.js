@@ -2,51 +2,37 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import logoRecipes from '../images/logoRecipes.png';
 import iconeRecipes2 from '../images/iconeRecipes2.png';
-import { DRINK_RECIPE, MEAL_RECIPE } from '../services/data_Recipes';
 import getIngredients from '../services/getIngredients';
 import './styles/RecipeInProgress.css';
 import { saveRecipeInProgress } from '../services/saveRecipeInProgress';
 
 function RecipeInProgress() {
   // recebe o id da receita
-  const { id } = useParams();
-
-  // acessa o array de receitas do Context
-  // const { usualRecipes } = useContext(receitasContext);
-
-  // acessa o pathname da url
+  const param = useParams();
+  const { id } = param;
   const { pathname } = useLocation();
-
-  // ganbiarra até o redirecionamento para essa página estiver funcionando
-  const usualRecipes = pathname.includes('meals') ? MEAL_RECIPE : DRINK_RECIPE;
 
   // estado local para guardar a receita com o id recebido
   const [recipe, setRecipe] = useState({});
   const [ingredients, setIngredients] = useState([]);
   const [ingredientsChecked, setIngredientsChecked] = useState({});
-  const [allIngredientsChecked, setAllIngredientsChecked] = useState(false);
 
+  // esse useEffect faz a requisição da receita e seta o estado local toda vez que o componente for montado
   useEffect(() => {
-    if (usualRecipes) {
-      const recipeFound = usualRecipes.find((item) => item.idMeal === id
-      || item.idDrink === id);
-
-      if (recipeFound) {
-        setRecipe(recipeFound);
-
-        // seta o array dos ingredientes da receita
-        setIngredients(getIngredients(recipeFound));
-
-        setIngredientsChecked(getIngredients(recipeFound).reduce((acc, curr) => ({
-          ...acc,
-          [curr]: false,
-        }), {}));
+    const fetchRecipe = async () => {
+      let reciperequest;
+      if (pathname.includes('meals')) {
+        reciperequest = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+      } else {
+        reciperequest = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
       }
-    }
-  }, [id, usualRecipes, pathname, recipe]);
 
-  // seta um objeto com os ingredientes e boloeleanos para identificar se estão marcados
-  useEffect(() => {
+      const recipeJson = await reciperequest.json();
+      const test = pathname.includes('meals');
+      const recipeData = test ? recipeJson.meals[0] : recipeJson.drinks[0];
+      setRecipe(recipeData);
+    };
+
     // verifica se a receita está em progresso e seta os ingredientes marcados
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
     let isInProgress = false;
@@ -57,7 +43,24 @@ function RecipeInProgress() {
     if (isInProgress) {
       setIngredientsChecked(inProgressRecipes[id]);
     }
-  }, [id]);
+
+    fetchRecipe();
+  }, [id, pathname]);
+
+  useEffect(
+    () => {
+    // seta o array dos ingredientes da receita
+      setIngredients(getIngredients(recipe));
+
+      if (!ingredientsChecked) {
+        setIngredientsChecked(getIngredients(recipe).reduce((acc, curr) => ({
+          ...acc,
+          [curr]: false,
+        }), {}));
+      }
+    },
+    [recipe, ingredientsChecked],
+  );
 
   function addFavoriteRecipe() {
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -80,43 +83,54 @@ function RecipeInProgress() {
     });
   }
 
-  // verifica se todos os ingredientes estão marcados e habilita o botão de finalizar receita
+  // salva o progresso da receita no localStorage
   useEffect(() => {
-    // salva o progresso da receita no localStorage
-    console.log(ingredientsChecked);
     saveRecipeInProgress(id, ingredientsChecked);
-
-    // verifica se todos os ingredientes estão marcados
-    if (Object.values(ingredientsChecked).includes(false)) {
-      setAllIngredientsChecked(false);
-    } else {
-      setAllIngredientsChecked(true);
-    }
   }, [ingredientsChecked, id]);
-
-  // console.log(ingredientsChecked, Object.values(ingredientsChecked).includes(false));
 
   // função que salva a receita no localStorage e redireciona para a página de receitas feitas
   function saveRecipe() {
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
 
-    const data = new Date();
-    const date = `${data.getDate()}/${data.getMonth() + 1}/${data.getFullYear()}`;
+    let data = new Date();
+    data = data.toISOString();
+
+    const doneRecipe = {
+      id: recipe.idMeal || recipe.idDrink,
+      nationality: recipe.strArea || '',
+      name: recipe.strMeal || recipe.strDrink,
+      category: recipe.strCategory || '',
+      image: recipe.strMealThumb || recipe.strDrinkThumb,
+      tags: recipe.strTags ? recipe.strTags.split(',') : [],
+      alcoholicOrNot: recipe.strAlcoholic || '',
+      type: recipe.strMeal ? 'meal' : 'drink',
+      doneDate: data,
+    };
 
     if (!doneRecipes) {
       localStorage.setItem(
         'doneRecipes',
-        JSON.stringify([{ ...recipe, doneDate: date }]),
+        JSON.stringify([{ ...doneRecipe }]),
       );
     } else {
       localStorage.setItem(
         'doneRecipes',
-        JSON.stringify([...doneRecipes, { ...recipe, doneDate: date }]),
+        JSON.stringify([...doneRecipes, { ...doneRecipe }]),
       );
     }
 
     window.location.href = '/done-recipes';
   }
+
+  let isDisableFinishRecipe = true;
+  const comparacao = (ingredients.length === Object.values(ingredientsChecked).length);
+
+  if (Object.values(ingredientsChecked).length > 0 && comparacao) {
+    const test = Object.values(ingredientsChecked).some((check) => check === false);
+    isDisableFinishRecipe = test;
+  }
+
+  console.log(isDisableFinishRecipe);
 
   return (
     <div>
@@ -130,11 +144,10 @@ function RecipeInProgress() {
         <button type="button" data-testid="share-btn">Compartilhar</button>
         <button
           type="button"
-          data-testid="btn-favorite"
+          data-testid="favorite-btn"
           onClick={ addFavoriteRecipe }
         >
           Favoritar
-
         </button>
       </section>
 
@@ -160,14 +173,11 @@ function RecipeInProgress() {
             <label
               htmlFor={ ingredient }
               data-testid={ `${index}-ingredient-step` }
+              className={ (
+                ingredientsChecked[ingredient] ? 'ingredient-checked' : 'null'
+              ) }
             >
-              <div
-                className={ (
-                  ingredientsChecked[ingredient] ? 'ingredient-checked' : 'null'
-                ) }
-              >
-                {ingredient}
-              </div>
+              {ingredient}
               <input
                 id={ ingredient }
                 type="checkbox"
@@ -185,7 +195,7 @@ function RecipeInProgress() {
       <button
         type="button"
         data-testid="finish-recipe-btn"
-        disabled={ !allIngredientsChecked }
+        disabled={ isDisableFinishRecipe }
         onClick={ saveRecipe }
       >
         Finish Recipe
