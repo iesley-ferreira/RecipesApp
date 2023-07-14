@@ -4,7 +4,15 @@ import logoRecipes from '../images/logoRecipes.png';
 import iconeRecipes2 from '../images/iconeRecipes2.png';
 import getIngredients from '../services/getIngredients';
 import './styles/RecipeInProgress.css';
-import { saveRecipeInProgress } from '../services/saveRecipeInProgress';
+import {
+  removeFavoriteRecipe,
+  saveDoneRecipe,
+  addFavoriteRecipe,
+  saveRecipeInProgress,
+  isFavoriRecipe,
+} from '../services/localStorageFuncions';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 function RecipeInProgress() {
   // recebe o id da receita
@@ -16,6 +24,8 @@ function RecipeInProgress() {
   const [recipe, setRecipe] = useState({});
   const [ingredients, setIngredients] = useState([]);
   const [ingredientsChecked, setIngredientsChecked] = useState({});
+  const [shareMessage, setShareMessage] = useState('');
+  const [isFavorite, setIsFavorite] = useState(false);
 
   // esse useEffect faz a requisição da receita e seta o estado local toda vez que o componente for montado
   useEffect(() => {
@@ -32,6 +42,9 @@ function RecipeInProgress() {
       const recipeData = test ? recipeJson.meals[0] : recipeJson.drinks[0];
       setRecipe(recipeData);
     };
+
+    // verifica se a receita está salva nos favoritos
+    setIsFavorite(isFavoriRecipe(id));
 
     // verifica se a receita está em progresso e seta os ingredientes marcados
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
@@ -62,19 +75,6 @@ function RecipeInProgress() {
     [recipe, ingredientsChecked],
   );
 
-  function addFavoriteRecipe() {
-    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-
-    if (favoriteRecipes) {
-      localStorage.setItem(
-        'favoriteRecipes',
-        JSON.stringify([...favoriteRecipes, recipe]),
-      );
-    } else {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([recipe]));
-    }
-  }
-
   // marca ou desmarca o ingrediente
   function checkIngredient(ingredient) {
     setIngredientsChecked({
@@ -88,38 +88,11 @@ function RecipeInProgress() {
     saveRecipeInProgress(id, ingredientsChecked);
   }, [ingredientsChecked, id]);
 
-  // função que salva a receita no localStorage e redireciona para a página de receitas feitas
-  function saveRecipe() {
-    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-
-    let data = new Date();
-    data = data.toISOString();
-
-    const doneRecipe = {
-      id: recipe.idMeal || recipe.idDrink,
-      nationality: recipe.strArea || '',
-      name: recipe.strMeal || recipe.strDrink,
-      category: recipe.strCategory || '',
-      image: recipe.strMealThumb || recipe.strDrinkThumb,
-      tags: recipe.strTags ? recipe.strTags.split(',') : [],
-      alcoholicOrNot: recipe.strAlcoholic || '',
-      type: recipe.strMeal ? 'meal' : 'drink',
-      doneDate: data,
-    };
-
-    if (!doneRecipes) {
-      localStorage.setItem(
-        'doneRecipes',
-        JSON.stringify([{ ...doneRecipe }]),
-      );
-    } else {
-      localStorage.setItem(
-        'doneRecipes',
-        JSON.stringify([...doneRecipes, { ...doneRecipe }]),
-      );
-    }
-
-    window.location.href = '/done-recipes';
+  // função que copia o link da receita e mostra uma mensagem de "Link copied!"
+  function share() {
+    const path = window.location.href.replace('/in-progress', '');
+    navigator.clipboard.writeText(path);
+    setShareMessage('Link copied!');
   }
 
   let isDisableFinishRecipe = true;
@@ -130,7 +103,19 @@ function RecipeInProgress() {
     isDisableFinishRecipe = test;
   }
 
-  console.log(isDisableFinishRecipe);
+  // função que verifica se a receita está salva nos favoritos e salva ou remove
+
+  function handleFavorite() {
+    if (isFavorite) {
+      removeFavoriteRecipe(id);
+      setIsFavorite(false);
+    } else {
+      addFavoriteRecipe(recipe);
+      setIsFavorite(true);
+    }
+  }
+
+  console.log(isFavorite);
 
   return (
     <div>
@@ -141,14 +126,25 @@ function RecipeInProgress() {
             <img src={ logoRecipes } alt="logo2recipes" />
           </button>
         </Link>
-        <button type="button" data-testid="share-btn">Compartilhar</button>
         <button
           type="button"
-          data-testid="favorite-btn"
-          onClick={ addFavoriteRecipe }
+          data-testid="share-btn"
+          onClick={ share }
         >
-          Favoritar
+          Compartilhar
+
         </button>
+        <button
+          type="button"
+          onClick={ handleFavorite }
+        >
+          <img
+            data-testid="favorite-btn"
+            src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+            alt="favorite"
+          />
+        </button>
+        { shareMessage && <p>{ shareMessage }</p> }
       </section>
 
       <h1 data-testid="recipe-title">{recipe.strMeal || recipe.strDrink}</h1>
@@ -196,12 +192,11 @@ function RecipeInProgress() {
         type="button"
         data-testid="finish-recipe-btn"
         disabled={ isDisableFinishRecipe }
-        onClick={ saveRecipe }
+        onClick={ () => saveDoneRecipe(recipe) }
       >
         Finish Recipe
       </button>
     </div>
   );
 }
-
 export default RecipeInProgress;
