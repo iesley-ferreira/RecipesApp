@@ -1,0 +1,35 @@
+.profile-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.profile-buttons-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 32px;
+  width: 70%;
+}
+
+.profile-buttons-container button {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #b1b1b1;
+  color: #797d86;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  font-family: Epilogue , sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  gap: 20px;
+  height: 70px;
+  justify-content: start;
+  letter-spacing: 0.48px;
+  margin-bottom: 16px;
+  padding-left: 30px;
+  text-transform: capitalize;
+}

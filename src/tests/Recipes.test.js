@@ -1,8 +1,10 @@
 import React from 'react';
-import { screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
-import renderWithRouter from '../helpers/renderWithRouter';
+// import renderWithRouter from '../helpers/renderWithRouter';
+import { createMemoryHistory } from 'history';
+import { Router } from 'react-router-dom';
 import Recipes from '../pages/Recipes';
 
 describe('Teste a Página Recipes', () => {
@@ -15,7 +17,14 @@ describe('Teste a Página Recipes', () => {
   });
 
   it('testa se há os cards de receitas', async () => {
-    renderWithRouter(<Recipes />, { location: '/meals' });
+    // renderWithRouter(<Recipes />, { location: '/meals' });
+    const history = createMemoryHistory();
+    history.push('/meals');
+    render(
+      <Router history={ history }>
+        <Recipes />
+      </Router>,
+    );
 
     await waitFor(() => {
       expect(screen.getByTestId('0-recipe-card')).toBeInTheDocument();
@@ -25,8 +34,13 @@ describe('Teste a Página Recipes', () => {
   });
 
   it('testa se o filtro funciona', async () => {
-    renderWithRouter(<Recipes />, { location: '/meals' });
-
+    const history = createMemoryHistory();
+    history.push('/meals');
+    render(
+      <Router history={ history }>
+        <Recipes />
+      </Router>,
+    );
     await waitFor(() => {
       const corba = screen.getByAltText('Corba');
       const burek = screen.getByAltText('Burek');
@@ -41,7 +55,13 @@ describe('Teste a Página Recipes', () => {
   });
 
   it('renderiza categorias de meals', async () => {
-    renderWithRouter(<Recipes />, { location: '/meals' });
+    const history = createMemoryHistory();
+    history.push('/meals');
+    render(
+      <Router history={ history }>
+        <Recipes />
+      </Router>,
+    );
     await waitFor(() => {
       expect(screen.getByTestId('Beef-category-filter')).toBeInTheDocument();
       expect(screen.getByTestId('Breakfast-category-filter')).toBeInTheDocument();
@@ -52,7 +72,13 @@ describe('Teste a Página Recipes', () => {
   });
 
   it('renderiza categorias de drinks', async () => {
-    renderWithRouter(<Recipes />, { location: '/drinks' });
+    const history = createMemoryHistory();
+    history.push('/drinks');
+    render(
+      <Router history={ history }>
+        <Recipes />
+      </Router>,
+    );
     await waitFor(() => {
       expect(screen.getByTestId('All-category-filter')).toBeInTheDocument();
       expect(screen.getByTestId('Ordinary Drink-category-filter')).toBeInTheDocument();

@@ -1,8 +1,10 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
-import renderWithRouter from '../helpers/renderWithRouter';
+import { createMemoryHistory } from 'history';
+import { Router } from 'react-router-dom';
+// import renderWithRouter from '../helpers/renderWithRouter';
 import Header from '../components/Header';
 
 const idSearchBtn = 'search-top-btn';
@@ -10,7 +12,14 @@ const idSearchInput = 'search-input';
 
 describe('Header', () => {
   test('renderiza corretamente', () => {
-    renderWithRouter(<Header />, { location: ('/meals') });
+    const history = createMemoryHistory();
+    history.push('/meals');
+    render(
+      <Router history={ history }>
+        <Header />
+      </Router>,
+    );
+
     expect(screen.getByTestId(idSearchBtn)).toBeInTheDocument();
     expect(screen.getByTestId('profile-top-btn')).toBeInTheDocument();
     expect(screen.getByAltText('search icon')).toBeInTheDocument();
@@ -18,7 +27,13 @@ describe('Header', () => {
     expect(screen.getByAltText('logo2recipes')).toBeInTheDocument();
   });
   test('exibe inputs de busca ao clicar no botão de busca', async () => {
-    renderWithRouter(<Header />);
+    const history = createMemoryHistory();
+    history.push('/meals');
+    render(
+      <Router history={ history }>
+        <Header />
+      </Router>,
+    );
     expect(screen.getByTestId(idSearchBtn)).toBeInTheDocument();
     expect(screen.queryByTestId(idSearchInput)).toBeNull();
     expect(screen.queryByTestId('search-submit-btn')).toBeNull();
@@ -28,7 +43,13 @@ describe('Header', () => {
   });
 
   test('redireciona para a página de perfil ao clicar no botão de perfil', async () => {
-    const { history } = renderWithRouter(<Header />);
+    const history = createMemoryHistory();
+    history.push('/meals');
+    render(
+      <Router history={ history }>
+        <Header />
+      </Router>,
+    );
     expect(screen.getByTestId(idSearchBtn)).toBeInTheDocument();
 
     await act(async () => userEvent.click(idSearchBtn));
@@ -37,7 +58,13 @@ describe('Header', () => {
   });
 
   it('Deve ocultar campo de busca ao pesquisar algo', () => {
-    renderWithRouter(<Header />, { location: '/meals' });
+    const history = createMemoryHistory();
+    history.push('/meals');
+    render(
+      <Router history={ history }>
+        <Header />
+      </Router>,
+    );
     expect(screen.getByTestId(idSearchBtn)).toBeInTheDocument();
 
     userEvent.click(idSearchBtn);
