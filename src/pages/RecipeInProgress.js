@@ -5,7 +5,7 @@ import iconeRecipes2 from '../images/iconeRecipes2.png';
 import { DRINK_RECIPE, MEAL_RECIPE } from '../services/data_Recipes';
 import getIngredients from '../services/getIngredients';
 import './styles/RecipeInProgress.css';
-import { saveRecipeInProgress } from '../services/saveRecipeInProgress';
+import { saveRecipeInProgress } from '../services/RecipeProgressFunctions';
 
 function RecipeInProgress() {
   // recebe o id da receita

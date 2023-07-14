@@ -1,0 +1,16 @@
+.carousel-sugestions {
+  display: flex;
+  height: 166px;
+  overflow-x: auto;
+  width: 100%;
+}
+
+.carousel-sugestions a {
+  height: -166px;
+}
+
+.second-title {
+  color: white;
+  font-size: 1px;
+  text-decoration: none;
+}

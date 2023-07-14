@@ -6,8 +6,7 @@ import Login from './pages/Login';
 import Recipes from './pages/Recipes';
 // import Meals from './pages/Meals';
 // import Drinks from './pages/Drinks';
-import RecipeMeal from './pages/RecipeMeal';
-import RecipeDrink from './pages/RecipeDrink';
+import RecipeDetails from './pages/RecipeDetails';
 // import RecipeMealsInProgress from './pages/RecipeMealInProgress';
 // import RecipeDrinkInProgress from './pages/RecipeDrinkInProgress';
 import DoneRecipes from './pages/DoneRecipes';
@@ -25,8 +24,8 @@ function App() {
         <Route path="/" component={ Login } exact />
         <Route exact path="/meals" component={ Recipes } />
         <Route exact path="/drinks" component={ Recipes } />
-        <Route exact path="/meals/:id-da-receita" component={ RecipeMeal } />
-        <Route exact path="/drinks/:id-da-receita" component={ RecipeDrink } />
+        <Route exact path="/meals/:id" component={ RecipeDetails } />
+        <Route exact path="/drinks/:id" component={ RecipeDetails } />
         <Route
           path="/meals/:id-da-receita/in-progress"
           component={ RecipeInProgress }

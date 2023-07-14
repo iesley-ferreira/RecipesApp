@@ -1,16 +1,14 @@
 import PropTypes from 'prop-types';
-import './styles/Card.css';
+import './styles/SugestionCard.css';
 import '../pages/styles/RecipeDetails.css';
 
-function Card(props) {
+function SugestionCard(props) {
   const { recipe, index, option } = props;
   const foodName = option === '/meals' ? 'strMeal' : 'strDrink';
   const foodThumb = option === '/meals' ? 'strMealThumb' : 'strDrinkThumb';
 
-  // console.log(foodName, foodThumb, option, recipe);
-
   return (
-    <div className="card-container" data-testid={ `${index}-recipe-card` }>
+    <div className="card-container" data-testid={ `${index}-recommendation-card` }>
       <div className="card-img">
         <img
           data-testid={ `${index}-card-img` }
@@ -19,19 +17,13 @@ function Card(props) {
         />
       </div>
       <div className="card-h2">
-        <h2 data-testid={ `${index}-card-name` }>{recipe[foodName]}</h2>
-        <p
-          data-testid={ `${index}-recommendation-title` }
-          className="second-title"
-        >
-          {recipe[foodName]}
-        </p>
+        <h2 data-testid={ `${index}-recommendation-title` }>{recipe[foodName]}</h2>
       </div>
     </div>
   );
 }
 
-Card.propTypes = {
+SugestionCard.propTypes = {
   recipe: PropTypes.shape({
     idFood: PropTypes.string,
     strMeal: PropTypes.string,
@@ -41,4 +33,4 @@ Card.propTypes = {
   option: PropTypes.string.isRequired,
 };
 
-export default Card;
+export default SugestionCard;
