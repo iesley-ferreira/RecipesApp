@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import logoRecipes from '../images/logoRecipes.png';
 import iconeRecipes2 from '../images/iconeRecipes2.png';
-import { DRINK_RECIPE, MEAL_RECIPE } from '../services/data_Recipes';
+import { MEAL_RECIPE, DRINK_RECIPE } from '../services/data_Recipes';
 import getIngredients from '../services/getIngredients';
 import './styles/RecipeInProgress.css';
 import { saveRecipeInProgress } from '../services/saveRecipeInProgress';
