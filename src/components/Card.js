@@ -19,7 +19,7 @@ function Card(props) {
         />
       </div>
       <div className="card-h2">
-        <h2 data-testid={ `${index}-card-name` }>{recipe[foodName]}</h2>
+        <h2 data-testid={ `${index}-card-name` }>{ recipe[foodName] }</h2>
         <p
           data-testid={ `${index}-recommendation-title` }
           className="second-title"
