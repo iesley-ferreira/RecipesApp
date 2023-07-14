@@ -51,7 +51,6 @@ const fetchRecipesByName = async (name, pathname) => {
     recipes = data[food].filter((meal, index) => index < recipesNum);
   }
   // console.log(data);
-
   return recipes;
 };
 

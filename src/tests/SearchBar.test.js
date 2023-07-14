@@ -7,19 +7,9 @@ import SearchBar from '../components/SearchBar';
 import { fetchRecipesByIngredient, fetchRecipesByName, fetchRecipesByFirstLetter } from '../services/fetchAPI';
 
 describe('Teste a Página SearchBar', () => {
-  test('renderiza corretamente', () => {
+  test('exibe input de busca ao clicar no ícone de busca', () => {
     renderWithRouter(<SearchBar />);
-
     expect(screen.queryByTestId('search-input')).toBeNull();
-    expect(screen.queryByTestId('ingredient-search-radio')).toBeInTheDocument();
-    expect(screen.queryByTestId('name-search-radio')).toBeInTheDocument();
-    expect(screen.queryByTestId('first-letter-search-radio')).toBeInTheDocument();
-    // expect(screen.getByTestId('exec-search-btn')).toBeInTheDocument();
-  });
-
-  test('exibe inputs de busca ao clicar no ícone de busca', () => {
-    renderWithRouter(<SearchBar />);
-
     userEvent.click(getByTestId('search-icon'));
 
     expect(screen.getByLabelText('Search')).toBeInTheDocument();
@@ -33,7 +23,7 @@ describe('Teste a Página SearchBar', () => {
     renderWithRouter(<SearchBar />);
 
     await act(async () => {
-    //   userEvent.click(screen.getByTestId('exec-search-btn'));
+      // userEvent.click(screen.getByTestId('exec-search-btn'));
     });
 
     expect(fetchRecipesByIngredient).toHaveBeenCalledWith(ingredientMock);

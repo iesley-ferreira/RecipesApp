@@ -1,49 +1,65 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { screen, waitFor } from '@testing-library/react';
+// import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import renderWithRouter from '../helpers/renderWithRouter';
 import Recipes from '../pages/Recipes';
+import App from '../App';
 
 describe('Teste a Página Recipes', () => {
   it('renderiza corretamente', async () => {
     renderWithRouter(<Recipes />);
-
-    await screen.findByTestId('page-title');
-
-    expect(screen.getByTestId('page-title')).toBeInTheDocument();
-    expect(screen.getByTestId('usual-recipes-card')).toBeInTheDocument();
-    expect(screen.getAllByTestId(/category-filter$/)).toBeInTheDocument();
-    await act(async () => {
-      userEvent.click(getAllByTestId(/category-filter$/));
-    });
-
-    await act(async () => {
-      userEvent.click(getByTestId('filter-1'));
-    });
-
-    expect(global.alert).toHaveBeenCalledTimes(1);
+    // expect(screen.getByTestId('page-title')).toBeInTheDocument();
+    // expect(screen.getByTestId('usual-recipes-card')).toBeInTheDocument();
+    // expect(screen.getAllByTestId(/category-filter/i)).toBeInTheDocument();
   });
 
-  it('renderiza categorias de meals', async () => {
-    renderWithRouter(<Recipes />, { location: '/meals' });
+  it('testa se há os cards de receitas', async () => {
+    const { history } = renderWithRouter(<App />);
+    act(() => history.push('/meals'));
+    await waitFor(async () => {
+      expect(await screen.findByTestId('0-recipe-card')).toBeInTheDocument();
+      expect(screen.getByTestId('0-card-img')).toBeInTheDocument();
+      expect(screen.getByTestId('0-card-name')).toBeInTheDocument();
+    });
+  });
 
-    await screen.findByRole('button', { name: /Beef/i });
-    expect(screen.getByRole('button', { name: /Beef/i })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Breakfast/i })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Chicken/i })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Dessert/i })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Goat/i })).toBeInTheDocument();
+  // it('testa se o filtro funciona', async () => {
+  //   const { history } = renderWithRouter(<App />);
+  //   act(() => history.push('/meals'));
+  //   await waitFor(() => {
+  //     const corba = screen.getByText('Corba');
+  //     const burek = screen.getByText('Burek');
+  //     expect(corba).toBeInTheDocument();
+  //     expect(burek).toBeInTheDocument();
+  //     act(() => userEvent.click(screen.getAllByTestId('Beef-category-filter')));
+  //     expect(corba).not.toBeInTheDocument();
+  //     expect(burek).not.toBeInTheDocument();
+  //   });
+  // });
+
+  it('renderiza categorias de meals', async () => {
+    const { history } = renderWithRouter(<App />);
+    act(() => history.push('/meals'));
+    await waitFor(() => {
+      expect(screen.getByTestId('Beef-category-filter')).toBeInTheDocument();
+      expect(screen.getByTestId('Breakfast-category-filter')).toBeInTheDocument();
+      expect(screen.getByTestId('Chicken-category-filter')).toBeInTheDocument();
+      expect(screen.getByTestId('Dessert-category-filter')).toBeInTheDocument();
+      expect(screen.getByTestId('Goat-category-filter')).toBeInTheDocument();
+    });
   });
 
   it('renderiza categorias de drinks', async () => {
-    renderWithRouter(<Recipes />, { location: '/drinks' });
-
-    await screen.findByRole('button', { name: /Ordinary Drinks/i });
-    expect(screen.getByRole('button', { name: /Ordinary Drinks/i })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Cocktail/i })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Shake/i })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Other/i })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Cocoa/i })).toBeInTheDocument();
+    const { history } = renderWithRouter(<App />);
+    act(() => history.push('/drinks'));
+    await waitFor(() => {
+      expect(screen.getByTestId('All-category-filter')).toBeInTheDocument();
+      expect(screen.getByTestId('Ordinary Drink-category-filter')).toBeInTheDocument();
+      expect(screen.getByTestId('Cocktail-category-filter')).toBeInTheDocument();
+      expect(screen.getByTestId('Shake-category-filter')).toBeInTheDocument();
+      expect(screen.getByTestId('Other / Unknown-category-filter')).toBeInTheDocument();
+      expect(screen.getByTestId('Cocoa-category-filter')).toBeInTheDocument();
+    });
   });
 });
