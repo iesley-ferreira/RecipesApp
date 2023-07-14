@@ -30,12 +30,10 @@ function Profile() {
             <img src={ doneRecipes } alt="done-recipes" />
             <p>Done recipes</p>
           </button>
-          <br />
           <button onClick={ () => handleLogout('/favorite-recipes') }>
             <img src={ favoriteRecipes } alt="done-recipes" />
             <p>Favorite recipes</p>
           </button>
-          <br />
           <button onClick={ () => handleLogout('/') }>
             <img src={ logout } alt="done-recipes" />
             <p>Logout</p>
