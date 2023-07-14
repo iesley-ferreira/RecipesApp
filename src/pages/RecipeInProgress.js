@@ -57,6 +57,7 @@ function RecipeInProgress() {
     if (isInProgress) {
       setIngredientsChecked(inProgressRecipes[id]);
     }
+    console.log(id);
   }, [id]);
 
   function addFavoriteRecipe() {
