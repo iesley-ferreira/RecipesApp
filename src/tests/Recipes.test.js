@@ -3,19 +3,12 @@ import { fireEvent, screen, waitFor } from '@testing-library/react';
 // import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import renderWithRouter from '../helpers/renderWithRouter';
-import Recipes from '../pages/Recipes';
+// import Recipes from '../pages/Recipes';
 import App from '../App';
 
 const beefCateg = 'Beef-category-filter';
 
 describe('Teste a Página Recipes', () => {
-  it('renderiza corretamente', async () => {
-    renderWithRouter(<Recipes />);
-    // expect(screen.getByTestId('page-title')).toBeInTheDocument();
-    // expect(screen.getByTestId('usual-recipes-card')).toBeInTheDocument();
-    // expect(screen.getAllByTestId(/category-filter/i)).toBeInTheDocument();
-  });
-
   it('testa se há os cards de receitas', async () => {
     const { history } = renderWithRouter(<App />);
     act(() => history.push('/meals'));
