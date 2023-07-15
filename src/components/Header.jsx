@@ -66,12 +66,12 @@ function Header({ showBtn }) {
               <button
                 data-testid="search-top-btn"
                 src={ searchIcon }
+                alt="search icon"
                 onClick={ showSearchInputs }
               >
-                <img
+                {/* <img
                   src={ searchIcon }
-                  alt="search icon"
-                />
+                /> */}
               </button>
             )
           }

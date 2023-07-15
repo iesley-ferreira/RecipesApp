@@ -1,0 +1,30 @@
+.favoriteRecipes-categories-container {
+  align-items: center;
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.favoriteRecipes-categories-container button {
+  background-color: transparent;
+  border: 0.08cm solid #fcc436;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 12px;
+}
+
+.filter-by-category {
+  align-items: center;
+  color: #797d86;
+  display: flex;
+  flex-direction: column;
+  font-family: Epilogue , sans-serif;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 300;
+  gap: 20px;
+  justify-content: center;
+  line-height: normal;
+  text-align: center;
+}
