@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 // import Profile from '../pages/Profile';
 import { act } from 'react-dom/test-utils';
@@ -71,9 +71,9 @@ describe('Profile', () => {
     const profileButton = screen.getByRole('img', { name: /profile icon/i });
     act(() => userEvent.click(profileButton));
 
-    wait(() => expect(history.location.pathname).toBe('/profile'));
+    waitFor(() => expect(history.location.pathname).toBe('/profile'));
 
-    await wait(() => {
+    await waitFor(() => {
       const doneRecipesButton = screen.getByText(/done recipes/i);
       act(() => userEvent.click(doneRecipesButton));
       expect(history.location.pathname).toBe('/receitas-feitas');
