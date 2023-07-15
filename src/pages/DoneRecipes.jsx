@@ -31,7 +31,7 @@ function DoneRecipes() {
 
   return (
     <div>
-      <Header />
+      <Header title="Done Recipes" />
       <div className="doneRecipes-categories-container">
         <div className="filter-by-category">
           <button

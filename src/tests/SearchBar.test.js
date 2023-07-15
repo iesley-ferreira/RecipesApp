@@ -65,7 +65,7 @@ describe('Teste a Página SearchBar', () => {
 
     global.alert = jest.fn();
 
-    userEvent.click(getByTestId(searchBtn));
+    userEvent.click(screen.getByTestId(searchBtn));
 
     expect(global.alert).toHaveBeenCalledTimes(1);
   });

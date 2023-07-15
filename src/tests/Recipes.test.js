@@ -1,10 +1,12 @@
 import React from 'react';
-import { screen, waitFor } from '@testing-library/react';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 // import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import renderWithRouter from '../helpers/renderWithRouter';
 import Recipes from '../pages/Recipes';
 import App from '../App';
+
+const beefCateg = 'Beef-category-filter';
 
 describe('Teste a Página Recipes', () => {
   it('renderiza corretamente', async () => {
@@ -24,25 +26,29 @@ describe('Teste a Página Recipes', () => {
     });
   });
 
-  // it('testa se o filtro funciona', async () => {
-  //   const { history } = renderWithRouter(<App />);
-  //   act(() => history.push('/meals'));
-  //   await waitFor(() => {
-  //     const corba = screen.getByText('Corba');
-  //     const burek = screen.getByText('Burek');
-  //     expect(corba).toBeInTheDocument();
-  //     expect(burek).toBeInTheDocument();
-  //     act(() => userEvent.click(screen.getAllByTestId('Beef-category-filter')));
-  //     expect(corba).not.toBeInTheDocument();
-  //     expect(burek).not.toBeInTheDocument();
-  //   });
-  // });
+  it('testa se o filtro funciona', async () => {
+    const { history } = renderWithRouter(<App />);
+    act(() => history.push('/meals'));
+    await waitFor(() => {
+      const corba = screen.getByTestId('0-card-name');
+      const burek = screen.getByTestId('1-card-name');
+      expect(screen.getByTestId(beefCateg)).toBeInTheDocument();
+      expect(corba).toBeInTheDocument();
+      expect(burek).toBeInTheDocument();
+    }, { timeout: 3000 });
+    act(() => fireEvent.click(screen.getByTestId(beefCateg)));
+    await waitFor(() => {
+      expect(screen.getAllByText('Beef and Mustard Pie')[0]).toBeInTheDocument();
+      expect(screen.getAllByText('Beef and Oyster pie')[1]).toBeInTheDocument();
+    }, { timeout: 3000 });
+  });
 
   it('renderiza categorias de meals', async () => {
     const { history } = renderWithRouter(<App />);
     act(() => history.push('/meals'));
     await waitFor(() => {
-      expect(screen.getByTestId('Beef-category-filter')).toBeInTheDocument();
+      expect(screen.getByTestId('All-category-filter')).toBeInTheDocument();
+      expect(screen.getByTestId(beefCateg)).toBeInTheDocument();
       expect(screen.getByTestId('Breakfast-category-filter')).toBeInTheDocument();
       expect(screen.getByTestId('Chicken-category-filter')).toBeInTheDocument();
       expect(screen.getByTestId('Dessert-category-filter')).toBeInTheDocument();
