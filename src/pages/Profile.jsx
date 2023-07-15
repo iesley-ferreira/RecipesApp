@@ -20,21 +20,28 @@ function Profile() {
     localStorage.clear();
     history.push(path);
   };
+
   return (
     <div className="profile-page-container">
       <Header title="Profile" />
       <main className="profile-container">
-        <h4>{ userEmail }</h4>
+        <h4 data-testid="profile-email">{ userEmail }</h4>
         <div className="profile-buttons-container">
-          <button onClick={ () => handleLogout('/done-recipes') }>
+          <button
+            data-testid="profile-done-btn"
+            onClick={ () => handleLogout('/done-recipes') }
+          >
             <img src={ doneRecipes } alt="done-recipes" />
-            <p>Done recipes</p>
+            <p>Done Recipes</p>
           </button>
-          <button onClick={ () => handleLogout('/favorite-recipes') }>
+          <button
+            data-testid="profile-favorite-btn"
+            onClick={ () => handleLogout('/favorite-recipes') }
+          >
             <img src={ favoriteRecipes } alt="done-recipes" />
-            <p>Favorite recipes</p>
+            <p>Favorite Recipes</p>
           </button>
-          <button onClick={ () => handleLogout('/') }>
+          <button data-testid="profile-logout-btn" onClick={ () => handleLogout('/') }>
             <img src={ logout } alt="done-recipes" />
             <p>Logout</p>
           </button>
