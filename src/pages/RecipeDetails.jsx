@@ -153,9 +153,7 @@ export default function RecipeDetails() {
         )))}
       </div>
       <div className="start-recipe-btn-container">
-        <button data-testid="start-recipe-btn" className="details-start-btn">
-          Start Recipe
-        </button>
+        <RecipeFaseButton data-testid="start-recipe-btn" className="details-start-btn" />
       </div>
     </>
   );

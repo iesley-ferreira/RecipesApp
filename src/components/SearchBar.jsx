@@ -3,6 +3,7 @@ import { fetchRecipesByFirstLetter,
   fetchRecipesByIngredient, fetchRecipesByName } from '../services/fetchAPI';
 import receitasContext from '../context/ReceitasContext';
 import './styles/SearchBar.css';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 function SearchBar() {
   const {
@@ -40,6 +41,8 @@ function SearchBar() {
   const firstLetter = 'first-letter';
 
   // faz a busca de acordo com o radio button selecionado
+  // const { history } = useContext(receitasContext);
+  const history = useHistory();
   const searchRecipes = async () => {
     if (radioButton === firstLetter && input.length > 1) {
       global.alert('Your search must have only 1 (one) character');
@@ -48,17 +51,39 @@ function SearchBar() {
 
     const { pathname } = window.location;
 
+    const idPath = pathname === '/meals' ? 'idMeal' : 'idDrink';
+
+    let fillRecipes;
+
     switch (radioButton) {
     case 'ingredient':
-      setRecipes(await fetchRecipesByIngredient(input, pathname));
+      fillRecipes = await fetchRecipesByIngredient(input, pathname);
+
+      setRecipes(fillRecipes);
+
+      if (fillRecipes.length === 1) {
+        history.push(`${pathname}/:${fillRecipes[0][idPath]}`);
+      }
       break;
 
     case 'name':
-      setRecipes(await fetchRecipesByName(input, pathname));
+      fillRecipes = await fetchRecipesByName(input, pathname);
+
+      setRecipes(fillRecipes);
+      if (fillRecipes.length === 1) {
+        history.push(`${pathname}/:${fillRecipes[0][idPath]}`);
+        console.log('igual a 1');
+      }
       break;
 
     case firstLetter:
-      setRecipes(await fetchRecipesByFirstLetter(input, pathname));
+      fillRecipes = await fetchRecipesByFirstLetter(input, pathname);
+
+      setRecipes(fillRecipes);
+
+      if (fillRecipes.length === 1) {
+        history.push(`${pathname}/:${fillRecipes[0][idPath]}`);
+      }
       break;
 
     default:
