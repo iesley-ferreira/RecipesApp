@@ -29,7 +29,7 @@ function FavoriteRecipes() {
 
   return (
     <div>
-      <Header showBtn title="Favorite Recipes" />
+      <Header showBtn={ false } title="Favorite Recipes" />
       <div className="favoriteRecipes-categories-container">
         <div className="filter-by-category">
           <button

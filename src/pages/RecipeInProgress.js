@@ -115,8 +115,6 @@ function RecipeInProgress() {
     }
   }
 
-  console.log(isFavorite);
-
   return (
     <div>
       <section>
