@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { fetchRecipesByFirstLetter,
   fetchRecipesByIngredient, fetchRecipesByName } from '../services/fetchAPI';
 import receitasContext from '../context/ReceitasContext';
@@ -6,7 +6,6 @@ import './styles/SearchBar.css';
 
 function SearchBar() {
   const {
-    usualRecipes,
     setUsualRecipes,
     showInput,
     radioButton,
@@ -15,26 +14,7 @@ function SearchBar() {
     setInput,
   } = useContext(receitasContext);
 
-  const recipes = usualRecipes;
   const setRecipes = setUsualRecipes;
-
-  // redireciona para a página de detalhes da receita caso só tenha uma receita
-  useEffect(() => {
-    let array = [];
-    if (recipes) {
-      array = recipes.meals || recipes.drinks;
-    }
-
-    if (array && array.length === 1) {
-      const { pathname } = window.location;
-      let id = 0;
-      if (pathname === '/meals') {
-        id = array[0].idMeal;
-      } else { id = array[0].idDrink; }
-
-      window.location.href = `${pathname}/${id}`;
-    }
-  }, [recipes]);
 
   // para o lint não reclamar que está repetindo o nome
   const firstLetter = 'first-letter';
@@ -80,6 +60,7 @@ function SearchBar() {
           data-testid="search-input"
           onChange={ changeInput }
           placeholder="Search"
+          value={ input }
         />
       </div>
       <div className="search-radio-buttons">

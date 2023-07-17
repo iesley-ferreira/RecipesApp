@@ -1,5 +1,6 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 // import profileIcon from '../images/iconePerfil.png';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './styles/Header.css';
 import logoRecipes from '../images/logoRecipes.png';
@@ -13,37 +14,38 @@ import searchIcon from '../images/searchIcon.svg';
 
 function Header({ showBtn }) {
   const { pathname } = window.location;
+  const history = useHistory();
 
   const str = pathname;
   const novaStr = str.replace('/', '').replace(/-/g, ' ').replace(/\b\w/g, (match) => match.toUpperCase());
 
   const {
-    usualRecipes,
+    // usualRecipes,
     showInput,
     setShowInput,
   } = useContext(receitasContext);
 
-  const recipes = usualRecipes;
+  // const recipes = usualRecipes;
 
   // redireciona para a página de detalhes da receita caso só tenha uma receita
-  useEffect(() => {
-    let array = [];
-    if (recipes) {
-      array = recipes.meals || recipes.drinks;
-    }
+  // useEffect(() => {
+  //   let array = [];
+  //   if (recipes) {
+  //     array = recipes.meals || recipes.drinks;
+  //   }
 
-    if (array && array.length === 1) {
-      let id = 0;
-      if (pathname === '/meals') {
-        id = array[0].idMeal;
-      } else { id = array[0].idDrink; }
+  //   if (array && array.length === 1) {
+  //     let id = 0;
+  //     if (pathname === '/meals') {
+  //       id = array[0].idMeal;
+  //     } else { id = array[0].idDrink; }
 
-      window.location.href = `${pathname}/${id}`;
-    }
-  }, [recipes, pathname]);
+  //     window.location.href = `${pathname}/${id}`;
+  //   }
+  // }, [recipes, pathname]);
+
   const redirectToProfile = () => {
-    if (pathname === '/profile') return;
-    window.location.href = '/profile';
+    history.push('/profile');
   };
 
   const showSearchInputs = () => {

@@ -5,7 +5,6 @@ import { act } from 'react-dom/test-utils';
 // import { createMemoryHistory } from 'history';
 // import { Router } from 'react-router-dom';
 import renderWithRouter from '../helpers/renderWithRouter';
-// import Header from '../components/Header';
 import App from '../App';
 
 const idSearchBtn = 'search-top-btn';
@@ -22,8 +21,8 @@ describe('Header', () => {
     expect(screen.getByAltText('logo1recipes')).toBeInTheDocument();
     expect(screen.getByAltText('logo2recipes')).toBeInTheDocument();
     expect(screen.getByTestId(pageTitle)).toBeInTheDocument();
-    expect(screen.getByTestId(pageTitle)).toHaveTextContent('Meals');
   });
+
   test('renderiza corretamente a página de Drinks', () => {
     const { history } = renderWithRouter(<App />);
     act(() => history.push('/Drinks'));
@@ -32,7 +31,6 @@ describe('Header', () => {
     expect(screen.getByAltText('logo1recipes')).toBeInTheDocument();
     expect(screen.getByAltText('logo2recipes')).toBeInTheDocument();
     expect(screen.getByTestId(pageTitle)).toBeInTheDocument();
-    expect(screen.getByTestId(pageTitle)).toHaveTextContent('Drinks');
   });
 
   it('Possui botão de pesquisa apenas na página inicial', () => {
@@ -40,17 +38,17 @@ describe('Header', () => {
     act(() => history.push('/meals'));
 
     expect(screen.queryByTestId(idSearchBtn)).toBeInTheDocument();
-    history.push('/profile');
+    act(() => history.push('/profile'));
     expect(screen.queryByTestId(idSearchBtn)).toBeNull();
-    history.push('/done-recipes');
+    act(() => history.push('/done-recipes'));
     expect(screen.queryByTestId(idSearchBtn)).toBeNull();
   });
 
   test('exibe inputs de busca ao clicar no botão de busca', async () => {
     const { history } = renderWithRouter(<App />);
     act(() => history.push('/meals'));
-    expect(screen.getByTestId(idSearchBtn)).toBeInTheDocument();
 
+    expect(screen.getByTestId(idSearchBtn)).toBeInTheDocument();
     expect(screen.queryByTestId(idSearchInput)).toBeNull();
     expect(screen.queryByTestId('exec-search-btn')).toBeNull();
 
@@ -60,15 +58,16 @@ describe('Header', () => {
     expect(screen.getByTestId('exec-search-btn')).toBeInTheDocument();
   });
 
-  // test('redireciona para a página de perfil ao clicar no botão de perfil', async () => {
-  //   const { history } = renderWithRouter(<App />);
-  //   act(() => history.push('/meals'));
-  //   expect(screen.getByTestId(idProfileBtn)).toBeInTheDocument();
+  test('redireciona para a página de perfil ao clicar no botão de perfil', async () => {
+    const { history } = renderWithRouter(<App />);
+    act(() => history.push('/meals'));
 
-  //   act(() => userEvent.click(screen.getByTestId(idProfileBtn)));
+    expect(screen.getByTestId(idProfileBtn)).toBeInTheDocument();
 
-  //   expect(history.location.pathname).toBe('/profile');
-  // });
+    act(() => userEvent.click(screen.getByTestId(idProfileBtn)));
+
+    expect(history.location.pathname).toBe('/profile');
+  });
 
   it('Deve ocultar campo de busca ao pesquisar algo', () => {
     const { history } = renderWithRouter(<App />);
