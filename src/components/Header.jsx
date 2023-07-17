@@ -54,41 +54,38 @@ function Header({ showBtn }) {
   const icon = pathname === '/meals' ? iconePrato : iconeBebida;
 
   return (
-    <header className="header-container">
+    <div className="header-container">
       <div className="header-superior">
         <div className="logo-container">
           <img src={ iconeRecipes2 } alt="logo1recipes" />
           <img src={ logoRecipes } alt="logo2recipes" />
         </div>
-        <div className="links-container">
+        <header className="links-container">
           {
             showBtn && (
-              <button
+              <input
+                type="image"
                 data-testid="search-top-btn"
                 src={ searchIcon }
                 alt="search icon"
                 onClick={ showSearchInputs }
-              >
-                {/* <img
-                  src={ searchIcon }
-                /> */}
-              </button>
+              />
             )
           }
-          <button
+          <input
+            type="image"
             data-testid="profile-top-btn"
             src={ profileIcon }
+            alt="profile icon"
             onClick={ redirectToProfile }
-          >
-            <img src={ profileIcon } alt="profile icon" />
-          </button>
-        </div>
+          />
+        </header>
       </div>
       <div className="title-container">
         <img alt={ title } src={ icon } />
         <h1 data-testid="page-title">{ novaStr }</h1>
       </div>
-    </header>
+    </div>
   );
 }
 
