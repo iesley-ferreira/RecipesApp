@@ -12,8 +12,18 @@ function Profile() {
   const [userEmail, setUserEmail] = useState('');
   useEffect(() => {
     const data = localStorage.getItem('user');
+<<<<<<< HEAD
     const email = JSON.parse(data);
     setUserEmail(email?.email);
+=======
+    if (data) {
+      const { email } = JSON.parse(data);
+      console.log(email);
+      setUserEmail(email);
+    } else {
+      setUserEmail('Email não encontrado');
+    }
+>>>>>>> 6c0052525beabf7700cf14acc672a9e96778661e
   }, [userEmail]);
 
   const handleLogout = (path) => {
