@@ -1,7 +1,7 @@
 import { useLocation, useParams, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import SugestionCard from '../components/SugestionCard';
-// import RecipeFaseButton from '../components/RecipeFaseButton';
+import RecipeFaseButton from '../components/RecipeFaseButton';
 import { fetchRecipesDetailsApi, fetchRecipesSugestionsApi } from '../services/fetchAPI';
 import './styles/RecipeDetails.css';
 
@@ -152,9 +152,14 @@ export default function RecipeDetails() {
           </Link>
         )))}
       </div>
-      <div className="start-recipe-btn-container">
-        {/* <RecipeFaseButton data-testid="start-recipe-btn" className="details-start-btn" /> */}
-      </div>
+      {/* <div className="start-recipe-btn-container"> */}
+      {/* <RecipeFaseButton data-testid="start-recipe-btn" className="details-start-btn" /> */}
+      {/* </div> */}
+      <RecipeFaseButton
+        type={ food }
+        id={ correctId }
+        ingredients={ ingredientsAndmeasure }
+      />
     </>
   );
 }
