@@ -16,6 +16,8 @@ describe('Header', () => {
   test('renderiza corretamente a página de Meals', () => {
     const { history } = renderWithRouter(<App />);
     act(() => history.push('/meals'));
+    expect(screen.getByAltText('Meals')).toBeInTheDocument();
+
     expect(screen.getByTestId(idSearchBtn)).toBeInTheDocument();
     expect(screen.getByTestId(idProfileBtn)).toBeInTheDocument();
     expect(screen.getByAltText('logo1recipes')).toBeInTheDocument();
@@ -25,7 +27,8 @@ describe('Header', () => {
 
   test('renderiza corretamente a página de Drinks', () => {
     const { history } = renderWithRouter(<App />);
-    act(() => history.push('/Drinks'));
+    act(() => history.push('/drinks'));
+    expect(screen.getByAltText('Drinks')).toBeInTheDocument();
     expect(screen.getByTestId(idSearchBtn)).toBeInTheDocument();
     expect(screen.getByTestId(idProfileBtn)).toBeInTheDocument();
     expect(screen.getByAltText('logo1recipes')).toBeInTheDocument();
