@@ -1,7 +1,7 @@
 import { useLocation, useParams, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import SugestionCard from '../components/SugestionCard';
-import RecipeFaseButton from '../components/RecipeFaseButton';
+// import RecipeFaseButton from '../components/RecipeFaseButton';
 import { fetchRecipesDetailsApi, fetchRecipesSugestionsApi } from '../services/fetchAPI';
 import './styles/RecipeDetails.css';
 
@@ -85,12 +85,13 @@ export default function RecipeDetails() {
 
   return (
     <>
-      <img
-        src={ recipeDetail[`${foodKey}Thumb`] }
-        alt={ recipeDetail[foodKey] }
-        data-testid="recipe-photo"
-      />
-
+      <div className="details-img-container">
+        <img
+          src={ recipeDetail[`${foodKey}Thumb`] }
+          alt={ recipeDetail[foodKey] }
+          data-testid="recipe-photo"
+        />
+      </div>
       <h1 data-testid="recipe-title">{recipeDetail[foodKey]}</h1>
 
       {/* EXIBIR A CATEGORIA DO INGREDIENTE */}
@@ -112,14 +113,15 @@ export default function RecipeDetails() {
       <p data-testid="instructions">{recipeDetail.strInstructions}</p>
 
       {/* VÍDEO DO YOUTUBE */}
-      {food === 'meals' ? (
-        <iframe
-          width="560"
-          height="315"
-          src={ getYoutubeVideoId(recipeDetail.strYoutube) }
-          title="Youtube video player"
-          frameBorder="0"
-          allow="
+      <div className="details-iframe-container">
+        {food === 'meals' ? (
+          <iframe
+            width="560"
+            height="315"
+            src={ getYoutubeVideoId(recipeDetail.strYoutube) }
+            title="Youtube video player"
+            frameBorder="0"
+            allow="
             accelerometer;
             autoplay;
             clipboard-write;
@@ -127,10 +129,11 @@ export default function RecipeDetails() {
             gyroscope;
             picture-in-picture;
             web-share"
-          allowFullScreen
-          data-testid="video"
-        />
-      ) : null}
+            allowFullScreen
+            data-testid="video"
+          />
+        ) : null}
+      </div>
 
       {/* CARROSSEL DE SUGESTÕES DE PRATOS */}
       <div className="carousel-sugestions">
@@ -148,9 +151,11 @@ export default function RecipeDetails() {
           </Link>
         )))}
       </div>
-
-      { /* BOTÃO DE ACOMPANHAMENTO DA RECEITA */ }
-      <RecipeFaseButton />
+      <div className="start-recipe-btn-container">
+        <button data-testid="start-recipe-btn" className="details-start-btn">
+          Start Recipe
+        </button>
+      </div>
     </>
   );
 }

@@ -14,7 +14,6 @@ function Profile() {
     const data = localStorage.getItem('user');
     if (data) {
       const { email } = JSON.parse(data);
-      console.log(email);
       setUserEmail(email);
     } else {
       setUserEmail('Email não encontrado');
