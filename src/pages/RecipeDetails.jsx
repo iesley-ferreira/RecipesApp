@@ -86,6 +86,7 @@ export default function RecipeDetails() {
   return (
     <>
       <div className="details-img-container">
+        {/* EXIBIR A IMAGEM DO PRATO OU DRINK */}
         <img
           src={ recipeDetail[`${foodKey}Thumb`] }
           alt={ recipeDetail[foodKey] }
