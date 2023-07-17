@@ -153,7 +153,7 @@ export default function RecipeDetails() {
         )))}
       </div>
       <div className="start-recipe-btn-container">
-        <RecipeFaseButton data-testid="start-recipe-btn" className="details-start-btn" />
+        {/* <RecipeFaseButton data-testid="start-recipe-btn" className="details-start-btn" /> */}
       </div>
     </>
   );

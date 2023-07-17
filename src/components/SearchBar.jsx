@@ -1,9 +1,9 @@
 import { useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 import { fetchRecipesByFirstLetter,
   fetchRecipesByIngredient, fetchRecipesByName } from '../services/fetchAPI';
 import receitasContext from '../context/ReceitasContext';
 import './styles/SearchBar.css';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 function SearchBar() {
   const {
@@ -62,7 +62,7 @@ function SearchBar() {
       setRecipes(fillRecipes);
 
       if (fillRecipes.length === 1) {
-        history.push(`${pathname}/:${fillRecipes[0][idPath]}`);
+        history.push(`${pathname}/${fillRecipes[0][idPath]}`);
       }
       break;
 
@@ -71,7 +71,7 @@ function SearchBar() {
 
       setRecipes(fillRecipes);
       if (fillRecipes.length === 1) {
-        history.push(`${pathname}/:${fillRecipes[0][idPath]}`);
+        history.push(`${pathname}/${fillRecipes[0][idPath]}`);
         console.log('igual a 1');
       }
       break;
@@ -82,7 +82,7 @@ function SearchBar() {
       setRecipes(fillRecipes);
 
       if (fillRecipes.length === 1) {
-        history.push(`${pathname}/:${fillRecipes[0][idPath]}`);
+        history.push(`${pathname}/${fillRecipes[0][idPath]}`);
       }
       break;
 
