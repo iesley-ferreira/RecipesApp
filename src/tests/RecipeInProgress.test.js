@@ -55,9 +55,9 @@ describe('Testa o arquivo RecipeInProgress.js', () => {
       expect(input0).toBeInTheDocument();
       expect(input1).toBeInTheDocument();
       expect(input2).toBeInTheDocument();
-      expect(input0).not.toBeChecked();
-      expect(input1).not.toBeChecked();
-      expect(input2).not.toBeChecked();
+      expect(input0).toBeChecked();
+      expect(input1).toBeChecked();
+      expect(input2).toBeChecked();
       expect(FinishRecipeBtn).toBeDisabled();
       await act(async () => {
         userEvent.click(input0);
