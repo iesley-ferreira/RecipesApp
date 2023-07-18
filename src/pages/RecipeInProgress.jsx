@@ -13,12 +13,16 @@ import {
 } from '../services/localStorageFuncions';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import { fetchRecipesDetailsApi } from '../services/fetchAPI';
 
 function RecipeInProgress() {
   // recebe o id da receita
-  const param = useParams();
-  const { id } = param;
+  const { id } = useParams();
   const { pathname } = useLocation();
+
+  // Variáveis
+  const type = (pathname.includes('meals')) ? 'meals' : 'drinks';
+  const correctId = id.replace(':', '');
 
   // estado local para guardar a receita com o id recebido
   const [recipe, setRecipe] = useState({});
@@ -30,21 +34,12 @@ function RecipeInProgress() {
   // esse useEffect faz a requisição da receita e seta o estado local toda vez que o componente for montado
   useEffect(() => {
     const fetchRecipe = async () => {
-      let reciperequest;
-      if (pathname.includes('meals')) {
-        reciperequest = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
-      } else {
-        reciperequest = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
-      }
-
-      const recipeJson = await reciperequest.json();
-      const test = pathname.includes('meals');
-      const recipeData = test ? recipeJson.meals[0] : recipeJson.drinks[0];
-      setRecipe(recipeData);
+      const reciperequest = await fetchRecipesDetailsApi(type, correctId);
+      setRecipe(reciperequest[0]);
     };
 
     // verifica se a receita está salva nos favoritos
-    setIsFavorite(isFavoriRecipe(id));
+    setIsFavorite(isFavoriRecipe(correctId));
 
     // verifica se a receita está em progresso e seta os ingredientes marcados
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
@@ -58,7 +53,7 @@ function RecipeInProgress() {
     }
 
     fetchRecipe();
-  }, [id, pathname]);
+  }, [id, pathname, type, correctId]);
 
   useEffect(
     () => {
@@ -130,7 +125,6 @@ function RecipeInProgress() {
           onClick={ share }
         >
           Compartilhar
-
         </button>
         <button
           type="button"
