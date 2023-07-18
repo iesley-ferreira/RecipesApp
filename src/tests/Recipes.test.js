@@ -9,6 +9,12 @@ import App from '../App';
 const beefCateg = 'Beef-category-filter';
 const cardImg = '0-card-img';
 const cardName = '0-card-name';
+const allCategory = 'All-category-filter';
+const mockRecipes = [
+  { strCategory: 'Beef' },
+  { strCategory: 'Breakfast' },
+  { strCategory: 'Chicken' },
+];
 
 describe('Teste a Página Recipes', () => {
   it('testa se há os cards de receitas', async () => {
@@ -67,9 +73,9 @@ describe('Teste a Página Recipes', () => {
     act(() => history.push('/drinks'));
 
     await waitFor(() => {
-      expect(screen.getByTestId('All-category-filter')).toBeInTheDocument();
+      expect(screen.getByTestId(allCategory)).toBeInTheDocument();
     }, { timeout: 3000 });
-    act(() => fireEvent.click(screen.getByTestId('All-category-filter')));
+    act(() => fireEvent.click(screen.getByTestId(allCategory)));
     await waitFor(() => {
       expect(screen.getAllByText('GG')[0]).toBeInTheDocument();
       expect(screen.getAllByText('A1')[1]).toBeInTheDocument();
@@ -91,31 +97,34 @@ describe('Teste a Página Recipes', () => {
     });
   });
 
-  // it('Testa o Card de meals', async () => {
-  //   const { history } = renderWithRouter(<App />);
-  //   act(() => history.push('/meals'));
-  //   await waitFor(async () => {
-  //     expect(cardImg).toHaveAttribute('src', 'https://www.themealdb.com/images/media/meals/58oia61564916529.jpg');
-  //     expect(cardImg).toHaveAttribute('alt', 'Corba');
-  //     expect(cardName).toHaveTextContent('Corba');
-  //   });
-  // });
+  test('handleCategory should update usualRecipes with filtered recipes', async () => {
+    const setUsualRecipes = jest.fn();
+    global.fetch = jest.fn().mockResolvedValue({
+      json: () => ({ meals: mockRecipes }),
+    });
 
-  // it('Testa o Card de drnks', async () => {
-  //   const { history } = renderWithRouter(<App />);
-  //   act(() => history.push('/drinks'));
-  //   await waitFor(async () => {
-  //     expect(cardImg).toHaveAttribute('src', 'https://www.thecocktaildb.com/images/media/drink/vyxwut1468875960.jpg');
-  //     expect(cardImg).toHaveAttribute('alt', 'GG');
-  //     expect(cardName).toHaveTextContent('GG');
-  //   });
-  // });
+    const { history } = renderWithRouter(<App />);
+    act(() => history.push('/meals'));
 
-  // test('Valida as props requeridas', () => {
-  //   const { recipe, index, option } = Card.propTypes;
+    act(() => fireEvent.click(screen.getByTestId('Beef-category-filter')));
+    expect(fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/filter.php?c=Beef');
+    expect(setUsualRecipes).toHaveBeenCalledWith([
+      { strCategory: 'Beef' },
+      { strCategory: 'Chicken' },
+    ]);
+  });
 
-  //   expect(recipe.isRequired).toBeTruthy();
-  //   expect(index.isRequired).toBeTruthy();
-  //   expect(option.isRequired).toBeTruthy();
-  // });
+  test('handleAll should update usualRecipes with all recipes', async () => {
+    const setUsualRecipes = jest.fn();
+    global.fetch = jest.fn().mockResolvedValue({
+      json: () => ({ meals: mockRecipes }),
+    });
+
+    const { history } = renderWithRouter(<App />);
+    act(() => history.push('/meals'));
+
+    act(() => fireEvent.click(screen.getByTestId(allCategory)));
+    expect(fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+    expect(setUsualRecipes).toHaveBeenCalledWith(mockRecipes);
+  });
 });
