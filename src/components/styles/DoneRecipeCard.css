@@ -1,0 +1,112 @@
+.done-recipes-card-container {
+  align-items: center;
+  border: 0.518px solid #b1b1b1;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  height: 135px;
+  justify-content: center;
+  position: relative;
+  width: 322px;
+}
+
+.done-name-Link img {
+  border-radius: 5px 0 0 5px;
+  flex-shrink: 0;
+  height: 134.854px;
+  width: 163.346px;
+}
+
+.done-name-btn h2 {
+  background-color: transparent;
+  border: none;
+  color: #1a1b1c;
+  cursor: pointer;
+  font-family: Epilogue , sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  left: 5px;
+  line-height: normal;
+  text-decoration: none;
+}
+
+.done-recipes-card-right a {
+  text-decoration: none;
+}
+
+.done-recipes-card-right p {
+  margin: 0;
+  padding: 0;
+}
+
+.done-card-share-share-input {
+  position: absolute;
+  right: 25px;
+  top: 25px;
+  width: 15px;
+}
+
+.done-recipes-card-right {
+  align-items: flex-start;
+  border-radius: 0 5px 5px 0;
+  display: flex;
+  flex-direction: column;
+  height: 135px;
+  justify-content: space-around;
+  padding: 20px;
+  padding-left: 25px;
+  width: 100%;
+}
+
+.done-recipes-card-tags {
+  color: #797d86;
+  display: flex;
+  flex-flow: row wrap;
+  font-family: Epilogue , sans-serif;
+  font-size: 9px;
+  font-style: normal;
+  font-weight: 400;
+  gap: 5px;
+  line-height: normal;
+}
+
+.done-recipes-card-tags p {
+  background-color: #d9d9d9;
+  border-radius: 10px;
+  margin: 0;
+  padding: 2px 5px;
+}
+
+.done-card-category {
+  color: #797d86;
+  font-family: Epilogue , sans-serif;
+  font-size: 9px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  text-align: center;
+}
+
+.link-copy {
+  color: #1a1b1c;
+  font-family: Epilogue , sans-serif;
+  font-size: 9px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  position: absolute;
+  right: 5px;
+  text-decoration: none;
+  top: 48px;
+}
+
+.done-card-date {
+  color: #1a1b1c;
+  font-size: 9px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+}
+
