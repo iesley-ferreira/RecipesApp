@@ -96,7 +96,7 @@ function Recipes() {
       </div>
       <div className="cards-container">
         {usualRecipes.map((recipe, index) => (
-          <Link to={ `/${food}/:${recipe[idFood]}` } key={ recipe[idFood] }>
+          <Link to={ `/${food}/${recipe[idFood]}` } key={ recipe[idFood] }>
             <Card
               option={ pathname }
               recipe={ recipe }
