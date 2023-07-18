@@ -55,7 +55,6 @@ function SearchBar() {
       setRecipes(fillRecipes);
       if (fillRecipes.length === 1) {
         history.push(`${pathname}/${fillRecipes[0][idPath]}`);
-        console.log('igual a 1');
       } else {
         global.alert(alertText);
       }
