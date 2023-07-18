@@ -14,12 +14,11 @@ const drinkUrl = '/drinks/15997/in-progress';
 const mealUrl = '/meals/52977/in-progress';
 const ingredient0Id = '0-ingredient-step';
 
-afterEach(() => {
-  jest.clearAllMocks();
-  localStorage.clear();
-});
-
 describe('Testa o arquivo RecipeInProgress.js', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+    localStorage.clear();
+  });
   it('Verifica se todos os ingredientes de uma bebida estão sendo exibidos corretamente.', async () => {
     jest.spyOn(global, 'fetch').mockResolvedValue({
       json: jest.fn().mockResolvedValue({

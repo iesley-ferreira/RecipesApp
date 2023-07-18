@@ -29,43 +29,47 @@ function SearchBar() {
       return;
     }
 
+    // if ( === null) {
+    //   global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    // }
+
     const { pathname } = window.location;
 
     const idPath = pathname === '/meals' ? 'idMeal' : 'idDrink';
-
+    const alertText = 'Sorry, we haven\'t found any recipes for these filters.';
     let fillRecipes;
 
     switch (radioButton) {
     case 'ingredient':
       fillRecipes = await fetchRecipesByIngredient(input, pathname);
-
       setRecipes(fillRecipes);
-
       if (fillRecipes.length === 1) {
         history.push(`${pathname}/${fillRecipes[0][idPath]}`);
+      } else {
+        global.alert(alertText);
       }
       break;
 
     case 'name':
       fillRecipes = await fetchRecipesByName(input, pathname);
-
       setRecipes(fillRecipes);
       if (fillRecipes.length === 1) {
         history.push(`${pathname}/${fillRecipes[0][idPath]}`);
         console.log('igual a 1');
+      } else {
+        global.alert(alertText);
       }
       break;
 
     case firstLetter:
       fillRecipes = await fetchRecipesByFirstLetter(input, pathname);
-
       setRecipes(fillRecipes);
-
       if (fillRecipes.length === 1) {
         history.push(`${pathname}/${fillRecipes[0][idPath]}`);
+      } else {
+        global.alert(alertText);
       }
       break;
-
     default:
       break;
     }

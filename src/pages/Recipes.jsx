@@ -45,14 +45,6 @@ function Recipes() {
     fetchRecipes();
   }, [food, pathname, setUsualRecipes, setCounter, setCategories]);
 
-  // useEffect(() => {
-  //   // console.log(usualRecipes, counter);
-  //   if (usualRecipes.length === 0) {
-  //     console.log('oi');
-  //     global.alert('Sorry, we haven\'t found any recipes for these filters.');
-  //   }
-  // }, [usualRecipes, counter]);
-
   const handleCategory = async (categoryName) => {
     const path = pathname === '/meals' ? 'themeal' : 'thecocktail';
     const num = 12;
