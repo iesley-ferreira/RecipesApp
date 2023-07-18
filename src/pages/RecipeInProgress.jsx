@@ -31,6 +31,9 @@ function RecipeInProgress() {
   const [shareMessage, setShareMessage] = useState('');
   const [isFavorite, setIsFavorite] = useState(false);
 
+  const [isDisableFinish, setIsDisableFinish] = useState(true);
+  const [ingredientsChecked2, setIngredientsChecked2] = useState({});
+
   // esse useEffect faz a requisição da receita e seta o estado local toda vez que o componente for montado
   useEffect(() => {
     const fetchRecipe = async () => {
@@ -69,12 +72,19 @@ function RecipeInProgress() {
     },
     [recipe, ingredientsChecked],
   );
+  // função que muda o estado isDisableFinish para true ou false
+  useEffect(() => {
+    const ingredientsCheckedValues = ingredients
+      .map((ingredient) => ingredientsChecked2[ingredient]);
+    const isAllChecked = ingredientsCheckedValues.every((check) => check === true);
+    setIsDisableFinish(!isAllChecked);
+  }, [ingredients, ingredientsChecked2]);
 
   // marca ou desmarca o ingrediente
   function checkIngredient(ingredient) {
-    setIngredientsChecked({
-      ...ingredientsChecked,
-      [ingredient]: !ingredientsChecked[ingredient],
+    setIngredientsChecked2({
+      ...ingredientsChecked2,
+      [ingredient]: !ingredientsChecked2[ingredient],
     });
   }
 
@@ -89,16 +99,6 @@ function RecipeInProgress() {
     navigator.clipboard.writeText(path);
     setShareMessage('Link copied!');
   }
-
-  let isDisableFinishRecipe = true;
-  const comparacao = (ingredients.length === Object.values(ingredientsChecked).length);
-
-  if (Object.values(ingredientsChecked).length > 0 && comparacao) {
-    const test = Object.values(ingredientsChecked).some((check) => check === false);
-    isDisableFinishRecipe = test;
-  }
-
-  // função que verifica se a receita está salva nos favoritos e salva ou remove
 
   function handleFavorite() {
     if (isFavorite) {
@@ -183,7 +183,7 @@ function RecipeInProgress() {
       <button
         type="button"
         data-testid="finish-recipe-btn"
-        disabled={ isDisableFinishRecipe }
+        disabled={ isDisableFinish }
         onClick={ () => saveDoneRecipe(recipe) }
       >
         Finish Recipe
