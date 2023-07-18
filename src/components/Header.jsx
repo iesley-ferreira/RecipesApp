@@ -43,7 +43,6 @@ function Header({ showBtn }) {
   //     window.location.href = `${pathname}/${id}`;
   //   }
   // }, [recipes, pathname]);
-
   const redirectToProfile = () => {
     history.push('/profile');
   };

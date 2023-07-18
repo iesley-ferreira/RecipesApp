@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import {
   isInProgress,
   isDone,
-  saveRecipeInProgress,
 } from '../services/saveRecipeInProgress';
+import { saveRecipeInProgress } from '../services/localStorageFuncions';
 import './styles/RecipeFaseButton.css';
 
 export default function RecipeFaseButton(props) {
@@ -15,24 +15,25 @@ export default function RecipeFaseButton(props) {
   // VARIÁVEIS
   const inProgressRecipes = isInProgress(id);
   const finalizado = isDone(id);
+  const direct = `/${type}/${id}/in-progress`;
 
   // USE STATE
-  const [recipeState, setRecipeState] = useState('Start Recipe');
+  const [recipeState, setRecipeState] = useState('Continue Recipe');
 
   useEffect(() => {
-    if (inProgressRecipes || finalizado) {
-      setRecipeState('Already Started');
+    if (finalizado) {
+      setRecipeState('');
     }
   }, [finalizado, inProgressRecipes]);
 
   const makeProgress = (event) => {
     event.preventDefault();
     saveRecipeInProgress(id, ingredients);
-    history.push(`/${type}/:${id}/in-progress`);
+    history.push(direct);
   };
 
   return (
-    recipeState === 'Start Recipe' && (
+    recipeState !== '' && (
       <button
         data-testid="start-recipe-btn"
         className="btnFase"

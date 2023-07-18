@@ -1,13 +1,3 @@
-const saveRecipeInProgress = (id, ingredients) => {
-  const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-
-  const newInProgressRecipes = {
-    ...inProgressRecipes,
-    [id]: ingredients,
-  };
-  localStorage.setItem('inProgressRecipes', JSON.stringify(newInProgressRecipes));
-};
-
 const isInProgress = (id) => {
   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
   if (inProgressRecipes !== null) {
@@ -26,4 +16,4 @@ const isDone = (id) => {
   return null;
 };
 
-export { saveRecipeInProgress, isInProgress, isDone };
+export { isInProgress, isDone };

@@ -3,6 +3,13 @@ import { useState, useEffect } from 'react';
 import SugestionCard from '../components/SugestionCard';
 import RecipeFaseButton from '../components/RecipeFaseButton';
 import { fetchRecipesDetailsApi, fetchRecipesSugestionsApi } from '../services/fetchAPI';
+import {
+  removeFavoriteRecipe,
+  addFavoriteRecipe,
+  isFavoriRecipe,
+} from '../services/localStorageFuncions';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import './styles/RecipeDetails.css';
 
 export default function RecipeDetails() {
@@ -21,6 +28,8 @@ export default function RecipeDetails() {
   const [recipeDetail, setRecipeDetail] = useState([]);
   const [ingredientsAndmeasure, setIngredientsAndmeasure] = useState([]);
   const [recomendation, setRecomendation] = useState([]);
+  const [shareMessage, setShareMessage] = useState([]);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   // UNIR OS INGREDIENTES E QUANTIDADES DA RECEITA EM UM ARRAY
   const ingredientsMeasureFilter = (recipe) => {
@@ -34,11 +43,11 @@ export default function RecipeDetails() {
 
     const ingredientsValues = ingredientsKeys.map((ingredient) => (
       recipe[ingredient]
-    )).filter((element) => element !== null);
+    )).filter((element) => (element !== null && element !== ''));
 
     const measureValues = measureKeys.map((measureElement) => (
       recipe[measureElement]
-    )).filter((element) => element !== null);
+    )).filter((element) => (element !== null && element !== ''));
 
     const obj = ingredientsValues.map((ingredient, index) => {
       if (measureValues[index] !== undefined) {
@@ -60,7 +69,6 @@ export default function RecipeDetails() {
 
     async function fecthRecipeSugestions() {
       const sugestions = await fetchRecipesSugestionsApi(food);
-      console.log(sugestions);
       setRecomendation(sugestions);
     }
 
@@ -70,7 +78,9 @@ export default function RecipeDetails() {
 
   useEffect(() => {
     setIngredientsAndmeasure(ingredientsMeasureFilter(recipeDetail));
-  }, [recipeDetail]);
+    // verifica se a receita está salva nos favoritos
+    setIsFavorite(isFavoriRecipe(correctId));
+  }, [recipeDetail, correctId]);
 
   // CAPTURAR APENAS O ID DO LINK NA API E EMBEDAR COM O LINK DO YOUTUBE
   // O LINK DO YOUTUBE QUE ESTÁ NA API NÃO PERMITE DISPONIBILIZAR O VÍDEO
@@ -83,6 +93,22 @@ export default function RecipeDetails() {
     }
   };
 
+  function share() {
+    const path = window.location.href.replace('/in-progress', '');
+    navigator.clipboard.writeText(path);
+    setShareMessage('Link copied!');
+  }
+
+  function handleFavorite() {
+    if (isFavorite) {
+      removeFavoriteRecipe(id);
+      setIsFavorite(false);
+    } else {
+      addFavoriteRecipe(recipeDetail);
+      setIsFavorite(true);
+    }
+  }
+
   return (
     <>
       <div className="details-img-container">
@@ -94,6 +120,24 @@ export default function RecipeDetails() {
         />
       </div>
       <h1 data-testid="recipe-title">{recipeDetail[foodKey]}</h1>
+      <button
+        type="button"
+        data-testid="share-btn"
+        onClick={ share }
+      >
+        Compartilhar
+      </button>
+      <button
+        type="button"
+        onClick={ handleFavorite }
+      >
+        <img
+          data-testid="favorite-btn"
+          src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+          alt="favorite"
+        />
+      </button>
+      { shareMessage && <p>{ shareMessage }</p> }
 
       {/* EXIBIR A CATEGORIA DO INGREDIENTE */}
       {food === 'meals' ? (
@@ -140,7 +184,7 @@ export default function RecipeDetails() {
       <div className="carousel-sugestions">
         {recomendation.length > 0 && (recomendation.map((recipe, index) => (
           <Link
-            to={ `${invertedFood}/:${recipe[idFoodType]}` }
+            to={ `${invertedFood}/${recipe[idFoodType]}` }
             key={ `${invertedFood}-${recipe[idFoodType]}-${index}` }
           >
             <SugestionCard
