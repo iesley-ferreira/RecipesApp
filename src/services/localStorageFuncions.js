@@ -65,13 +65,22 @@ function addFavoriteRecipe(recipe) {
 
 function saveRecipeInProgress(id, ingredientsChecked) {
   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  let newInProgressRecipes = {};
 
-  const newInProgressRecipes = {
-    ...inProgressRecipes,
-    [id]: ingredientsChecked,
-  };
+  if (!id.includes(':') && ingredientsChecked !== {}) {
+    if (inProgressRecipes) {
+      newInProgressRecipes = {
+        ...inProgressRecipes,
+        [id]: ingredientsChecked,
+      };
+    } else {
+      newInProgressRecipes = {
+        [id]: ingredientsChecked,
+      };
+    }
 
-  localStorage.setItem('inProgressRecipes', JSON.stringify(newInProgressRecipes));
+    localStorage.setItem('inProgressRecipes', JSON.stringify(newInProgressRecipes));
+  }
 }
 
 function isFavoriRecipe(id) {
