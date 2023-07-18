@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 // import profileIcon from '../images/iconePerfil.png';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './styles/Header.css';
 import logoRecipes from '../images/logoRecipes.png';
@@ -13,6 +14,7 @@ import searchIcon from '../images/searchIcon.svg';
 
 function Header({ showBtn }) {
   const { pathname } = window.location;
+  const history = useHistory();
 
   const str = pathname;
   const novaStr = str.replace('/', '').replace(/-/g, ' ').replace(/\b\w/g, (match) => match.toUpperCase());
@@ -42,8 +44,7 @@ function Header({ showBtn }) {
   //   }
   // }, [recipes, pathname]);
   const redirectToProfile = () => {
-    if (pathname === '/profile') return;
-    window.location.href = '/profile';
+    history.push('/profile');
   };
 
   const showSearchInputs = () => {

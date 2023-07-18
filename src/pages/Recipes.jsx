@@ -14,7 +14,7 @@ function Recipes() {
   const {
     usualRecipes,
     setUsualRecipes,
-    counter,
+    // counter,
     setCounter,
     categories,
     setCategories,
@@ -44,14 +44,6 @@ function Recipes() {
     };
     fetchRecipes();
   }, [food, pathname, setUsualRecipes, setCounter, setCategories]);
-
-  // Para redirecionar quando só tiver uma receita
-  useEffect(() => {
-    // console.log(usualRecipes, counter);
-    if (counter > 0 && usualRecipes.length === 0) {
-      global.alert('Sorry, we haven\'t found any recipes for these filters.');
-    }
-  }, [usualRecipes, counter]);
 
   const handleCategory = async (categoryName) => {
     const path = pathname === '/meals' ? 'themeal' : 'thecocktail';

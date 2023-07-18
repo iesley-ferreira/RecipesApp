@@ -1,47 +1,35 @@
 import React from 'react';
-import { screen, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 // import Profile from '../pages/Profile';
 import { act } from 'react-dom/test-utils';
 import { wait } from '@testing-library/user-event/dist/utils';
 import App from '../App';
-// import Profile from '../pages/Profile';
+import Profile from '../pages/Profile';
 import renderWithRouter from '../helpers/renderWithRouter';
 
-describe('Profile', () => {
-  const EMAIL_INPUT = 'email-input';
-  const PASSWORD_INPUT = 'password-input';
-  const LOGIN_BUTTON = 'login-submit-btn';
-  const EMAIL = 'email@gmail.com';
+const doneBtn = 'profile-done-btn';
+const favoriteBtn = 'profile-favorite-btn';
+const logoutBtn = 'profile-logout-btn';
 
+describe('Profile', () => {
   test('Testa se a página renderiza corretamente', async () => {
     const { history } = renderWithRouter(<App />);
-    // act(() => history.push('/profile'));
-
-    // const profileEmail = screen.getByTestId('user-email');
-    // expect(profileEmail).toBeInTheDocument();
-
-    const emailInput = screen.getByTestId(EMAIL_INPUT);
-    const passwordInput = screen.getByTestId(PASSWORD_INPUT);
-    const loginButton = screen.getByTestId(LOGIN_BUTTON);
-
-    userEvent.type(emailInput, EMAIL);
-    userEvent.type(passwordInput, '1234567');
-    userEvent.click(loginButton);
-
-    expect(history.location.pathname).toBe('/meals');
-
-    const profileButton = screen.getByRole('img', { name: /profile icon/i });
+    act(() => history.push('/meals'));
+    const profileButton = screen.getByTestId('profile-top-btn');
 
     act(() => userEvent.click(profileButton));
 
     wait(() => expect(history.location.pathname).toBe('/profile'));
+  });
 
+  test('testa as renderizações', async () => {
+    renderWithRouter(<Profile />);
     await wait(() => {
       const profileEmail = screen.getByTestId('profile-email');
-      const doneRecipesButton = screen.findByTestId('profile-done-btn');
-      const favoriteRecipesButton = screen.findByTestId('profile-favorite-btn');
-      const logoutButton = screen.findByTestId('profile-logout-btn');
+      const doneRecipesButton = screen.findByTestId(doneBtn);
+      const favoriteRecipesButton = screen.findByTestId(favoriteBtn);
+      const logoutButton = screen.findByTestId(logoutBtn);
       const header = screen.findByRole('heading', { name: /profile/i });
       const footerDrinkBtn = screen.findByTestId('drinks-bottom-btn');
       const footerMealsBtn = screen.findByTestId('food-bottom-btn');
@@ -57,51 +45,32 @@ describe('Profile', () => {
   });
 
   test('testa se o botão \'Done Recipes\' tem o comportamento esperado', async () => {
-    const { history } = renderWithRouter(<App />);
-    const emailInput = screen.getByTestId(EMAIL_INPUT);
-    const passwordInput = screen.getByTestId(PASSWORD_INPUT);
-    const loginButton = screen.getByTestId(LOGIN_BUTTON);
+    const { history } = renderWithRouter(<Profile />);
 
-    userEvent.type(emailInput, EMAIL);
-    userEvent.type(passwordInput, '1234567');
-    userEvent.click(loginButton);
+    expect(screen.getByTestId(doneBtn)).toBeInTheDocument();
 
-    expect(history.location.pathname).toBe('/meals');
+    act(() => userEvent.click(screen.getByTestId(doneBtn)));
 
-    const profileButton = screen.getByRole('img', { name: /profile icon/i });
-    act(() => userEvent.click(profileButton));
-
-    waitFor(() => expect(history.location.pathname).toBe('/profile'));
-
-    await waitFor(() => {
-      const doneRecipesButton = screen.getByText(/done recipes/i);
-      act(() => userEvent.click(doneRecipesButton));
-      expect(history.location.pathname).toBe('/receitas-feitas');
-    });
+    expect(history.location.pathname).toBe('/done-recipes');
   });
 
   test('testa se o botão \'Favorite Recipes\' tem o comportamento esperado', async () => {
-    const { history } = renderWithRouter(<App />);
+    const { history } = renderWithRouter(<Profile />);
 
-    const emailInput = screen.getByTestId(EMAIL_INPUT);
-    const passwordInput = screen.getByTestId(PASSWORD_INPUT);
-    const loginButton = screen.getByTestId(LOGIN_BUTTON);
+    expect(screen.getByTestId(favoriteBtn)).toBeInTheDocument();
 
-    userEvent.type(emailInput, EMAIL);
-    userEvent.type(passwordInput, '1234567');
-    userEvent.click(loginButton);
+    act(() => userEvent.click(screen.getByTestId(favoriteBtn)));
 
-    expect(history.location.pathname).toBe('/meals');
+    expect(history.location.pathname).toBe('/favorite-recipes');
+  });
 
-    const profileButton = screen.getByRole('img', { name: /profile icon/i });
-    act(() => userEvent.click(profileButton));
+  test('testa se o botão \'Logout\' tem o comportamento esperado', async () => {
+    const { history } = renderWithRouter(<Profile />);
 
-    wait(() => expect(history.location.pathname).toBe('/profile'));
+    expect(screen.getByTestId(logoutBtn)).toBeInTheDocument();
 
-    await wait(() => {
-      const doneRecipesButton = screen.getByText(/favorite recipes/i);
-      act(() => userEvent.click(doneRecipesButton));
-      expect(history.location.pathname).toBe('/favorite-recipes');
-    });
+    act(() => userEvent.click(screen.getByTestId(logoutBtn)));
+
+    expect(history.location.pathname).toBe('/');
   });
 });

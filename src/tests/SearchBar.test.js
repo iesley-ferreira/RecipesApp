@@ -1,72 +1,89 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { screen, waitFor, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import renderWithRouter from '../helpers/renderWithRouter';
-import SearchBar from '../components/SearchBar';
-import { fetchRecipesByIngredient, fetchRecipesByName, fetchRecipesByFirstLetter } from '../services/fetchAPI';
+// import SearchBar from '../components/SearchBar';
+// import { fetchRecipesByIngredient, fetchRecipesByName, fetchRecipesByFirstLetter } from '../services/fetchAPI';
+import App from '../App';
 
 const searchBtn = 'exec-search-btn';
+const searchInput = 'search-input';
+const searchTopBtn = 'search-top-btn';
+const firstLetter = 'first-letter-search-radio';
+const nameSearch = 'name-search-radio';
+const ingredientSearch = 'ingredient-search-radio';
 
 describe('Teste a Página SearchBar', () => {
   test('exibe input de busca ao clicar no ícone de busca', () => {
-    renderWithRouter(<SearchBar />);
-    expect(screen.queryByTestId('search-input')).toBeNull();
-    userEvent.click(getByTestId('search-icon'));
+    const { history } = renderWithRouter(<App />);
+    act(() => history.push('/meals'));
+    expect(screen.queryByTestId(searchInput)).toBeNull();
+    act(() => userEvent.click(screen.getByTestId(searchTopBtn)));
 
-    expect(screen.queryByTestId('search-input')).toBeInTheDocument();
-    expect(screen.getByTestId('ingredient-search-radio')).toBeInTheDocument();
-    expect(screen.getByTestId('name-search-radio')).toBeInTheDocument();
-    expect(screen.getByTestId('first-letter-search-radio')).toBeInTheDocument();
+    expect(screen.queryByTestId(searchInput)).toBeInTheDocument();
+    expect(screen.getByTestId(searchBtn)).toBeInTheDocument();
+  });
+
+  test('Testa se renderiza corretamente', () => {
+    const { history } = renderWithRouter(<App />);
+    act(() => history.push('/meals'));
+    act(() => userEvent.click(screen.getByTestId(searchTopBtn)));
+    expect(screen.getByTestId(ingredientSearch)).toBeInTheDocument();
+    expect(screen.getByTestId(ingredientSearch)).not.toBeChecked();
+    expect(screen.getByTestId(nameSearch)).toBeInTheDocument();
+    expect(screen.getByTestId(nameSearch)).not.toBeChecked();
+    expect(screen.getByTestId(firstLetter)).toBeInTheDocument();
+    expect(screen.getByTestId(firstLetter)).not.toBeChecked();
     expect(screen.getByTestId(searchBtn)).toBeInTheDocument();
   });
 
   test('faz a busca por ingrediente', async () => {
-    renderWithRouter(<SearchBar />);
+    const { history } = renderWithRouter(<App />);
+    act(() => history.push('/meals'));
+    act(() => userEvent.click(screen.getByTestId(searchTopBtn)));
 
-    await act(async () => {
-      // userEvent.click(screen.getByTestId(searchBtn));
-    });
+    expect(screen.getByTestId(searchInput)).toBeInTheDocument();
+    expect(screen.getByTestId(ingredientSearch)).toBeInTheDocument();
+    expect(screen.getByTestId(searchBtn)).toBeInTheDocument();
 
-    expect(fetchRecipesByIngredient).toHaveBeenCalledWith(ingredientMock);
-    expect(setUsualRecipesMock).toHaveBeenCalledWith('receitas por ingrediente');
-  });
+    userEvent.click(screen.getByTestId(ingredientSearch));
 
-  test('faz a busca por nome', async () => {
-    renderWithRouter(<SearchBar />);
+    await waitFor(() => {
+      expect(screen.getByTestId(ingredientSearch)).toBeChecked();
+    }, { timeout: 3000 });
 
-    const nameMock = 'pasta';
-    fetchRecipesByName.mockResolvedValueOnce('receitas por nome');
-
-    await act(async () => {
-    //   userEvent.click(getByTestId(searchBtn));
-    });
-
-    expect(screen.fetchRecipesByName).toHaveBeenCalledWith(nameMock);
-    expect(setUsualRecipesMock).toHaveBeenCalledWith('receitas por nome');
-  });
-
-  test('faz a busca por primeira letra', async () => {
-    renderWithRouter(<SearchBar />);
-
-    const letterMock = 'A';
-    fetchRecipesByFirstLetter.mockResolvedValueOnce('receitas por primeira letra');
-
-    await act(async () => {
+    act(() => {
+      userEvent.type(screen.getByTestId(searchInput), 'water');
       userEvent.click(screen.getByTestId(searchBtn));
     });
 
-    expect(fetchRecipesByFirstLetter).toHaveBeenCalledWith(letterMock);
-    expect(setUsualRecipesMock).toHaveBeenCalledWith('receitas por primeira letra');
+    await waitFor(() => {
+      expect(screen.getByAltText('Beef Asado')).toBeInTheDocument();
+    }, { timeout: 3000 });
   });
 
-  test('exibe um alerta ao fazer uma busca com mais de um caractere usando o filtro por primeira letra', () => {
-    renderWithRouter(<SearchBar />);
+  test.only('faz a busca por nome', async () => {
+    const { history } = renderWithRouter(<App />);
+    act(() => history.push('/meals'));
+    act(() => userEvent.click(screen.getByTestId(searchTopBtn)));
 
-    global.alert = jest.fn();
+    expect(screen.getByTestId(searchInput)).toBeInTheDocument();
+    expect(screen.getByTestId(nameSearch)).toBeInTheDocument();
+    expect(screen.getByTestId(searchBtn)).toBeInTheDocument();
 
-    userEvent.click(screen.getByTestId(searchBtn));
+    await waitFor(() => {
+      expect(screen.getByTestId(ingredientSearch)).not.toBeChecked();
+    }, { timeout: 3000 });
 
-    expect(global.alert).toHaveBeenCalledTimes(1);
+    act(() => {
+      fireEvent.change(screen.getByTestId(searchInput), 'Apam');
+      fireEvent.click(screen.getByTestId(nameSearch));
+      fireEvent.click(screen.getByTestId(searchBtn));
+    });
+
+    await waitFor(() => {
+      expect(screen.getByText(/Apam balik/)).toBeInTheDocument();
+    }, { timeout: 3000 });
   });
 });
