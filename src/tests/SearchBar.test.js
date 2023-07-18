@@ -12,6 +12,7 @@ const searchInput = 'search-input';
 const searchTopBtn = 'search-top-btn';
 const firstLetter = 'first-letter-search-radio';
 const nameSearch = 'name-search-radio';
+const ingredientSearch = 'ingredient-search-radio';
 
 describe('Teste a Página SearchBar', () => {
   test('exibe input de busca ao clicar no ícone de busca', () => {
@@ -28,8 +29,8 @@ describe('Teste a Página SearchBar', () => {
     const { history } = renderWithRouter(<App />);
     act(() => history.push('/meals'));
     act(() => userEvent.click(screen.getByTestId(searchTopBtn)));
-    expect(screen.getByTestId('ingredient-search-radio')).toBeInTheDocument();
-    expect(screen.getByTestId('ingredient-search-radio')).not.toBeChecked();
+    expect(screen.getByTestId(ingredientSearch)).toBeInTheDocument();
+    expect(screen.getByTestId(ingredientSearch)).not.toBeChecked();
     expect(screen.getByTestId(nameSearch)).toBeInTheDocument();
     expect(screen.getByTestId(nameSearch)).not.toBeChecked();
     expect(screen.getByTestId(firstLetter)).toBeInTheDocument();
@@ -43,13 +44,13 @@ describe('Teste a Página SearchBar', () => {
     act(() => userEvent.click(screen.getByTestId(searchTopBtn)));
 
     expect(screen.getByTestId(searchInput)).toBeInTheDocument();
-    expect(screen.getByTestId('ingredient-search-radio')).toBeInTheDocument();
+    expect(screen.getByTestId(ingredientSearch)).toBeInTheDocument();
     expect(screen.getByTestId(searchBtn)).toBeInTheDocument();
 
-    userEvent.click(screen.getByTestId('ingredient-search-radio'));
+    userEvent.click(screen.getByTestId(ingredientSearch));
 
     await waitFor(() => {
-      expect(screen.getByTestId('ingredient-search-radio')).toBeChecked();
+      expect(screen.getByTestId(ingredientSearch)).toBeChecked();
     }, { timeout: 3000 });
 
     act(() => {
@@ -72,7 +73,7 @@ describe('Teste a Página SearchBar', () => {
     expect(screen.getByTestId(searchBtn)).toBeInTheDocument();
 
     await waitFor(() => {
-      expect(screen.getByTestId('ingredient-search-radio')).not.toBeChecked();
+      expect(screen.getByTestId(ingredientSearch)).not.toBeChecked();
     }, { timeout: 3000 });
 
     act(() => {
