@@ -5,6 +5,7 @@ import { act } from 'react-dom/test-utils';
 // import { createMemoryHistory } from 'history';
 // import { Router } from 'react-router-dom';
 import renderWithRouter from '../helpers/renderWithRouter';
+import renderPath from '../helpers/renderPath';
 import App from '../App';
 
 const idSearchBtn = 'search-top-btn';
@@ -13,9 +14,8 @@ const idProfileBtn = 'profile-top-btn';
 const pageTitle = 'page-title';
 
 describe('Header', () => {
-  test.only('renderiza corretamente a página de Meals', () => {
-    const { history } = renderWithRouter(<App />);
-    act(() => history.push('/meals'));
+  test('renderiza corretamente a página de Meals', () => {
+    renderPath('/meals');
 
     expect(screen.getByAltText('Meals')).toBeInTheDocument();
     expect(screen.getByTestId(idSearchBtn)).toBeInTheDocument();
@@ -26,8 +26,7 @@ describe('Header', () => {
   });
 
   test('renderiza corretamente a página de Drinks', () => {
-    const { history } = renderWithRouter(<App />);
-    act(() => history.push('/drinks'));
+    renderPath('/drinks');
 
     expect(screen.getByAltText('Drinks')).toBeInTheDocument();
     expect(screen.getByTestId(idSearchBtn)).toBeInTheDocument();
