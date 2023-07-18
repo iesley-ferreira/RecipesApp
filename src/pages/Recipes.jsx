@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import Card from '../components/Card';
 import Footer from '../components/Footer';
@@ -19,6 +19,7 @@ function Recipes() {
     categories,
     setCategories,
   } = useContext(receitasContext);
+  const [filter, setFilter] = useState('');
 
   const food = pathname === '/meals' ? 'meals' : 'drinks';
   const idFood = pathname === '/meals' ? 'idMeal' : 'idDrink';
@@ -45,15 +46,6 @@ function Recipes() {
     fetchRecipes();
   }, [food, pathname, setUsualRecipes, setCounter, setCategories]);
 
-  const handleCategory = async (categoryName) => {
-    const path = pathname === '/meals' ? 'themeal' : 'thecocktail';
-    const num = 12;
-    const response = await fetch(`https://www.${path}db.com/api/json/v1/1/filter.php?c=${categoryName}`);
-    const data = await response.json();
-    const recipes = data[food].splice(0, num);
-    setUsualRecipes(recipes);
-  };
-
   const handleAll = async () => {
     const path = pathname === '/meals' ? 'themeal' : 'thecocktail';
     const num = 12;
@@ -61,6 +53,22 @@ function Recipes() {
     const data = await response.json();
     const filterCategory = data[food].splice(0, num);
     setUsualRecipes(filterCategory);
+  };
+
+  const handleCategory = async (categoryName) => {
+    const path = pathname === '/meals' ? 'themeal' : 'thecocktail';
+    const num = 12;
+
+    if (categoryName !== filter) {
+      const response = await fetch(`https://www.${path}db.com/api/json/v1/1/filter.php?c=${categoryName}`);
+      const data = await response.json();
+      const recipes = data[food].splice(0, num);
+      setUsualRecipes(recipes);
+      setFilter(categoryName);
+    } else {
+      handleAll();
+      setFilter('');
+    }
   };
 
   return (
