@@ -28,6 +28,8 @@ function saveDoneRecipe(recipe) {
     );
   }
 
+  localStorage.removeItem('inProgressRecipes');
+
   window.location.href = '/done-recipes';
 }
 
