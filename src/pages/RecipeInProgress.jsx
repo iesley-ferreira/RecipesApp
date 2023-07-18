@@ -162,7 +162,7 @@ function RecipeInProgress() {
               htmlFor={ ingredient }
               data-testid={ `${index}-ingredient-step` }
               className={ (
-                ingredientsChecked[ingredient] ? 'ingredient-checked' : 'null'
+                ingredientsChecked2[ingredient] ? 'ingredient-checked' : 'null'
               ) }
             >
               {ingredient}
