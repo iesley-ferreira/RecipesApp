@@ -28,7 +28,7 @@ export default function RecipeDetails() {
   const [recipeDetail, setRecipeDetail] = useState([]);
   const [ingredientsAndmeasure, setIngredientsAndmeasure] = useState([]);
   const [recomendation, setRecomendation] = useState([]);
-  const [shareMessage, setShareMessage] = useState([]);
+  const [shareMessage, setShareMessage] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
 
   // UNIR OS INGREDIENTES E QUANTIDADES DA RECEITA EM UM ARRAY
@@ -96,7 +96,7 @@ export default function RecipeDetails() {
   function share() {
     const path = window.location.href.replace('/in-progress', '');
     navigator.clipboard.writeText(path);
-    setShareMessage('Link copied!');
+    setShareMessage(true);
   }
 
   function handleFavorite() {
@@ -137,7 +137,7 @@ export default function RecipeDetails() {
           alt="favorite"
         />
       </button>
-      { shareMessage && <p>{ shareMessage }</p> }
+      { shareMessage && <p>Link copied!</p> }
 
       {/* EXIBIR A CATEGORIA DO INGREDIENTE */}
       {food === 'meals' ? (
