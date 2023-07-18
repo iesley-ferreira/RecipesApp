@@ -13,10 +13,9 @@ function DoneRecipes() {
 
   useEffect(() => {
     const doneRecipesLocalStorage = localStorage.getItem('doneRecipes');
-    if (doneRecipesLocalStorage !== null) {
-      const doneRecipesDataParsed = JSON.parse(doneRecipesLocalStorage);
-      setDoneRecipesData(doneRecipesDataParsed);
-    }
+    const doneRecipesDataParsed = JSON.parse(doneRecipesLocalStorage);
+    setDoneRecipesData(doneRecipesDataParsed);
+    setFillDoneRecipes(doneRecipesDataParsed);
   }, []);
 
   const filterByCategory = (event) => {
@@ -39,7 +38,6 @@ function DoneRecipes() {
             data-testid="filter-by-all-btn"
             type="button"
             name="all"
-            value="all"
             onClick={ (event) => filterByCategory(event) }
           >
             <img src={ iconFastFood } alt="all" />
@@ -69,23 +67,13 @@ function DoneRecipes() {
       </div>
       <div className="doneRecipes-card-container">
         {
-          fillDoneRecipes.length === 0 ? (
-            doneRecipesData.map((data, index) => (
-              <DoneRecipeCard
-                key={ index }
-                recipe={ data }
-                position={ index }
-              />
-            ))
-          ) : (
-            fillDoneRecipes.map((data, index) => (
-              <DoneRecipeCard
-                key={ index }
-                recipe={ data }
-                position={ index }
-              />
-            ))
-          )
+          fillDoneRecipes.map((data, index) => (
+            <DoneRecipeCard
+              key={ index }
+              recipe={ data }
+              position={ index }
+            />
+          ))
         }
       </div>
       <Footer />

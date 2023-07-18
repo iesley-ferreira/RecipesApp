@@ -6,6 +6,15 @@
   margin-top: 20px;
 }
 
+.favorite-cards-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
+  padding-bottom: 70px;
+}
+
 .favoriteRecipes-categories-container button {
   background-color: transparent;
   border: 0.08cm solid #fcc436;

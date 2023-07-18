@@ -29,14 +29,14 @@ function Profile() {
         <div className="profile-buttons-container">
           <button
             data-testid="profile-done-btn"
-            onClick={ () => handleLogout('/done-recipes') }
+            onClick={ history.push('/done-recipes') }
           >
             <img src={ doneRecipes } alt="done-recipes" />
             <p>Done Recipes</p>
           </button>
           <button
             data-testid="profile-favorite-btn"
-            onClick={ () => handleLogout('/favorite-recipes') }
+            onClick={ history.push('/favorite-recipes') }
           >
             <img src={ favoriteRecipes } alt="done-recipes" />
             <p>Favorite Recipes</p>
