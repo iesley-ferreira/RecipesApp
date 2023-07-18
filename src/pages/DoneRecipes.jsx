@@ -13,8 +13,10 @@ function DoneRecipes() {
 
   useEffect(() => {
     const doneRecipesLocalStorage = localStorage.getItem('doneRecipes');
-    const doneRecipesDataParsed = JSON.parse(doneRecipesLocalStorage);
-    setDoneRecipesData(doneRecipesDataParsed);
+    if (doneRecipesLocalStorage !== null) {
+      const doneRecipesDataParsed = JSON.parse(doneRecipesLocalStorage);
+      setDoneRecipesData(doneRecipesDataParsed);
+    }
   }, []);
 
   const filterByCategory = (event) => {

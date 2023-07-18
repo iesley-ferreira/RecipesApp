@@ -12,7 +12,8 @@ import iconePrato from '../images/iconePrato.png';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
-function Header({ showBtn }) {
+function Header(props) {
+  const { showBtn } = props;
   const { pathname } = window.location;
   const history = useHistory();
 
