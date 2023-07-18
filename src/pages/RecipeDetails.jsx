@@ -69,7 +69,6 @@ export default function RecipeDetails() {
 
     async function fecthRecipeSugestions() {
       const sugestions = await fetchRecipesSugestionsApi(food);
-      console.log(sugestions);
       setRecomendation(sugestions);
     }
 
@@ -185,7 +184,7 @@ export default function RecipeDetails() {
       <div className="carousel-sugestions">
         {recomendation.length > 0 && (recomendation.map((recipe, index) => (
           <Link
-            to={ `${invertedFood}/:${recipe[idFoodType]}` }
+            to={ `${invertedFood}/${recipe[idFoodType]}` }
             key={ `${invertedFood}-${recipe[idFoodType]}-${index}` }
           >
             <SugestionCard

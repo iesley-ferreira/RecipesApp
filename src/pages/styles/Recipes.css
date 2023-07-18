@@ -17,6 +17,10 @@
   margin: 15px 0;
 }
 
+.cards-container a {
+  text-decoration: none;
+}
+
 .title-container {
   align-items: center;
   display: flex;
