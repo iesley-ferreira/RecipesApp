@@ -1,8 +1,6 @@
-import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
-  isInProgress,
   isDone,
 } from '../services/saveRecipeInProgress';
 import { saveRecipeInProgress } from '../services/localStorageFuncions';
@@ -13,18 +11,14 @@ export default function RecipeFaseButton(props) {
   const history = useHistory();
 
   // VARIÁVEIS
-  const inProgressRecipes = isInProgress(id);
+  // const inProgressRecipes = isInProgress(id);
   const finalizado = isDone(id);
   const direct = `/${type}/${id}/in-progress`;
+  let recipe = 'Continue Recipe';
 
-  // USE STATE
-  const [recipeState, setRecipeState] = useState('Continue Recipe');
-
-  useEffect(() => {
-    if (finalizado) {
-      setRecipeState('');
-    }
-  }, [finalizado, inProgressRecipes]);
+  if (finalizado) {
+    recipe = '';
+  }
 
   const makeProgress = (event) => {
     event.preventDefault();
@@ -33,13 +27,13 @@ export default function RecipeFaseButton(props) {
   };
 
   return (
-    recipeState !== '' && (
+    recipe !== '' && (
       <button
         data-testid="start-recipe-btn"
         className="btnFase"
         onClick={ makeProgress }
       >
-        {recipeState}
+        {recipe}
       </button>
     )
   );
