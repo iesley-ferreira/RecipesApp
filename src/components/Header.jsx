@@ -28,6 +28,7 @@ function Header(props) {
 
   const redirectToProfile = () => {
     history.push('/profile');
+    console.log('profile');
   };
 
   const showSearchInputs = () => {

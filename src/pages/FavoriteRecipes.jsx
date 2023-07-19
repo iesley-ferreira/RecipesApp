@@ -14,7 +14,6 @@ function FavoriteRecipes() {
   useEffect(() => {
     const favoriteRecipesLocalStorage = localStorage.getItem('favoriteRecipes') || '[]';
     const favoriteRecipesDataParsed = JSON.parse(favoriteRecipesLocalStorage);
-    console.log(favoriteRecipesDataParsed);
     setFavoriteRecipesData(favoriteRecipesDataParsed);
     setFillFavoriteRecipes(favoriteRecipesDataParsed);
   }, []);

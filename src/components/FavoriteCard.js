@@ -79,7 +79,16 @@ FavoriteCard.propTypes = {
     image: PropTypes.string,
     alcoholicOrNot: PropTypes.string,
   }).isRequired,
-  fillFavoriteRecipes: PropTypes.arrayOf().isRequired,
+  fillFavoriteRecipes: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.string,
+      type: PropTypes.string,
+      category: PropTypes.string,
+      image: PropTypes.string,
+      alcoholicOrNot: PropTypes.string,
+    }),
+  ).isRequired,
   setFillFavoriteRecipes: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired,
 };

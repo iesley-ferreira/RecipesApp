@@ -23,20 +23,20 @@ function Profile() {
 
   return (
     <div className="profile-page-container">
-      <Header title="Profile" />
+      <Header showBtn={ false } title="Profile" />
       <main className="profile-container">
         <h4 data-testid="profile-email">{ userEmail }</h4>
         <div className="profile-buttons-container">
           <button
             data-testid="profile-done-btn"
-            onClick={ history.push('/done-recipes') }
+            onClick={ () => (history.push('/done-recipes')) }
           >
             <img src={ doneRecipes } alt="done-recipes" />
             <p>Done Recipes</p>
           </button>
           <button
             data-testid="profile-favorite-btn"
-            onClick={ history.push('/favorite-recipes') }
+            onClick={ () => (history.push('/favorite-recipes')) }
           >
             <img src={ favoriteRecipes } alt="done-recipes" />
             <p>Favorite Recipes</p>
