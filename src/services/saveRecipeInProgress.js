@@ -11,7 +11,7 @@ const isDone = (id) => {
   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
   if (doneRecipes !== null) {
     const arrayId = doneRecipes.map((element) => element.id === id);
-    return arrayId;
+    return arrayId.includes(true);
   }
   return null;
 };

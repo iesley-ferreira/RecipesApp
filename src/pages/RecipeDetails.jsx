@@ -1,5 +1,6 @@
 import { useLocation, useParams, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import copy from 'clipboard-copy';
 import SugestionCard from '../components/SugestionCard';
 import RecipeFaseButton from '../components/RecipeFaseButton';
 import { fetchRecipesDetailsApi, fetchRecipesSugestionsApi } from '../services/fetchAPI';
@@ -94,8 +95,7 @@ export default function RecipeDetails() {
   };
 
   function share() {
-    const path = window.location.href.replace('/in-progress', '');
-    navigator.clipboard.writeText(path);
+    copy(`http://localhost:3000/${food}/${id}`);
     setShareMessage(true);
   }
 

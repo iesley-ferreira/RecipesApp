@@ -17,7 +17,7 @@ const mockRecipes = [
 ];
 
 describe('Teste a Página Recipes', () => {
-  it('testa se há os cards de receitas', async () => {
+  test('testa se há os cards de receitas', async () => {
     const { history } = renderWithRouter(<App />);
     act(() => history.push('/meals'));
     await waitFor(async () => {

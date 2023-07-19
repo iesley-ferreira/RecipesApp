@@ -29,10 +29,6 @@ function SearchBar() {
       return;
     }
 
-    // if ( === null) {
-    //   global.alert('Sorry, we haven\'t found any recipes for these filters.');
-    // }
-
     const { pathname } = window.location;
 
     const idPath = pathname === '/meals' ? 'idMeal' : 'idDrink';

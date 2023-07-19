@@ -4,25 +4,27 @@ import iconePrato from '../images/iconePrato.png';
 import iconFastFood from '../images/iconFastFood.png';
 import Header from '../components/Header';
 import './styles/FavoriteRecipes.css';
+import FavoriteCard from '../components/FavoriteCard';
+import Footer from '../components/Footer';
 
 function FavoriteRecipes() {
   const [favoriteRecipesData, setFavoriteRecipesData] = useState([]);
   const [fillFavoriteRecipes, setFillFavoriteRecipes] = useState([]);
 
   useEffect(() => {
-    const favoriteRecipesLocalStorage = localStorage.getItem('favoriteRecipes');
+    const favoriteRecipesLocalStorage = localStorage.getItem('favoriteRecipes') || '[]';
     const favoriteRecipesDataParsed = JSON.parse(favoriteRecipesLocalStorage);
-    console.log(favoriteRecipesDataParsed);
     setFavoriteRecipesData(favoriteRecipesDataParsed);
+    setFillFavoriteRecipes(favoriteRecipesDataParsed);
   }, []);
 
-  const filterByCategory = (category) => {
-    if (category === 'all') {
+  const filterByCategory = (event) => {
+    const { alt } = event.target;
+    if (alt === 'all') {
       setFillFavoriteRecipes(favoriteRecipesData);
-      console.log(fillFavoriteRecipes);
     } else {
       const filteredRecipes = favoriteRecipesData
-        .filter((recipe) => recipe.type === category);
+        .filter((recipe) => recipe.type === alt);
       setFillFavoriteRecipes(filteredRecipes);
     }
   };
@@ -36,9 +38,9 @@ function FavoriteRecipes() {
             data-testid="filter-by-all-btn"
             type="button"
             name="all"
-            onClick={ ({ name }) => filterByCategory(name) }
+            onClick={ (event) => filterByCategory(event) }
           >
-            <img src={ iconFastFood } alt="all icon" />
+            <img src={ iconFastFood } alt="all" />
           </button>
           All
         </div>
@@ -46,9 +48,9 @@ function FavoriteRecipes() {
           <button
             data-testid="filter-by-meal-btn"
             type="button"
-            onClick={ ({ name }) => filterByCategory(name) }
+            onClick={ (event) => filterByCategory(event) }
           >
-            <img src={ iconePrato } alt="meal icon" />
+            <img src={ iconePrato } alt="meal" />
           </button>
           Meals
         </div>
@@ -56,25 +58,25 @@ function FavoriteRecipes() {
           <button
             data-testid="filter-by-drink-btn"
             type="button"
-            onClick={ ({ name }) => filterByCategory(name) }
+            onClick={ (event) => filterByCategory(event) }
           >
-            <img src={ iconeBebida } alt="" />
+            <img src={ iconeBebida } alt="drink" />
           </button>
           Drinks
         </div>
       </div>
-      <div>
+      <div className="favorite-cards-container">
         { fillFavoriteRecipes.map((recipe, index) => (
-          <div key={ index }>
-            <img src={ recipe.image } alt={ recipe.name } />
-            <p data-testid={ `${index}-horizontal-top-text` }>
-              { recipe.type === 'comida'
-                ? `${recipe.area} - ${recipe.category}`
-                : recipe.alcoholicOrNot }
-            </p>
-          </div>
+          <FavoriteCard
+            key={ recipe.id }
+            recipe={ recipe }
+            index={ index }
+            fillFavoriteRecipes={ fillFavoriteRecipes }
+            setFillFavoriteRecipes={ setFillFavoriteRecipes }
+          />
         ))}
       </div>
+      <Footer />
     </div>
   );
 }

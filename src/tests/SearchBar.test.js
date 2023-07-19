@@ -63,7 +63,7 @@ describe('Teste a Página SearchBar', () => {
     }, { timeout: 3000 });
   });
 
-  test.only('faz a busca por nome', async () => {
+  test('faz a busca por nome', async () => {
     const { history } = renderWithRouter(<App />);
     act(() => history.push('/meals'));
     act(() => userEvent.click(screen.getByTestId(searchTopBtn)));
@@ -85,5 +85,28 @@ describe('Teste a Página SearchBar', () => {
     await waitFor(() => {
       expect(screen.getByText(/Apam balik/)).toBeInTheDocument();
     }, { timeout: 3000 });
+  });
+
+  test('faz a busca por primeira letra', async () => {
+    const { history } = renderWithRouter(<App />);
+    act(() => history.push('/meals'));
+    act(() => userEvent.click(screen.getByTestId(searchTopBtn)));
+
+    expect(screen.getByTestId(searchInput)).toBeInTheDocument();
+    expect(screen.getByTestId(firstLetter)).toBeInTheDocument();
+    expect(screen.getByTestId(searchBtn)).toBeInTheDocument();
+
+    await waitFor(() => {
+      expect(screen.getByTestId(firstLetter)).not.toBeChecked();
+    }, { timeout: 3000 });
+
+    act(() => {
+      fireEvent.change(screen.getByTestId(searchInput), 'AB');
+      fireEvent.click(screen.getByTestId(firstLetter));
+      fireEvent.click(screen.getByTestId(searchBtn));
+    });
+    expect(global.alert).toHaveBeenCalledWith('Your search must have only 1 (one) character');
+
+    // expect(screen.getByText(/'Your search must have only 1 (one) character'/)).toBeInTheDocument();
   });
 });

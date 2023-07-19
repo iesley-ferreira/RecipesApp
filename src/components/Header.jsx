@@ -12,7 +12,8 @@ import iconePrato from '../images/iconePrato.png';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
-function Header({ showBtn }) {
+function Header(props) {
+  const { showBtn } = props;
   const { pathname } = window.location;
   const history = useHistory();
 
@@ -25,26 +26,9 @@ function Header({ showBtn }) {
     setShowInput,
   } = useContext(receitasContext);
 
-  // const recipes = usualRecipes;
-
-  // redireciona para a página de detalhes da receita caso só tenha uma receita
-  // useEffect(() => {
-  //   let array = [];
-  //   if (recipes) {
-  //     array = recipes.meals || recipes.drinks;
-  //   }
-
-  //   if (array && array.length === 1) {
-  //     let id = 0;
-  //     if (pathname === '/meals') {
-  //       id = array[0].idMeal;
-  //     } else { id = array[0].idDrink; }
-
-  //     window.location.href = `${pathname}/${id}`;
-  //   }
-  // }, [recipes, pathname]);
   const redirectToProfile = () => {
     history.push('/profile');
+    console.log('profile');
   };
 
   const showSearchInputs = () => {

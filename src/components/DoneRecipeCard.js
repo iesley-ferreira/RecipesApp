@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom/cjs/react-router-dom';
+import { Link } from 'react-router-dom/';
 import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
 import { useState } from 'react';
