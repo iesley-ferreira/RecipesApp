@@ -13,9 +13,11 @@ function DoneRecipes() {
 
   useEffect(() => {
     const doneRecipesLocalStorage = localStorage.getItem('doneRecipes');
-    const doneRecipesDataParsed = JSON.parse(doneRecipesLocalStorage);
-    setDoneRecipesData(doneRecipesDataParsed);
-    setFillDoneRecipes(doneRecipesDataParsed);
+    if (doneRecipesLocalStorage !== null) {
+      const doneRecipesDataParsed = JSON.parse(doneRecipesLocalStorage);
+      setDoneRecipesData(doneRecipesDataParsed);
+      setFillDoneRecipes(doneRecipesDataParsed);
+    }
   }, []);
 
   const filterByCategory = (event) => {
@@ -66,7 +68,7 @@ function DoneRecipes() {
         </div>
       </div>
       <div className="doneRecipes-card-container">
-        {
+        { fillDoneRecipes && (
           fillDoneRecipes.map((data, index) => (
             <DoneRecipeCard
               key={ index }
@@ -74,7 +76,7 @@ function DoneRecipes() {
               position={ index }
             />
           ))
-        }
+        )}
       </div>
       <Footer />
     </div>
