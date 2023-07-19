@@ -21,14 +21,12 @@ function Header(props) {
   const novaStr = str.replace('/', '').replace(/-/g, ' ').replace(/\b\w/g, (match) => match.toUpperCase());
 
   const {
-    // usualRecipes,
     showInput,
     setShowInput,
   } = useContext(receitasContext);
 
   const redirectToProfile = () => {
     history.push('/profile');
-    console.log('profile');
   };
 
   const showSearchInputs = () => {

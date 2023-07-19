@@ -7,8 +7,6 @@ function Card(props) {
   const foodName = option === '/meals' ? 'strMeal' : 'strDrink';
   const foodThumb = option === '/meals' ? 'strMealThumb' : 'strDrinkThumb';
 
-  // console.log(foodName, foodThumb, option, recipe);
-
   return (
     <div className="card-container" data-testid={ `${index}-recipe-card` }>
       <div className="card-img">
