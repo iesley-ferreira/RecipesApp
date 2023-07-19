@@ -12,7 +12,6 @@ import RecipeDetails from './pages/RecipeDetails';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import Profile from './pages/Profile';
-import Details from './pages/Details';
 import NotFound from './pages/NotFound';
 import ReceitasProvider from './context/ReceitasProvider';
 import RecipeInProgress from './pages/RecipeInProgress';
@@ -35,7 +34,6 @@ function App() {
           component={ RecipeInProgress }
         />
         <Route path="/profile" component={ Profile } />
-        <Route path="/detalhes" component={ Details } />
         <Route path="/done-recipes" component={ DoneRecipes } />
         <Route path="/favorite-recipes" component={ FavoriteRecipes } />
         <Route path="*" component={ NotFound } />
