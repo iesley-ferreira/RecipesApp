@@ -2,8 +2,9 @@ import { Link } from 'react-router-dom/';
 import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
 import { useState } from 'react';
-import shareIcon from '../images/shareIcon.svg';
+// import shareIcon from '../images/shareIcon.svg';
 import './styles/DoneRecipeCard.css';
+import shareIcon from '../images/Share.png';
 
 function DoneRecipeCard(props) {
   const { recipe, position } = props;

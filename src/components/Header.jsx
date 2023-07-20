@@ -1,16 +1,18 @@
 import { useContext } from 'react';
-// import profileIcon from '../images/iconePerfil.png';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import profileIcon from '../images/iconePerfil.png';
 import './styles/Header.css';
 import logoRecipes from '../images/logoRecipes.png';
 import iconeRecipes2 from '../images/iconeRecipes2.png';
-// import iconePesquisar from '../images/iconePesquisar.png';
+import searchIcon from '../images/iconePesquisar.png';
 import receitasContext from '../context/ReceitasContext';
-import iconeBebida from '../images/iconeBebida.png';
+import PageDrink from '../images/PageDrink.png';
 import iconePrato from '../images/iconePrato.png';
-import profileIcon from '../images/profileIcon.svg';
-import searchIcon from '../images/searchIcon.svg';
+// import profileIcon from '../images/profileIcon.svg';
+// import searchIcon from '../images/searchIcon.svg';
+import Favorites from '../images/Favorites.png';
+import DoneRecipes from '../images/DoneRecipes.png';
 
 function Header(props) {
   const { showBtn } = props;
@@ -33,8 +35,25 @@ function Header(props) {
     setShowInput(!showInput);
   };
 
-  const title = pathname === '/meals' ? 'Meals' : 'Drinks';
-  const icon = pathname === '/meals' ? iconePrato : iconeBebida;
+  // const title = pathname === '/meals' ? 'Meals' : 'Drinks';
+  // const icon = pathname === '/meals' ? iconePrato : iconeBebida;
+
+  const getHeaderImage = (title) => {
+    switch (title) {
+    case 'Meals':
+      return iconePrato;
+    case 'Drinks':
+      return PageDrink;
+    case 'Favorite Recipes':
+      return Favorites;
+    case 'Profile':
+      return profileIcon;
+    case 'Done Recipes':
+      return DoneRecipes;
+    default:
+      return '';
+    }
+  };
 
   return (
     <div className="header-container">
@@ -65,7 +84,8 @@ function Header(props) {
         </header>
       </div>
       <div className="title-container">
-        <img alt={ title } src={ icon } />
+        <img src={ getHeaderImage(novaStr) } alt={ novaStr } />
+        {console.log(novaStr)}
         <h1 data-testid="page-title">{ novaStr }</h1>
       </div>
     </div>
