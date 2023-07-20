@@ -1,5 +1,6 @@
 import { useLocation, useParams, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import copy from 'clipboard-copy';
 import SugestionCard from '../components/SugestionCard';
 import RecipeFaseButton from '../components/RecipeFaseButton';
 import { fetchRecipesDetailsApi, fetchRecipesSugestionsApi } from '../services/fetchAPI';
@@ -28,7 +29,7 @@ export default function RecipeDetails() {
   const [recipeDetail, setRecipeDetail] = useState([]);
   const [ingredientsAndmeasure, setIngredientsAndmeasure] = useState([]);
   const [recomendation, setRecomendation] = useState([]);
-  const [shareMessage, setShareMessage] = useState([]);
+  const [shareMessage, setShareMessage] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
 
   // UNIR OS INGREDIENTES E QUANTIDADES DA RECEITA EM UM ARRAY
@@ -94,9 +95,8 @@ export default function RecipeDetails() {
   };
 
   function share() {
-    const path = window.location.href.replace('/in-progress', '');
-    navigator.clipboard.writeText(path);
-    setShareMessage('Link copied!');
+    copy(`http://localhost:3000/${food}/${id}`);
+    setShareMessage(true);
   }
 
   function handleFavorite() {
@@ -111,62 +111,95 @@ export default function RecipeDetails() {
 
   return (
     <>
-      <div className="details-img-container">
-        {/* EXIBIR A IMAGEM DO PRATO OU DRINK */}
+      {/* EXIBIR A IMAGEM DO PRATO OU DRINK */}
+      <div className="photo-title-container">
         <img
           src={ recipeDetail[`${foodKey}Thumb`] }
           alt={ recipeDetail[foodKey] }
           data-testid="recipe-photo"
+          className="recipe-photo"
         />
+        <h1
+          data-testid="recipe-title"
+          className="recipe-title"
+        >
+          {recipeDetail[foodKey]}
+        </h1>
       </div>
-      <h1 data-testid="recipe-title">{recipeDetail[foodKey]}</h1>
+      {/* BOTÕES FAVORITAR E COMPARTILHAR */}
       <button
-        type="button"
-        data-testid="share-btn"
         onClick={ share }
       >
-        Compartilhar
+        <img
+          data-testid="share-btn"
+          className="share-btn"
+          src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+          alt="share"
+        />
       </button>
       <button
-        type="button"
         onClick={ handleFavorite }
       >
         <img
+          className="favorite-btn"
           data-testid="favorite-btn"
           src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
           alt="favorite"
         />
       </button>
-      { shareMessage && <p>{ shareMessage }</p> }
+      { shareMessage && <p>Link copied!</p> }
 
       {/* EXIBIR A CATEGORIA DO INGREDIENTE */}
       {food === 'meals' ? (
-        <h3 data-testid="recipe-category">{recipeDetail.strCategory}</h3>
-      ) : (<h3 data-testid="recipe-category">{recipeDetail.strAlcoholic}</h3>)}
+        <div>
+          <h3
+            data-testid="recipe-category"
+            className="category"
+          >
+            {recipeDetail.strCategory}
+          </h3>
+        </div>
+      ) : (
+        <div>
+          <h3
+            data-testid="recipe-category"
+            className="category"
+          >
+            {recipeDetail.strAlcoholic}
+          </h3>
+        </div>
+      )}
 
       {/* EXIBIR O ARRAY DE INGREDIENTES E QUANTIDADES */}
-      {ingredientsAndmeasure.map((element, index) => (
-        <p
-          data-testid={ `${index}-ingredient-name-and-measure` }
-          key={ `${index}-ingredient-name-and-measure` }
-        >
-          {element}
-        </p>
-      ))}
+      <div className="main-detail-container">
+        <h1 className="ingredients-title"> Ingredients </h1>
+        <div className="ingredients-container">
+          {ingredientsAndmeasure.map((element, index) => (
+            <li
+              data-testid={ `${index}-ingredient-name-and-measure` }
+              key={ `${index}-ingredient-name-and-measure` }
+            >
+              {element}
+            </li>
+          ))}
+        </div>
 
-      {/* INSTRUÇÕES DE PREPARO */}
-      <p data-testid="instructions">{recipeDetail.strInstructions}</p>
-
-      {/* VÍDEO DO YOUTUBE */}
-      <div className="details-iframe-container">
-        {food === 'meals' ? (
-          <iframe
-            width="560"
-            height="315"
-            src={ getYoutubeVideoId(recipeDetail.strYoutube) }
-            title="Youtube video player"
-            frameBorder="0"
-            allow="
+        {/* INSTRUÇÕES DE PREPARO */}
+        <h1 className="Instructions-title"> Instructions </h1>
+        <div className="instructions-container">
+          <p data-testid="instructions">{recipeDetail.strInstructions}</p>
+        </div>
+        {/* VÍDEO DO YOUTUBE */}
+        <h1 className="video-title"> Video </h1>
+        <div className="video-card">
+          {food === 'meals' ? (
+            <iframe
+              width="320"
+              height="240"
+              src={ getYoutubeVideoId(recipeDetail.strYoutube) }
+              title="Youtube video player"
+              frameBorder="0"
+              allow="
             accelerometer;
             autoplay;
             clipboard-write;
@@ -174,36 +207,39 @@ export default function RecipeDetails() {
             gyroscope;
             picture-in-picture;
             web-share"
-            allowFullScreen
-            data-testid="video"
-          />
-        ) : null}
+              allowFullScreen
+              data-testid="video"
+            />
+          ) : null}
+        </div>
       </div>
 
       {/* CARROSSEL DE SUGESTÕES DE PRATOS */}
       <div className="carousel-sugestions">
-        {recomendation.length > 0 && (recomendation.map((recipe, index) => (
-          <Link
-            to={ `${invertedFood}/${recipe[idFoodType]}` }
-            key={ `${invertedFood}-${recipe[idFoodType]}-${index}` }
-          >
-            <SugestionCard
-              key={ recipe[idFoodType] }
-              option={ invertedFood }
-              recipe={ recipe }
-              index={ index }
-            />
-          </Link>
-        )))}
+        <h1 className="sugestions-title"> Recommended </h1>
+        <div className="sugestions-cards">
+          {recomendation.length > 0 && (recomendation.map((recipe, index) => (
+            <Link
+              to={ `${invertedFood}/${recipe[idFoodType]}` }
+              key={ `${invertedFood}-${recipe[idFoodType]}-${index}` }
+            >
+              <SugestionCard
+                key={ recipe[idFoodType] }
+                option={ invertedFood }
+                recipe={ recipe }
+                index={ index }
+              />
+            </Link>
+          )))}
+        </div>
       </div>
-      {/* <div className="start-recipe-btn-container"> */}
-      {/* <RecipeFaseButton data-testid="start-recipe-btn" className="details-start-btn" /> */}
-      {/* </div> */}
-      <RecipeFaseButton
-        type={ food }
-        id={ correctId }
-        ingredients={ ingredientsAndmeasure }
-      />
+      <div className="start-recipe-btn-container">
+        <RecipeFaseButton
+          type={ food }
+          id={ correctId }
+          ingredients={ ingredientsAndmeasure }
+        />
+      </div>
     </>
   );
 }
