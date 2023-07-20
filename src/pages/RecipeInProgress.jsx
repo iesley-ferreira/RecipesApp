@@ -157,7 +157,7 @@ function RecipeInProgress() {
           alt={ recipe.strMeal || recipe.strDrink }
           data-testid="recipe-photo"
         />
-        <div className="inProgress-links-container">
+        <div className="inProgress-links-container-2">
           <Link to={ `/${pathname.split('/')[1]}` }>
             <div className="category-item-circle-inprogress-container">
               <div className="category-item-circle-inprogress">

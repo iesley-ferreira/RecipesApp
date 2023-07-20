@@ -194,6 +194,7 @@ export default function RecipeDetails() {
         </div>
         <h1 data-testid="recipe-title">{recipeDetail.strMeal || recipeDetail.strDrink}</h1>
       </div>
+
       <h2 data-testid="recipe-category">{recipeDetail.strCategory}</h2>
       {recipeDetail.strAlcoholic && (
         <h2 data-testid="recipe-category">{recipeDetail.strAlcoholic}</h2>

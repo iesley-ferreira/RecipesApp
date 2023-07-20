@@ -56,14 +56,14 @@
   height: 22px;
 }
 
-.category-item-circle-inprogress-container {
+.category-item-circle-inprogress-container-2 {
   align-items: center;
   display: flex;
   gap: 15px;
   justify-content: center;
 }
 
-.category-item-circle-inprogress-container p {
+.category-item-circle-inprogress-container-2 p {
   align-content: center;
   color: #fcc436;
   display: flex;
