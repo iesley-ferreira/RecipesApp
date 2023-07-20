@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
 import './styles/Footer.css';
-// import iconeBebida from '../images/iconeBebida.png';
-// import iconePrato from '../images/iconePrato.png';
+import iconeBebida from '../images/iconeBebida.png';
+import iconePrato from '../images/iconePrato.png';
+// import iconeBebida from '../images/drinkIcon.svg';
+// import iconePrato from '../images/mealIcon.svg';
 
 function Footer() {
   return (
@@ -9,7 +11,7 @@ function Footer() {
       <Link to="/drinks">
         <img
           data-testid="drinks-bottom-btn"
-          src="../images/drinkIcon.svg"
+          src={ iconeBebida }
           alt="icone de bebida"
         />
       </Link>
@@ -17,7 +19,7 @@ function Footer() {
       <Link to="/meals">
         <img
           data-testid="meals-bottom-btn"
-          src="../images/mealIcon.svg"
+          src={ iconePrato }
           alt="icone de prato"
         />
       </Link>

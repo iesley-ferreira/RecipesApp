@@ -44,7 +44,7 @@
   position: absolute;
   right: 25px;
   top: 25px;
-  width: 15px;
+  width: 19px;
 }
 
 .done-recipes-card-right {
@@ -109,4 +109,3 @@
   line-height: normal;
   text-align: center;
 }
-

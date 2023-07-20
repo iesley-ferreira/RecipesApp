@@ -6,7 +6,7 @@
   width: 100%;
 }
 
-/* .header-superior {
+.header-superior {
   align-items: center;
   background-color: #fcdc36;
   display: flex;
@@ -17,7 +17,7 @@
   top: 0;
   width: 400px;
   z-index: 99;
-} */
+}
 
 .logo-container {
   align-items: center;
@@ -31,7 +31,7 @@
 .links-container {
   align-items: center;
   display: flex;
-  gap: 5px;
+  gap: 10px;
   justify-content: space-between;
   padding-right: 15px;
 }

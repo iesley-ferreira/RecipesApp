@@ -36,34 +36,40 @@ function DoneRecipes() {
       <Header showBtn={ false } title="Done Recipes" />
       <div className="doneRecipes-categories-container">
         <div className="filter-by-category">
-          <button
-            data-testid="filter-by-all-btn"
-            type="button"
-            name="all"
-            onClick={ (event) => filterByCategory(event) }
-          >
-            <img src={ iconFastFood } alt="all" />
-          </button>
+          <div className="category-item-circle">
+            <input
+              data-testid="filter-by-all-btn"
+              type="image"
+              src={ iconFastFood }
+              alt="all"
+              name="all"
+              onClick={ (event) => filterByCategory(event) }
+            />
+          </div>
           All
         </div>
         <div className="filter-by-category">
-          <button
-            data-testid="filter-by-meal-btn"
-            type="button"
-            onClick={ (event) => filterByCategory(event) }
-          >
-            <img src={ iconePrato } alt="meal" />
-          </button>
+          <div className="category-item-circle">
+            <input
+              src={ iconePrato }
+              alt="meal"
+              data-testid="filter-by-meal-btn"
+              type="image"
+              onClick={ (event) => filterByCategory(event) }
+            />
+          </div>
           Meals
         </div>
         <div className="filter-by-category">
-          <button
-            data-testid="filter-by-drink-btn"
-            type="button"
-            onClick={ (event) => filterByCategory(event) }
-          >
-            <img src={ iconeBebida } alt="drink" />
-          </button>
+          <div className="category-item-circle">
+            <input
+              src={ iconeBebida }
+              alt="drink"
+              data-testid="filter-by-drink-btn"
+              type="image"
+              onClick={ (event) => filterByCategory(event) }
+            />
+          </div>
           Drinks
         </div>
       </div>
