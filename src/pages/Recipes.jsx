@@ -6,6 +6,17 @@ import Header from '../components/Header';
 import './styles/Recipes.css';
 import receitasContext from '../context/ReceitasContext';
 import SearchBar from '../components/SearchBar';
+import Beef from '../images/mealsCategories/Beef.png';
+import All from '../images/mealsCategories/All.png';
+import Breakfast from '../images/mealsCategories/Breakfast.png';
+import Chicken from '../images/mealsCategories/Chicken.png';
+import Dessert from '../images/mealsCategories/Dessert.png';
+import Goat from '../images/mealsCategories/Goat.png';
+import Ordinary from '../images/mealsCategories/Ordinary.png';
+import Cocktail from '../images/mealsCategories/Cocktail.png';
+import Shake from '../images/mealsCategories/Shake.png';
+import Other from '../images/mealsCategories/Other.png';
+import Cocoa from '../images/mealsCategories/Cocoa.png';
 
 function Recipes() {
   const location = useLocation();
@@ -71,27 +82,63 @@ function Recipes() {
     }
   };
 
+  const getCategoryImage = (categoryName) => {
+    switch (categoryName) {
+    case 'Beef':
+      return Beef;
+    case 'Breakfast':
+      return Breakfast;
+    case 'Chicken':
+      return Chicken;
+    case 'Dessert':
+      return Dessert;
+    case 'Goat':
+      return Goat;
+    case 'Ordinary Drink':
+      return Ordinary;
+    case 'Cocktail':
+      return Cocktail;
+    case 'Shake':
+      return Shake;
+    case 'Cocoa':
+      return Cocoa;
+    default:
+      return Other; // Caso a categoria não tenha uma imagem específica
+    }
+  };
+
   return (
     <div className="recipes-container">
       <Header showBtn />
       <div className="searchBar-container">
         <SearchBar />
       </div>
-      <div className="categories-container">
-        <button
-          data-testid="All-category-filter"
-          onClick={ () => handleAll() }
-        >
+      <div className="categories-container-foods">
+        <div className="category-item-filter">
+          <div className="category-item-circle-foods">
+            <input
+              type="image"
+              src={ All }
+              alt="All"
+              data-testid="All-category-filter"
+              onClick={ () => handleAll() }
+            />
+          </div>
           All
-        </button>
+        </div>
         {categories.map((categoryName, index) => (
-          <button
-            key={ index }
-            data-testid={ `${categoryName.strCategory}-category-filter` }
-            onClick={ () => handleCategory(categoryName.strCategory) }
-          >
+          <div key={ index } className="category-item-filter">
+            <div className="category-item-circle-foods">
+              <input
+                type="image"
+                src={ getCategoryImage(categoryName.strCategory) }
+                alt={ categoryName.strCategory }
+                data-testid={ `${categoryName.strCategory}-category-filter` }
+                onClick={ () => handleCategory(categoryName.strCategory) }
+              />
+            </div>
             {categoryName.strCategory}
-          </button>
+          </div>
         ))}
       </div>
       <div className="cards-container">

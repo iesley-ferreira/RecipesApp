@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom/';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import doneRecipes from '../images/doneRecipes.png';
+import doneRecipes from '../images/DoneRecipes.png';
 import logout from '../images/logout.png';
 import favoriteRecipes from '../images/favoriteRecipes.png';
 import './styles/Profile.css';

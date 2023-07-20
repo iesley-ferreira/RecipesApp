@@ -45,14 +45,14 @@
 .favorite-btn-container {
   align-items: center;
   display: flex;
-  gap: 12px;
+  gap: 13px;
   justify-content: flex-start;
   position: relative;
   width: 100%;
 }
 
 .favorite-btn-container input {
-  width: 22px;
+  width: 21px;
 }
 
 .span-copied {
