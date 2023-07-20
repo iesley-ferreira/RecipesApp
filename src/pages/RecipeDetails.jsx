@@ -9,14 +9,29 @@ import {
   addFavoriteRecipe,
   isFavoriRecipe,
 } from '../services/localStorageFuncions';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+// import blackHeartIcon from '../images/blackHeartIcon.svg';
+// import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import './styles/RecipeDetails.css';
+import Beef from '../images/mealsCategories/Beef.png';
+import Breakfast from '../images/mealsCategories/Breakfast.png';
+import Chicken from '../images/mealsCategories/Chicken.png';
+import Dessert from '../images/mealsCategories/Dessert.png';
+import Goat from '../images/mealsCategories/Goat.png';
+import Ordinary from '../images/mealsCategories/Ordinary.png';
+import Cocktail from '../images/mealsCategories/Cocktail.png';
+import Shake from '../images/mealsCategories/Shake.png';
+import Other from '../images/mealsCategories/Other.png';
+import Cocoa from '../images/mealsCategories/Cocoa.png';
+import Share from '../images/Share.png';
+import blackHeartIcon from '../images/Heart.png';
+import whiteHeartIcon from '../images/WhiteHeart.png';
 
 export default function RecipeDetails() {
   // URL
   const { pathname } = useLocation();
   const { id } = useParams();
+
+  const type = pathname.includes('meals') ? 'meals' : 'drinks';
 
   // VARIÁVEIS
   const correctId = id.replace(':', '');
@@ -109,65 +124,79 @@ export default function RecipeDetails() {
     }
   }
 
+  const getCategoryImg = (categoryName, tipo) => {
+    switch (categoryName) {
+    case 'Beef':
+      return Beef;
+    case 'Breakfast':
+      return Breakfast;
+    case 'Chicken':
+      return Chicken;
+    case 'Dessert':
+      return Dessert;
+    case 'Goat':
+      return Goat;
+    case 'Ordinary Drink':
+      return Ordinary;
+    case 'Cocktail':
+      return Cocktail;
+    case 'Shake':
+      return Shake;
+    case 'Cocoa':
+      return Cocoa;
+    default:
+      return (tipo === 'meals') ? Other : Cocktail;
+    }
+  };
+
   return (
-    <>
-      {/* EXIBIR A IMAGEM DO PRATO OU DRINK */}
-      <div className="photo-title-container">
+    <div className="recipeInProgress-container">
+      <div className="header-inProgress-container">
         <img
           src={ recipeDetail[`${foodKey}Thumb`] }
           alt={ recipeDetail[foodKey] }
           data-testid="recipe-photo"
           className="recipe-photo"
         />
-        <h1
-          data-testid="recipe-title"
-          className="recipe-title"
-        >
-          {recipeDetail[foodKey]}
-        </h1>
+        <div className="inProgress-links-container">
+          <Link to={ `/${pathname.split('/')[1]}` }>
+            <div className="category-item-circle-inprogress-container">
+              <div className="category-item-circle-inprogress">
+                <input
+                  type="image"
+                  src={ getCategoryImg(recipeDetail.strCategory, type) }
+                  alt={ recipeDetail.strCategory }
+                  data-testid="btn-go-home"
+                />
+              </div>
+              <p>{recipeDetail.strCategory}</p>
+            </div>
+          </Link>
+          <div className="shareAndLike-container">
+            <input
+              onClick={ share }
+              type="image"
+              data-testid="share-btn"
+              className="share-btn"
+              src={ Share }
+              alt="share"
+            />
+            <input
+              onClick={ handleFavorite }
+              type="image"
+              className="favorite-btn"
+              data-testid="favorite-btn"
+              src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+              alt="favorite"
+            />
+            { shareMessage && <p>Link copied!</p> }
+          </div>
+        </div>
+        <h1 data-testid="recipe-title">{recipeDetail.strMeal || recipeDetail.strDrink}</h1>
       </div>
-      {/* BOTÕES FAVORITAR E COMPARTILHAR */}
-      <button
-        onClick={ share }
-      >
-        <img
-          data-testid="share-btn"
-          className="share-btn"
-          src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-          alt="share"
-        />
-      </button>
-      <button
-        onClick={ handleFavorite }
-      >
-        <img
-          className="favorite-btn"
-          data-testid="favorite-btn"
-          src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-          alt="favorite"
-        />
-      </button>
-      { shareMessage && <p>Link copied!</p> }
-
-      {/* EXIBIR A CATEGORIA DO INGREDIENTE */}
-      {food === 'meals' ? (
-        <div>
-          <h3
-            data-testid="recipe-category"
-            className="category"
-          >
-            {recipeDetail.strCategory}
-          </h3>
-        </div>
-      ) : (
-        <div>
-          <h3
-            data-testid="recipe-category"
-            className="category"
-          >
-            {recipeDetail.strAlcoholic}
-          </h3>
-        </div>
+      <h2 data-testid="recipe-category">{recipeDetail.strCategory}</h2>
+      {recipeDetail.strAlcoholic && (
+        <h2 data-testid="recipe-category">{recipeDetail.strAlcoholic}</h2>
       )}
 
       {/* EXIBIR O ARRAY DE INGREDIENTES E QUANTIDADES */}
@@ -240,6 +269,6 @@ export default function RecipeDetails() {
           ingredients={ ingredientsAndmeasure }
         />
       </div>
-    </>
+    </div>
   );
 }
