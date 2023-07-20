@@ -29,10 +29,6 @@ function SearchBar() {
       return;
     }
 
-    // if ( === null) {
-    //   global.alert('Sorry, we haven\'t found any recipes for these filters.');
-    // }
-
     const { pathname } = window.location;
 
     const idPath = pathname === '/meals' ? 'idMeal' : 'idDrink';
@@ -45,7 +41,7 @@ function SearchBar() {
       setRecipes(fillRecipes);
       if (fillRecipes.length === 1) {
         history.push(`${pathname}/${fillRecipes[0][idPath]}`);
-      } else {
+      } else if (fillRecipes.length === 0) {
         global.alert(alertText);
       }
       break;
@@ -55,7 +51,7 @@ function SearchBar() {
       setRecipes(fillRecipes);
       if (fillRecipes.length === 1) {
         history.push(`${pathname}/${fillRecipes[0][idPath]}`);
-      } else {
+      } else if (fillRecipes.length === 0) {
         global.alert(alertText);
       }
       break;
@@ -65,7 +61,7 @@ function SearchBar() {
       setRecipes(fillRecipes);
       if (fillRecipes.length === 1) {
         history.push(`${pathname}/${fillRecipes[0][idPath]}`);
-      } else {
+      } else if (fillRecipes.length === 0) {
         global.alert(alertText);
       }
       break;
