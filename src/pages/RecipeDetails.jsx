@@ -1,37 +1,20 @@
 import { useLocation, useParams, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import copy from 'clipboard-copy';
 import SugestionCard from '../components/SugestionCard';
 import RecipeFaseButton from '../components/RecipeFaseButton';
 import { fetchRecipesDetailsApi, fetchRecipesSugestionsApi } from '../services/fetchAPI';
 import {
-  removeFavoriteRecipe,
-  addFavoriteRecipe,
   isFavoriRecipe,
 } from '../services/localStorageFuncions';
 // import blackHeartIcon from '../images/blackHeartIcon.svg';
 // import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import './styles/RecipeDetails.css';
-import Beef from '../images/mealsCategories/Beef.png';
-import Breakfast from '../images/mealsCategories/Breakfast.png';
-import Chicken from '../images/mealsCategories/Chicken.png';
-import Dessert from '../images/mealsCategories/Dessert.png';
-import Goat from '../images/mealsCategories/Goat.png';
-import Ordinary from '../images/mealsCategories/Ordinary.png';
-import Cocktail from '../images/mealsCategories/Cocktail.png';
-import Shake from '../images/mealsCategories/Shake.png';
-import Other from '../images/mealsCategories/Other.png';
-import Cocoa from '../images/mealsCategories/Cocoa.png';
-import Share from '../images/Share.png';
-import blackHeartIcon from '../images/Heart.png';
-import whiteHeartIcon from '../images/WhiteHeart.png';
+import HeaderLinks from '../components/HeaderLinks';
 
 export default function RecipeDetails() {
   // URL
   const { pathname } = useLocation();
   const { id } = useParams();
-
-  const type = pathname.includes('meals') ? 'meals' : 'drinks';
 
   // VARIÁVEIS
   const correctId = id.replace(':', '');
@@ -44,7 +27,6 @@ export default function RecipeDetails() {
   const [recipeDetail, setRecipeDetail] = useState([]);
   const [ingredientsAndmeasure, setIngredientsAndmeasure] = useState([]);
   const [recomendation, setRecomendation] = useState([]);
-  const [shareMessage, setShareMessage] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
 
   // UNIR OS INGREDIENTES E QUANTIDADES DA RECEITA EM UM ARRAY
@@ -109,98 +91,31 @@ export default function RecipeDetails() {
     }
   };
 
-  function share() {
-    copy(`http://localhost:3000/${food}/${id}`);
-    setShareMessage(true);
-  }
-
-  function handleFavorite() {
-    if (isFavorite) {
-      removeFavoriteRecipe(id);
-      setIsFavorite(false);
-    } else {
-      addFavoriteRecipe(recipeDetail);
-      setIsFavorite(true);
-    }
-  }
-
-  const getCategoryImg = (categoryName, tipo) => {
-    switch (categoryName) {
-    case 'Beef':
-      return Beef;
-    case 'Breakfast':
-      return Breakfast;
-    case 'Chicken':
-      return Chicken;
-    case 'Dessert':
-      return Dessert;
-    case 'Goat':
-      return Goat;
-    case 'Ordinary Drink':
-      return Ordinary;
-    case 'Cocktail':
-      return Cocktail;
-    case 'Shake':
-      return Shake;
-    case 'Cocoa':
-      return Cocoa;
-    default:
-      return (tipo === 'meals') ? Other : Cocktail;
-    }
-  };
-
   return (
     <div className="recipeInProgress-container">
-      <div className="header-inProgress-container">
+      <div className="header-details-container">
         <img
           src={ recipeDetail[`${foodKey}Thumb`] }
           alt={ recipeDetail[foodKey] }
           data-testid="recipe-photo"
           className="recipe-photo"
         />
-        <div className="inProgress-links-container">
-          <Link to={ `/${pathname.split('/')[1]}` }>
-            <div className="category-item-circle-inprogress-container">
-              <div className="category-item-circle-inprogress">
-                <input
-                  type="image"
-                  src={ getCategoryImg(recipeDetail.strCategory, type) }
-                  alt={ recipeDetail.strCategory }
-                  data-testid="btn-go-home"
-                />
-              </div>
-              <p>{recipeDetail.strCategory}</p>
-            </div>
-          </Link>
-          <div className="shareAndLike-container">
-            <input
-              onClick={ share }
-              type="image"
-              data-testid="share-btn"
-              className="share-btn"
-              src={ Share }
-              alt="share"
-            />
-            <input
-              onClick={ handleFavorite }
-              type="image"
-              className="favorite-btn"
-              data-testid="favorite-btn"
-              src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-              alt="favorite"
-            />
-            { shareMessage && <p>Link copied!</p> }
-          </div>
+        { recipeDetail && recipeDetail !== 0 && (
+          <HeaderLinks
+            recipe={ recipeDetail }
+            isFavorite={ isFavorite }
+            setIsFavorite={ setIsFavorite }
+          />
+        )}
+        <div className="title-detail-container">
+          <h1 data-testid="recipe-title">
+            {recipeDetail.strMeal || recipeDetail.strDrink}
+          </h1>
+          {recipeDetail.strAlcoholic && (
+            <p data-testid="recipe-category">{recipeDetail.strAlcoholic}</p>
+          )}
         </div>
-        <h1 data-testid="recipe-title">{recipeDetail.strMeal || recipeDetail.strDrink}</h1>
       </div>
-
-      <h2 data-testid="recipe-category">{recipeDetail.strCategory}</h2>
-      {recipeDetail.strAlcoholic && (
-        <h2 data-testid="recipe-category">{recipeDetail.strAlcoholic}</h2>
-      )}
-
-      {/* EXIBIR O ARRAY DE INGREDIENTES E QUANTIDADES */}
       <div className="main-detail-container">
         <h1 className="ingredients-title"> Ingredients </h1>
         <div className="ingredients-container">
@@ -213,13 +128,10 @@ export default function RecipeDetails() {
             </li>
           ))}
         </div>
-
-        {/* INSTRUÇÕES DE PREPARO */}
         <h1 className="Instructions-title"> Instructions </h1>
         <div className="instructions-container">
           <p data-testid="instructions">{recipeDetail.strInstructions}</p>
         </div>
-        {/* VÍDEO DO YOUTUBE */}
         <h1 className="video-title"> Video </h1>
         <div className="video-card">
           {food === 'meals' ? (
@@ -243,8 +155,6 @@ export default function RecipeDetails() {
           ) : null}
         </div>
       </div>
-
-      {/* CARROSSEL DE SUGESTÕES DE PRATOS */}
       <div className="carousel-sugestions">
         <h1 className="sugestions-title"> Recommended </h1>
         <div className="sugestions-cards">

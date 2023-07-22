@@ -39,16 +39,16 @@
   justify-content: space-around;
   padding: 20px 0 10px 27px;
   width: 100%;
-
 }
 
 .favorite-btn-container {
   align-items: center;
+  bottom: 20px;
   display: flex;
   gap: 13px;
   justify-content: flex-start;
   position: relative;
-  width: 100%;
+  width: 75px;
 }
 
 .favorite-btn-container input {

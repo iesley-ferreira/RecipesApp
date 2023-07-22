@@ -12,6 +12,6 @@ body {
   box-sizing: border-box;
   min-width: 360px;
   min-height: 500px;
-  max-width: 400px;
+  width: 100%;
   max-height: 800px;
 }

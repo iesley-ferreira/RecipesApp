@@ -14,7 +14,7 @@ export default function RecipeFaseButton(props) {
   // const inProgressRecipes = isInProgress(id);
   const finalizado = isDone(id);
   const direct = `/${type}/${id}/in-progress`;
-  let recipe = 'Continue Recipe';
+  let recipe = 'Start Recipe';
 
   if (finalizado) {
     recipe = '';

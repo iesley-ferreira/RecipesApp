@@ -85,7 +85,6 @@ function Header(props) {
       </div>
       <div className="title-container">
         <img src={ getHeaderImage(novaStr) } alt={ novaStr } />
-        {console.log(novaStr)}
         <h1 data-testid="page-title">{ novaStr }</h1>
       </div>
     </div>
