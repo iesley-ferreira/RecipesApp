@@ -42,13 +42,13 @@
 }
 
 .categories-container-foods {
-  align-items: flex-start;
+  align-items: center;
   display: flex;
+  flex-direction: row;
   font-size: 12px;
-  gap: 9px;
-  justify-content: center;
+  justify-content: space-between;
   margin-top: 15px;
-  width: 333px;
+  width: 95%;
 }
 
 .categories-container-foods button {

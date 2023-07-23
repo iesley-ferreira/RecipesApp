@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom/cjs/react-router-dom';
 import profileIcon from '../images/iconePerfil.png';
 import './styles/Header.css';
 import logoRecipes from '../images/logoRecipes.png';
@@ -58,10 +59,10 @@ function Header(props) {
   return (
     <div className="header-container">
       <div className="header-superior">
-        <div className="logo-container">
+        <Link to="/meals" className="logo-container">
           <img src={ iconeRecipes2 } alt="logo1recipes" />
           <img src={ logoRecipes } alt="logo2recipes" />
-        </div>
+        </Link>
         <header className="links-container">
           {
             showBtn && (

@@ -30,11 +30,12 @@
 .doneRecipes-card-container {
   align-items: center;
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 22px;
   justify-content: center;
   margin-bottom: 35px;
   padding: 30px 10px 70px;
+  width: 100%;
 }
 
 .category-item-circle {
