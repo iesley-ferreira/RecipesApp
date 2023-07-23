@@ -32,7 +32,7 @@ function DoneRecipes() {
   };
 
   return (
-    <div>
+    <div className="doneRecipes-page-container">
       <Header showBtn={ false } title="Done Recipes" />
       <div className="doneRecipes-categories-container">
         <div className="filter-by-category">
