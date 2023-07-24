@@ -4,7 +4,7 @@ import {
   isDone,
 } from '../services/saveRecipeInProgress';
 import { saveRecipeInProgress } from '../services/localStorageFuncions';
-import './styles/RecipeFaseButton.css';
+import '../pages/styles/RecipeDetails.css';
 
 export default function RecipeFaseButton(props) {
   const { type, id, ingredients } = props;
@@ -30,7 +30,7 @@ export default function RecipeFaseButton(props) {
     recipe !== '' && (
       <button
         data-testid="start-recipe-btn"
-        className="btnFase"
+        className="btnStart"
         onClick={ makeProgress }
       >
         {recipe}

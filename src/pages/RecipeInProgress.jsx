@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
-import logoRecipes from '../images/logoRecipes.png';
-import iconeRecipes2 from '../images/iconeRecipes2.png';
 import getIngredients from '../services/getIngredients';
 import './styles/RecipeInProgress.css';
 import {
@@ -11,9 +9,22 @@ import {
   saveRecipeInProgress,
   isFavoriRecipe,
 } from '../services/localStorageFuncions';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+// import blackHeartIcon from '../images/blackHeartIcon.svg';
+import blackHeartIcon from '../images/Heart.png';
+// import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import whiteHeartIcon from '../images/WhiteHeart.png';
+import Share from '../images/Share.png';
 import { fetchRecipesDetailsApi } from '../services/fetchAPI';
+import Beef from '../images/mealsCategories/Beef.png';
+import Breakfast from '../images/mealsCategories/Breakfast.png';
+import Chicken from '../images/mealsCategories/Chicken.png';
+import Dessert from '../images/mealsCategories/Dessert.png';
+import Goat from '../images/mealsCategories/Goat.png';
+import Ordinary from '../images/mealsCategories/Ordinary.png';
+import Cocktail from '../images/mealsCategories/Cocktail.png';
+import Shake from '../images/mealsCategories/Shake.png';
+import Other from '../images/mealsCategories/Other.png';
+import Cocoa from '../images/mealsCategories/Cocoa.png';
 
 function RecipeInProgress() {
   // recebe o id da receita
@@ -21,7 +32,7 @@ function RecipeInProgress() {
   const { pathname } = useLocation();
 
   // Variáveis
-  const type = (pathname.includes('meals')) ? 'meals' : 'drinks';
+  const type = pathname.includes('meals') ? 'meals' : 'drinks';
   const correctId = id.replace(':', '');
 
   // estado local para guardar a receita com o id recebido
@@ -58,24 +69,27 @@ function RecipeInProgress() {
     fetchRecipe();
   }, [id, pathname, type, correctId]);
 
-  useEffect(
-    () => {
+  useEffect(() => {
     // seta o array dos ingredientes da receita
-      setIngredients(getIngredients(recipe));
+    setIngredients(getIngredients(recipe));
 
-      if (!ingredientsChecked) {
-        setIngredientsChecked(getIngredients(recipe).reduce((acc, curr) => ({
-          ...acc,
-          [curr]: false,
-        }), {}));
-      }
-    },
-    [recipe, ingredientsChecked],
-  );
+    if (!ingredientsChecked) {
+      setIngredientsChecked(
+        getIngredients(recipe).reduce(
+          (acc, curr) => ({
+            ...acc,
+            [curr]: false,
+          }),
+          {},
+        ),
+      );
+    }
+  }, [recipe, ingredientsChecked]);
   // função que muda o estado isDisableFinish para true ou false
   useEffect(() => {
-    const ingredientsCheckedValues = ingredients
-      .map((ingredient) => ingredientsChecked2[ingredient]);
+    const ingredientsCheckedValues = ingredients.map(
+      (ingredient) => ingredientsChecked2[ingredient],
+    );
     const isAllChecked = ingredientsCheckedValues.every((check) => check === true);
     setIsDisableFinish(!isAllChecked);
   }, [ingredients, ingredientsChecked2]);
@@ -110,72 +124,102 @@ function RecipeInProgress() {
     }
   }
 
-  return (
-    <div>
-      <section>
-        <Link to={ `/${pathname.split('/')[1]}` }>
-          <button type="button" data-testid="btn-go-home">
-            <img src={ iconeRecipes2 } alt="logo1recipes" />
-            <img src={ logoRecipes } alt="logo2recipes" />
-          </button>
-        </Link>
-        <button
-          type="button"
-          data-testid="share-btn"
-          onClick={ share }
-        >
-          Compartilhar
-        </button>
-        <button
-          type="button"
-          onClick={ handleFavorite }
-        >
-          <img
-            data-testid="favorite-btn"
-            src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-            alt="favorite"
-          />
-        </button>
-        { shareMessage && <p>{ shareMessage }</p> }
-      </section>
+  const getCategoryImg = (categoryName, tipo) => {
+    switch (categoryName) {
+    case 'Beef':
+      return Beef;
+    case 'Breakfast':
+      return Breakfast;
+    case 'Chicken':
+      return Chicken;
+    case 'Dessert':
+      return Dessert;
+    case 'Goat':
+      return Goat;
+    case 'Ordinary Drink':
+      return Ordinary;
+    case 'Cocktail':
+      return Cocktail;
+    case 'Shake':
+      return Shake;
+    case 'Cocoa':
+      return Cocoa;
+    default:
+      return (tipo === 'meals') ? Other : Cocktail;
+    }
+  };
 
-      <h1 data-testid="recipe-title">{recipe.strMeal || recipe.strDrink}</h1>
-      <img
-        src={ recipe.strMealThumb || recipe.strDrinkThumb }
-        alt={ recipe.strMeal || recipe.strDrink }
-        data-testid="recipe-photo"
-      />
+  return (
+    <div className="recipeInProgress-container">
+      <div className="header-inProgress-container">
+        <img
+          src={ recipe.strMealThumb || recipe.strDrinkThumb }
+          alt={ recipe.strMeal || recipe.strDrink }
+          data-testid="recipe-photo"
+        />
+        <div className="inProgress-links-container">
+          <Link to={ `/${pathname.split('/')[1]}` }>
+            <div className="category-item-circle-inprogress-container">
+              <div className="category-item-circle-inprogress">
+                <input
+                  type="image"
+                  src={ getCategoryImg(recipe.strCategory, type) }
+                  alt={ recipe.strCategory }
+                  data-testid="btn-go-home"
+                />
+              </div>
+              <p>{recipe.strCategory}</p>
+            </div>
+          </Link>
+          <div className="shareAndLike-container">
+            <input
+              type="image"
+              src={ Share }
+              alt="share"
+              data-testid="share-btn"
+              onClick={ share }
+            />
+            <input
+              type="image"
+              onClick={ handleFavorite }
+              data-testid="favorite-btn"
+              src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+              alt="favorite"
+            />
+            {shareMessage && <p>{shareMessage}</p>}
+          </div>
+        </div>
+        <h1 data-testid="recipe-title">{recipe.strMeal || recipe.strDrink}</h1>
+      </div>
+
       <h2 data-testid="recipe-category">{recipe.strCategory}</h2>
       {recipe.strAlcoholic && (
-        <h2 data-testid="recipe-category">
-          {recipe.strAlcoholic}
-        </h2>
+        <h2 data-testid="recipe-category">{recipe.strAlcoholic}</h2>
       )}
 
       <h3>Ingredients</h3>
       <ul>
-        {ingredients && ingredients.map((ingredient, index) => (
-          <li
-            key={ index }
-          >
-            <label
-              htmlFor={ ingredient }
-              data-testid={ `${index}-ingredient-step` }
-              className={ (
-                ingredientsChecked2[ingredient] ? 'ingredient-checked' : 'null'
-              ) }
-            >
-              {ingredient}
-              <input
-                id={ ingredient }
-                type="checkbox"
-                name={ ingredient }
-                onChange={ () => checkIngredient(ingredient) }
-                checked={ ingredientsChecked[ingredient] }
-              />
-            </label>
-          </li>
-        ))}
+        {ingredients
+          && ingredients.map((ingredient, index) => (
+            <li key={ index }>
+              <label
+                htmlFor={ ingredient }
+                data-testid={ `${index}-ingredient-step` }
+                className={
+                  ingredientsChecked2[ingredient] ? 'ingredient-checked' : 'null'
+                }
+              >
+                {ingredient}
+                <input
+                  id={ ingredient }
+                  type="checkbox"
+                  name={ ingredient }
+                  onChange={ () => checkIngredient(ingredient) }
+                  checked={ ingredientsChecked[ingredient] }
+                />
+              </label>
+            </li>
+          ))}
       </ul>
 
       <h3>Instructions</h3>
