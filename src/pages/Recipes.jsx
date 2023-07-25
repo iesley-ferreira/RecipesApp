@@ -41,16 +41,21 @@ function Recipes() {
       const categoryNum = 5;
       const path = pathname === '/meals' ? 'themeal' : 'thecocktail';
       // recipes
-      const response = await fetch(`https://www.${path}db.com/api/json/v1/1/search.php?s=`);
+      const response = await fetch(
+        `https://www.${path}db.com/api/json/v1/1/search.php?s=`,
+      );
       const data = await response.json();
       const recipes = data[food].filter((meal, index) => index < recipesNum);
       setUsualRecipes(recipes);
       setCounter(1);
       // categories
-      const responseCategory = await fetch(`https://www.${path}db.com/api/json/v1/1/list.php?c=list`);
+      const responseCategory = await fetch(
+        `https://www.${path}db.com/api/json/v1/1/list.php?c=list`,
+      );
       const dataCategory = await responseCategory.json();
-      const filterCategory = dataCategory[food]
-        .filter((meal, index) => index < categoryNum);
+      const filterCategory = dataCategory[food].filter(
+        (meal, index) => index < categoryNum,
+      );
 
       setCategories(filterCategory);
     };
@@ -71,7 +76,9 @@ function Recipes() {
     const num = 12;
 
     if (categoryName !== filter) {
-      const response = await fetch(`https://www.${path}db.com/api/json/v1/1/filter.php?c=${categoryName}`);
+      const response = await fetch(
+        `https://www.${path}db.com/api/json/v1/1/filter.php?c=${categoryName}`,
+      );
       const data = await response.json();
       const recipes = data[food].splice(0, num);
       setUsualRecipes(recipes);
@@ -115,16 +122,20 @@ function Recipes() {
       </div>
       <div className="categories-container-foods">
         <div className="category-item-filter">
-          <div className="category-item-circle-foods">
-            <input
-              type="image"
-              src={ All }
-              alt="All"
-              data-testid="All-category-filter"
-              onClick={ () => handleAll() }
-            />
-          </div>
-          All
+          {categories.length > 0 && (
+            <div className="recipes-categories-all-btn">
+              <div className="category-item-circle-foods">
+                <input
+                  type="image"
+                  src={ All }
+                  alt="All"
+                  data-testid="All-category-filter"
+                  onClick={ () => handleAll() }
+                />
+              </div>
+              All
+            </div>
+          )}
         </div>
         {categories.map((categoryName, index) => (
           <div key={ index } className="category-item-filter">
@@ -144,11 +155,7 @@ function Recipes() {
       <div className="cards-container">
         {usualRecipes.map((recipe, index) => (
           <Link to={ `/${food}/${recipe[idFood]}` } key={ recipe[idFood] }>
-            <Card
-              option={ pathname }
-              recipe={ recipe }
-              index={ index }
-            />
+            <Card option={ pathname } recipe={ recipe } index={ index } />
           </Link>
         ))}
       </div>

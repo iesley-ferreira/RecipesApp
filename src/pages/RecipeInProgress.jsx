@@ -97,8 +97,9 @@ function RecipeInProgress() {
         />
         <div className="inProgress-title-container">
           <h1 data-testid="recipe-title">{recipe.strMeal || recipe.strDrink}</h1>
-          {recipe.strAlcoholic
-           && <p data-testid="recipe-category">{recipe.strAlcoholic}</p>}
+          {recipe.strAlcoholic && (
+            <p data-testid="recipe-category">{recipe.strAlcoholic}</p>
+          )}
         </div>
       </div>
 
@@ -113,14 +114,15 @@ function RecipeInProgress() {
                   data-testid={ `${index}-ingredient-step` }
                   className={ ingredientsChecked[ingredient] ? 'ingredient-checked' : '' }
                 >
-                  {ingredient}
                   <input
                     id={ ingredient }
                     type="checkbox"
                     name={ ingredient }
+                    className="checkbox-inProgress"
                     onChange={ () => checkIngredient(ingredient) }
                     checked={ ingredientsChecked[ingredient] }
                   />
+                  {ingredient}
                 </label>
               </li>
             ))}

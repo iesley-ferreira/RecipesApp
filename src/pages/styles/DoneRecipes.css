@@ -1,3 +1,11 @@
+.recipes-categories-all-btn {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  justify-content: center;
+}
+
 .doneRecipes-page-container {
   align-items: center;
   display: flex;

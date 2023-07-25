@@ -21,6 +21,7 @@ import Share from '../images/Share.png';
 import blackHeartIcon from '../images/Heart.png';
 import whiteHeartIcon from '../images/WhiteHeart.png';
 import { fetchRecipesDetailsApi } from '../services/fetchAPI';
+import './styles/HeaderLinks.css';
 
 function HeaderLinks(props) {
   const { isFavorite, setIsFavorite } = props;
