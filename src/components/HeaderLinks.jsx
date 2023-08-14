@@ -46,7 +46,6 @@ function HeaderLinks(props) {
   }, [food, correctId]);
 
   useEffect(() => {
-    // verifica se a receita está salva nos favoritos
     setIsFavorite(isFavoriRecipe(correctId));
   }, [recipeDetail, correctId]);
 

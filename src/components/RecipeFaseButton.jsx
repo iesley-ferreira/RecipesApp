@@ -10,8 +10,6 @@ export default function RecipeFaseButton(props) {
   const { type, id, ingredients } = props;
   const history = useHistory();
 
-  // VARIÁVEIS
-  // const inProgressRecipes = isInProgress(id);
   const finalizado = isDone(id);
   const direct = `/${type}/${id}/in-progress`;
   let recipe = 'Start Recipe';

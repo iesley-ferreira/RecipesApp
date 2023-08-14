@@ -3,8 +3,6 @@ import './styles/FavoriteCard.css';
 import copy from 'clipboard-copy';
 import { useState } from 'react';
 import { Link } from 'react-router-dom/';
-// import shareIcon from '../images/shareIcon.svg';
-// import blackHeartIcon from '../images/blackHeartIcon.svg';
 import blackHeartIcon from '../images/Heart.png';
 import shareIcon from '../images/Share.png';
 

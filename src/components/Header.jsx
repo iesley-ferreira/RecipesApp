@@ -10,8 +10,6 @@ import searchIcon from '../images/iconePesquisar.png';
 import receitasContext from '../context/ReceitasContext';
 import PageDrink from '../images/PageDrink.png';
 import iconePrato from '../images/iconePrato.png';
-// import profileIcon from '../images/profileIcon.svg';
-// import searchIcon from '../images/searchIcon.svg';
 import Favorites from '../images/Favorites.png';
 import DoneRecipes from '../images/DoneRecipes.png';
 
@@ -35,9 +33,6 @@ function Header(props) {
   const showSearchInputs = () => {
     setShowInput(!showInput);
   };
-
-  // const title = pathname === '/meals' ? 'Meals' : 'Drinks';
-  // const icon = pathname === '/meals' ? iconePrato : iconeBebida;
 
   const getHeaderImage = (title) => {
     switch (title) {

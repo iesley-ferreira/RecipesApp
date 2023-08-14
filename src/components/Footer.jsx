@@ -2,8 +2,6 @@ import { Link } from 'react-router-dom';
 import './styles/Footer.css';
 import iconeBebida from '../images/iconeBebida.png';
 import iconePrato from '../images/iconePrato.png';
-// import iconeBebida from '../images/drinkIcon.svg';
-// import iconePrato from '../images/mealIcon.svg';
 
 function Footer() {
   return (

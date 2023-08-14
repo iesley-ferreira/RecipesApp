@@ -6,30 +6,24 @@ import { fetchRecipesDetailsApi, fetchRecipesSugestionsApi } from '../services/f
 import {
   isFavoriRecipe,
 } from '../services/localStorageFuncions';
-// import blackHeartIcon from '../images/blackHeartIcon.svg';
-// import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import './styles/RecipeDetails.css';
 import HeaderLinks from '../components/HeaderLinks';
 
 export default function RecipeDetails() {
-  // URL
   const { pathname } = useLocation();
   const { id } = useParams();
 
-  // VARIÁVEIS
   const correctId = id.replace(':', '');
   const food = (pathname.includes('meals')) ? 'meals' : 'drinks';
   const foodKey = (pathname.includes('meals')) ? 'strMeal' : 'strDrink';
   const invertedFood = (pathname.includes('meals')) ? '/drinks' : '/meals';
   const idFoodType = (invertedFood === '/meals') ? 'idMeal' : 'idDrink';
 
-  // ESTADO LOCAL
   const [recipeDetail, setRecipeDetail] = useState([]);
   const [ingredientsAndmeasure, setIngredientsAndmeasure] = useState([]);
   const [recomendation, setRecomendation] = useState([]);
   const [isFavorite, setIsFavorite] = useState(false);
 
-  // UNIR OS INGREDIENTES E QUANTIDADES DA RECEITA EM UM ARRAY
   const ingredientsMeasureFilter = (recipe) => {
     const ingredientsKeys = Object.keys(recipe).filter((element) => (
       element.includes('strIngredient')
@@ -58,7 +52,6 @@ export default function RecipeDetails() {
     return obj;
   };
 
-  // FAZER O FETCH DA RECEITA E DAS SUGESTÕES DE PRATOS E SALVAR NO ESTADO LOCAL
   useEffect(() => {
     async function fetchRecipeDetails() {
       const details = await fetchRecipesDetailsApi(food, correctId);
@@ -76,13 +69,9 @@ export default function RecipeDetails() {
 
   useEffect(() => {
     setIngredientsAndmeasure(ingredientsMeasureFilter(recipeDetail));
-    // verifica se a receita está salva nos favoritos
     setIsFavorite(isFavoriRecipe(correctId));
   }, [recipeDetail, correctId]);
 
-  // CAPTURAR APENAS O ID DO LINK NA API E EMBEDAR COM O LINK DO YOUTUBE
-  // O LINK DO YOUTUBE QUE ESTÁ NA API NÃO PERMITE DISPONIBILIZAR O VÍDEO
-  // É NECESSÁRIO CAPTURAR O ID DO LINK DA API E COLOCAR EM UMA URL PARA EMBEDAR O VÍDEO
   const getYoutubeVideoId = (url) => {
     if (url !== undefined) {
       const videoId = url.replace('https://www.youtube.com/watch?v=', '');

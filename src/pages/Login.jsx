@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom';
 import './styles/Login.css';
 import logo from '../images/logoRecipesApp.png';
 import tomate from '../images/tomate.png';
-import foodAndDrink from '../images/foodAndDrink.png';
 
 export default function Login() {
   const history = useHistory();

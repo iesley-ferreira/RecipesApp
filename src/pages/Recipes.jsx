@@ -25,7 +25,6 @@ function Recipes() {
   const {
     usualRecipes,
     setUsualRecipes,
-    // counter,
     setCounter,
     categories,
     setCategories,
@@ -40,7 +39,7 @@ function Recipes() {
       const recipesNum = 12;
       const categoryNum = 5;
       const path = pathname === '/meals' ? 'themeal' : 'thecocktail';
-      // recipes
+
       const response = await fetch(
         `https://www.${path}db.com/api/json/v1/1/search.php?s=`,
       );
@@ -48,7 +47,7 @@ function Recipes() {
       const recipes = data[food].filter((meal, index) => index < recipesNum);
       setUsualRecipes(recipes);
       setCounter(1);
-      // categories
+
       const responseCategory = await fetch(
         `https://www.${path}db.com/api/json/v1/1/list.php?c=list`,
       );
@@ -110,7 +109,7 @@ function Recipes() {
     case 'Cocoa':
       return Cocoa;
     default:
-      return Other; // Caso a categoria não tenha uma imagem específica
+      return Other;
     }
   };
 

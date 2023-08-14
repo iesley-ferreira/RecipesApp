@@ -9,13 +9,10 @@ import {
   saveRecipeInProgress,
   isFavoriRecipe,
 } from '../services/localStorageFuncions';
-// import blackHeartIcon from '../images/blackHeartIcon.svg';
-// import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import { fetchRecipesDetailsApi } from '../services/fetchAPI';
 import HeaderLinks from '../components/HeaderLinks';
 
 function RecipeInProgress() {
-  // recebe o id da receita
   const { id } = useParams();
   const { pathname } = useLocation();
 
@@ -23,23 +20,19 @@ function RecipeInProgress() {
   const type = pathname.includes('meals') ? 'meals' : 'drinks';
   const correctId = id.replace(':', '');
 
-  // estado local para guardar a receita com o id recebido
   const [recipe, setRecipe] = useState({});
   const [ingredients, setIngredients] = useState([]);
   const [ingredientsChecked, setIngredientsChecked] = useState({});
   const [isFavorite, setIsFavorite] = useState(false);
 
   const [isDisableFinish, setIsDisableFinish] = useState(true);
-  // const [ingredientsChecked2, setIngredientsChecked2] = useState({});
 
-  // esse useEffect faz a requisição da receita e seta o estado local toda vez que o componente for montado
   useEffect(() => {
     const fetchRecipe = async () => {
       const reciperequest = await fetchRecipesDetailsApi(type, correctId);
       setRecipe(reciperequest[0]);
     };
 
-    // verifica se a receita está salva nos favoritos
     setIsFavorite(isFavoriRecipe(correctId));
 
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
@@ -51,10 +44,8 @@ function RecipeInProgress() {
   }, [id, pathname, type, correctId]);
 
   useEffect(() => {
-    // seta o array dos ingredientes da receita
     setIngredients(getIngredients(recipe));
   }, [recipe, ingredientsChecked]);
-  // função que muda o estado isDisableFinish para true ou false
   useEffect(() => {
     const ingredientsCheckedValues = ingredients.map(
       (ingredient) => ingredientsChecked[ingredient],
@@ -63,7 +54,6 @@ function RecipeInProgress() {
     setIsDisableFinish(!isAllChecked);
   }, [ingredients, ingredientsChecked]);
 
-  // marca ou desmarca o ingrediente
   function checkIngredient(ingredient) {
     setIngredientsChecked({
       ...ingredientsChecked,
@@ -71,7 +61,6 @@ function RecipeInProgress() {
     });
   }
 
-  // salva o progresso da receita no localStorage
   useEffect(() => {
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
     inProgressRecipes[id] = ingredientsChecked;

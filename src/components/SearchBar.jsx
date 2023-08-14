@@ -17,11 +17,8 @@ function SearchBar() {
 
   const setRecipes = setUsualRecipes;
 
-  // para o lint não reclamar que está repetindo o nome
   const firstLetter = 'first-letter';
 
-  // faz a busca de acordo com o radio button selecionado
-  // const { history } = useContext(receitasContext);
   const history = useHistory();
   const searchRecipes = async () => {
     if (radioButton === firstLetter && input.length > 1) {
@@ -70,12 +67,10 @@ function SearchBar() {
     }
   };
 
-  // altera o valor do input
   const changeInput = ({ target }) => {
     setInput(target.value);
   };
 
-  // cria os inputs, mostrados quando se clica no ícone de busca
   const inputs = (
     <div className="search-content">
       <div className="search-input-text">
