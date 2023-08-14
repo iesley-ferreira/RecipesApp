@@ -1,6 +1,7 @@
 .recipeInProgress-container {
   padding-bottom: 100px;
-  width: 362.012px;
+
+  /* width: 362.012px; */
 }
 
 .ingredient-checked {
@@ -85,7 +86,7 @@
   padding-top: 10px;
   position: absolute;
   top: 85px;
-  width: 360px;
+  width: 100%;
   z-index: 999;
 }
 

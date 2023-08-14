@@ -65,7 +65,7 @@ function DoneRecipeCard(props) {
           onClick={ copyLink }
         />
 
-        {showMessage && <p className="link-copy">Link copied!</p>}
+        {showMessage && <p className="link-copy-done-recipes">Link copied!</p>}
 
         {
           alcoholicOrNot && (

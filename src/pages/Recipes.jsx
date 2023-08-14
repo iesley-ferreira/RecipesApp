@@ -148,7 +148,9 @@ function Recipes() {
                 onClick={ () => handleCategory(categoryName.strCategory) }
               />
             </div>
-            {categoryName.strCategory}
+            <p>
+              {categoryName.strCategory}
+            </p>
           </div>
         ))}
       </div>

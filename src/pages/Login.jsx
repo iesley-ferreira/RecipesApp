@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import './styles/Login.css';
 import logo from '../images/logoRecipesApp.png';
 import tomate from '../images/tomate.png';
+import foodAndDrink from '../images/foodAndDrink.png';
 
 export default function Login() {
   const history = useHistory();
@@ -37,7 +38,7 @@ export default function Login() {
     <div className="login-container">
       <div className="purpleBackground">
         <img className="img1" src={ logo } alt="logo" />
-        <img className="img2" src={ tomate } alt="" />
+        <img className="img2" src={ tomate } alt="imageTomate" />
       </div>
       <div className="login-inputs">
         <h1> Login </h1>

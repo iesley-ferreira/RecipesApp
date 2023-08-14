@@ -96,7 +96,7 @@ h1 {
   padding: 12px 25px;
   padding-bottom: 10px;
   position: fixed;
-  width: 360px;
+  width: 100%;
   z-index: 10;
 }
 
@@ -117,7 +117,6 @@ h1 {
   text-align: center;
   text-transform: uppercase;
   width: 336px;
-
 }
 
 .video-card {
@@ -138,10 +137,6 @@ h1 {
   text-decoration: none;
 }
 
-.recipeInProgress-container {
-  width: 362.012px;
-}
-
 .ingredient-checked {
   text-decoration: line-through solid black;
 }
@@ -155,7 +150,6 @@ h1 {
 .header-details-container img {
   flex-shrink: 0;
   height: 161.854px;
-  width: 362.012px;
 }
 
 .details-links-container {
@@ -242,7 +236,7 @@ h1 {
   padding-top: 10px;
   position: absolute;
   top: 75px;
-  width: 360px;
+  width: 100%;
   z-index: 999;
 }
 
@@ -288,4 +282,18 @@ h1 {
   left: 2px;
   position: absolute;
   top: -3px;
+}
+
+.link-copy-details {
+  color: #1a1b1c;
+  font-family: Epilogue , sans-serif;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  position: absolute;
+  right: 20px;
+  text-decoration: none;
+  top: 60px;
+  z-index: 100;
 }

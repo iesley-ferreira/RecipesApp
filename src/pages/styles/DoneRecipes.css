@@ -64,3 +64,9 @@
   justify-content: center;
   width: 66px;
 }
+
+.link-copy-details {
+  position: absolute;
+  right: 20px;
+  top: 60px;
+}

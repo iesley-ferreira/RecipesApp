@@ -43,7 +43,7 @@
 }
 
 .categories-container-foods {
-  align-items: center;
+  align-items: start;
   display: flex;
   flex-direction: row;
   font-size: 12px;
@@ -62,6 +62,7 @@
 .category-item-filter {
   align-items: center;
   display: flex;
+  flex: 1;
   flex-direction: column;
   gap: 6px;
   justify-content: center;

@@ -126,7 +126,7 @@ function HeaderLinks(props) {
           src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
           alt="favorite"
         />
-        {showMessage && <p className="link-copy">Link copied!</p>}
+        {showMessage && <p className="link-copy-details">Link copied!</p>}
       </div>
     </div>
   );

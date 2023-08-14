@@ -88,17 +88,17 @@
   text-align: center;
 }
 
-.link-copy {
+.link-copy-done-recipes {
   color: #1a1b1c;
   font-family: Epilogue , sans-serif;
-  font-size: 9px;
+  font-size: 10px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
   position: absolute;
-  right: 5px;
+  right: 8px;
   text-decoration: none;
-  top: 48px;
+  top: 10px;
   z-index: 100;
 }
 

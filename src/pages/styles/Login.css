@@ -11,8 +11,6 @@
   justify-content: space-between;
   margin: 0;
   padding: 0;
-
-  /* width: 360px; */
 }
 
 .purpleBackground {
@@ -20,9 +18,7 @@
   background: #41197f;
   display: flex;
   flex-direction: column;
-  position: absolute;
-
-  /* width: 360px; */
+  width: 100%;
 }
 
 .purpleBackground .img1 {
@@ -32,11 +28,10 @@
 }
 
 .purpleBackground .img2 {
+  max-width: 450px;
   position: relative;
   top: 121px;
-
-  /* width: 360px; */
-
+  width: 100%;
 }
 
 .login-inputs h1 {
@@ -58,10 +53,7 @@
   justify-content: center;
   margin: 0;
   padding: 0;
-  position: relative;
   top: 600px;
-
-  /* width: 360px; */
 }
 
 .login-inputs input {
