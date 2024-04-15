@@ -2,8 +2,9 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  position: relative;
   width: 100%;
+  position: absolute;
+  top: -6%;
 }
 
 .header-superior {
@@ -11,12 +12,9 @@
   background-color: #fcdc36;
   display: flex;
   height: 52px;
-  justify-content: space-between;
-  left: 0;
-  position: fixed;
-  top: 0;
+  justify-content: space-around;
   width: 100%;
-  z-index: 99;
+  border-radius: 7vw 7vw 0 0;
 }
 
 .logo-container {
@@ -39,4 +37,26 @@
   background-color: #fcdc36;
   border: none;
   color: #41197f;
+}
+
+.title-container > .done-image {
+  height: 40px;
+  width: 40px;
+}
+
+@media (max-width: 480px) {
+  .header-container {
+    border-radius: 0;
+    /* height: 100%; */
+    position: absolute;
+    top: 0;
+  }
+  .header-superior {
+    justify-content: space-between;
+    border-radius: 0;
+    padding: 30px 0;
+  }
+  .title-container {
+    position: relative;
+  }
 }

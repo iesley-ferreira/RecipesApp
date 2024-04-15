@@ -1,12 +1,12 @@
 .favorite-card {
-  border: 0.518px solid #b1b1b1;
   border-radius: 5px;
   display: flex;
   flex-direction: row;
   flex-shrink: 0;
-  font-family: Epilogue , sans-serif;
+  font-family: Epilogue, sans-serif;
   height: 135px;
-  width: 318px;
+  width: 80%;
+  background-color: rgba(255, 255, 255, 0.5);
 }
 
 .favorite-card-left img {
@@ -38,7 +38,6 @@
   flex-direction: column;
   justify-content: space-around;
   padding: 20px 0 10px 27px;
-  width: 100%;
 }
 
 .favorite-btn-container {
@@ -57,7 +56,7 @@
 
 .span-copied {
   color: #1a1b1c;
-  font-family: Epilogue , sans-serif;
+  font-family: Epilogue, sans-serif;
   font-size: 9px;
   font-style: normal;
   font-weight: 700;
@@ -71,4 +70,3 @@
 .favorite-card-description a {
   text-decoration: none;
 }
-

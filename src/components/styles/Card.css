@@ -6,6 +6,7 @@
   height: 166px;
   margin-bottom: 10px;
   width: 163px;
+  background-color: rgb(175 175 168 / 50%);
 }
 
 .card-img img {
@@ -31,7 +32,7 @@
 
 .card-h2 h2 {
   color: #1a1b1c;
-  font-family: Epilogue , sans-serif;
+  font-family: Epilogue, sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 400;

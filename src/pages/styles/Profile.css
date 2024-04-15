@@ -1,13 +1,30 @@
+.profile-page-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  background-color: rgb(232, 250, 236);
+
+  position: relative;
+}
+
 .profile-container {
   align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  gap: 20px;
+  width: 90%;
+}
+
+.profile-container::-webkit-scrollbar {
+  display: none;
 }
 
 .profile-container h4 {
   color: #1a1b1c;
-  font-family: Epilogue , sans-serif;
+  font-family: Epilogue, sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
@@ -24,6 +41,10 @@
   width: 80%;
 }
 
+.profile-buttons-container img {
+  max-width: 40px;
+}
+
 .profile-buttons-container button {
   align-items: center;
   background: transparent;
@@ -33,13 +54,12 @@
   cursor: pointer;
   display: flex;
   flex-direction: row;
-  font-family: Epilogue , sans-serif;
+  font-family: Epilogue, sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
   gap: 20px;
 
-  /* height: 70px; */
   justify-content: start;
   letter-spacing: 0.48px;
   padding: 27px;

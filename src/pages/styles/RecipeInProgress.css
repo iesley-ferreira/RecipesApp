@@ -1,5 +1,15 @@
 .recipeInProgress-container {
-  padding-bottom: 100px;
+  background-color: rgb(232, 250, 236);
+  position: absolute;
+  height: 100%;
+  top: -6.1%;
+  left: 0;
+  border-radius: 3vw 3vw 0 0;
+  overflow: auto;
+}
+
+.recipeInProgress-container::-webkit-scrollbar {
+  width: 0;
 }
 
 .ingredient-checked {
@@ -53,7 +63,7 @@
   align-content: center;
   color: #fcc436;
   display: flex;
-  font-family: Epilogue , sans-serif;
+  font-family: Epilogue, sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 700;
@@ -90,7 +100,7 @@
 
 .inProgress-title-container h1 {
   color: white;
-  font-family: Epilogue , sans-serif;
+  font-family: Epilogue, sans-serif;
   font-size: 20px;
   font-style: normal;
   font-weight: 900;
@@ -102,7 +112,7 @@
 
 .inProgress-title-container p {
   color: white;
-  font-family: Epilogue , sans-serif;
+  font-family: Epilogue, sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
@@ -112,13 +122,13 @@
 }
 
 .start-recipe-btn-container button:disabled {
-  background-color: #e6e6e6;
+  background-color: #504d4d;
   border: none;
   border-radius: 8px;
   bottom: 0;
   color: #a7a7a7;
   cursor: not-allowed;
-  font-family: Epilogue , sans-serif;
+  font-family: Epilogue, sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 600;
@@ -130,4 +140,3 @@
   text-transform: uppercase;
   width: 336px;
 }
-

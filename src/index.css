@@ -20,11 +20,11 @@ body {
   transform: translate(-50%, -50%);
   max-width: 91.8%;
   border-radius: 8px;
+  z-index: 99;
 }
 
 .phoneFrame img {
   display: block;
-  margin: 0 auto;
   width: 100%;
   max-height: 94vh;
   height: 0 auto;
@@ -32,11 +32,10 @@ body {
 
 .appContent {
   position: absolute;
-  top: 6%;
-  left: 10%;
-  width: 80%;
-  height: 90%;
-  overflow: auto;
+  top: 7%;
+  left: 4.1%;
+  width: 91.8%;
+  height: 86.2%;
 }
 
 .appContent > * {
@@ -44,10 +43,23 @@ body {
   height: 100%;
 }
 
+/* @media (max-width: 888px) {
+  .appContent {
+    position: absolute;
+    top: 7%;
+    left: 3.99%;
+    width: 91.8%;
+    height: 100%;
+  }
+} */
+
 @media (max-width: 480px) {
   .phoneFrame {
-    position: none;
-    width: 100%;
+    min-height: 100%;
+    min-width: 100%;
+    height: auto;
+    position: absolute;
+    background-color: rgb(229, 236, 215);
   }
   .phoneFrame > img {
     display: none;
@@ -55,15 +67,9 @@ body {
   }
 
   .appContent {
-    position: absolute;
     top: 0;
     left: 0;
     min-width: 100%;
     min-height: 100%;
-  }
-
-  .appContent > * {
-    width: 100%;
-    height: 100%;
   }
 }

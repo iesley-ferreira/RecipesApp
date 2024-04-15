@@ -1,20 +1,18 @@
 .done-recipes-card-container {
   align-items: center;
-  border: 0.518px solid #b1b1b1;
   border-radius: 5px;
   display: flex;
   flex-direction: row;
   height: 135px;
   justify-content: center;
   position: relative;
-  width: 322px;
+  background-color: rgb(175 175 168 / 50%);
 }
 
 .done-name-Link img {
   border-radius: 5px 0 0 5px;
   flex-shrink: 0;
   height: 134.854px;
-  width: 163.346px;
 }
 
 .done-name-btn h2 {
@@ -22,7 +20,7 @@
   border: none;
   color: #1a1b1c;
   cursor: pointer;
-  font-family: Epilogue , sans-serif;
+  font-family: Epilogue, sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 700;
@@ -56,14 +54,13 @@
   justify-content: space-around;
   padding: 20px;
   padding-left: 25px;
-  width: 100%;
 }
 
 .done-recipes-card-tags {
   color: #797d86;
   display: flex;
   flex-flow: row wrap;
-  font-family: Epilogue , sans-serif;
+  font-family: Epilogue, sans-serif;
   font-size: 9px;
   font-style: normal;
   font-weight: 400;
@@ -80,7 +77,7 @@
 
 .done-card-category {
   color: #797d86;
-  font-family: Epilogue , sans-serif;
+  font-family: Epilogue, sans-serif;
   font-size: 9px;
   font-style: normal;
   font-weight: 300;
@@ -90,7 +87,7 @@
 
 .link-copy-done-recipes {
   color: #1a1b1c;
-  font-family: Epilogue , sans-serif;
+  font-family: Epilogue, sans-serif;
   font-size: 10px;
   font-style: normal;
   font-weight: 700;
