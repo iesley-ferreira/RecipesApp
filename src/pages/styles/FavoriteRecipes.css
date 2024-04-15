@@ -3,14 +3,15 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  background-color: rgb(232, 250, 236);
 }
 
 .favoriteRecipes-categories-container {
   align-items: center;
   display: flex;
-  gap: 30px;
-  justify-content: center;
-  margin-top: 20px;
+  width: 100%;
+  justify-content: space-evenly;
+  margin-top: 10%;
 }
 
 .favorite-cards-container {
@@ -23,6 +24,11 @@
   max-width: 700px;
   padding: 20px;
   padding-bottom: 70px;
+  overflow: auto;
+}
+
+.favorite-cards-container::-webkit-scrollbar {
+  width: 8px;
 }
 
 .favoriteRecipes-categories-container button {
@@ -36,7 +42,7 @@
   color: #797d86;
   display: flex;
   flex-direction: column;
-  font-family: Epilogue , sans-serif;
+  font-family: Epilogue, sans-serif;
   font-size: 10px;
   font-style: normal;
   font-weight: 300;
@@ -55,4 +61,10 @@
   height: 66px;
   justify-content: center;
   width: 66px;
+}
+
+@media screen and (max-width: 768px) {
+  .favoriteRecipes-categories-container {
+    margin-top: 22%;
+  }
 }

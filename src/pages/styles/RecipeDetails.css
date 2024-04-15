@@ -1,5 +1,5 @@
 * {
-  font-family: epilogue , sans-serif;
+  font-family: epilogue, sans-serif;
 }
 
 .photo-title-container {
@@ -14,7 +14,7 @@
 
 .recipe-title {
   color: white;
-  font-family: epilogue , sans-serif;
+  font-family: epilogue, sans-serif;
   font-size: 20px;
   font-weight: 900;
   left: 50%;
@@ -25,7 +25,7 @@
 
 .category {
   color: #fcc436;
-  font-family: epilogue , sans-serif;
+  font-family: epilogue, sans-serif;
   font-weight: 700;
   left: 10px;
   position: absolute;
@@ -41,7 +41,7 @@
 }
 
 h1 {
-  font-family: Epilogue , sans-serif;
+  font-family: Epilogue, sans-serif;
   font-size: 20px;
   font-weight: 700;
 }
@@ -59,7 +59,7 @@ h1 {
 
 .ingredients-container li {
   color: #1a1b1c;
-  font-family: Epilogue , sans-serif;
+  font-family: Epilogue, sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -78,7 +78,7 @@ h1 {
 
 .instructions-container p {
   color: #1a1b1c;
-  font-family: Epilogue , sans-serif;
+  font-family: Epilogue, sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -89,15 +89,17 @@ h1 {
 
 .start-recipe-btn-container {
   align-items: center;
-  background-color: white;
+  background-color: rgb(229, 236, 215);
   bottom: 0;
   display: flex;
   justify-content: center;
-  padding: 12px 25px;
-  padding-bottom: 10px;
+  padding: 25px 0;
   position: fixed;
-  width: 100%;
+  bottom: 1.6%;
+  width: 91.8%;
   z-index: 10;
+  height: 100px;
+  border-radius: 0 0 3vw 3vw;
 }
 
 .btnStart {
@@ -106,7 +108,7 @@ h1 {
   border-radius: 8px;
   bottom: 0;
   color: white;
-  font-family: Epilogue , sans-serif;
+  font-family: Epilogue, sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 700;
@@ -133,7 +135,7 @@ h1 {
 }
 
 .sugestions-cards a {
-  font-family: epilogue , sans-serif;
+  font-family: epilogue, sans-serif;
   text-decoration: none;
 }
 
@@ -150,6 +152,7 @@ h1 {
 .header-details-container img {
   flex-shrink: 0;
   height: 161.854px;
+  /* border-radius: 7vw 7vw 0 0; */
 }
 
 .details-links-container {
@@ -188,7 +191,7 @@ h1 {
   align-content: center;
   color: #fcc436;
   display: flex;
-  font-family: Epilogue , sans-serif;
+  font-family: Epilogue, sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 700;
@@ -216,6 +219,7 @@ h1 {
   gap: 10px;
   margin: 0 10px;
   padding-top: 10px;
+  padding-bottom: 24px;
 }
 
 .main-detail-container h1 {
@@ -242,7 +246,7 @@ h1 {
 
 .title-detail-container h1 {
   color: white;
-  font-family: Epilogue , sans-serif;
+  font-family: Epilogue, sans-serif;
   font-size: 20px;
   font-style: normal;
   font-weight: 900;
@@ -254,7 +258,7 @@ h1 {
 
 .title-detail-container p {
   color: white;
-  font-family: Epilogue , sans-serif;
+  font-family: Epilogue, sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
@@ -276,7 +280,7 @@ h1 {
 
 .checkbox-inProgress:checked:before {
   color: #fcc436;
-  content: '\2713';
+  content: "\2713";
   font-size: 12px;
   font-weight: 700;
   left: 2px;
@@ -286,7 +290,7 @@ h1 {
 
 .link-copy-details {
   color: #1a1b1c;
-  font-family: Epilogue , sans-serif;
+  font-family: Epilogue, sans-serif;
   font-size: 11px;
   font-style: normal;
   font-weight: 700;

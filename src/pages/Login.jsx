@@ -59,6 +59,7 @@ export default function Login() {
               value={password}
               data-testid='password-input'
               onChange={handleChangePass}
+              onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
               placeholder='Password'
             />
           </label>
