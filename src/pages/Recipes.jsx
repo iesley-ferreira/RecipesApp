@@ -26,11 +26,7 @@ import profileIcon from "../images/iconePerfil.png";
 import iconePrato from "../images/iconePrato.png";
 
 function Recipes() {
-  // const { showBtn } = props;
-  // const showBtn = true;
   const { pathname } = window.location;
-  // const history = useHistory();
-  // const location = useLocation();
 
   const { usualRecipes, setUsualRecipes, setCounter, categories, setCategories } =
     useContext(receitasContext);
@@ -87,9 +83,6 @@ function Recipes() {
       const recipes = data[food].splice(0, num);
       setUsualRecipes(recipes);
       setFilter(categoryName);
-    } else {
-      handleAll();
-      setFilter("");
     }
   };
 
@@ -153,35 +146,34 @@ function Recipes() {
           <SearchBar />
         </div>
         <div className='categories-container-foods'>
-          <div className='category-item-filter'>
-            {categories.length > 0 && (
-              <div className='recipes-categories-all-btn'>
-                <div className='category-item-circle-foods'>
-                  <input
-                    type='image'
-                    src={All}
-                    alt='All'
-                    data-testid='All-category-filter'
-                    onClick={() => handleAll()}
-                  />
-                </div>
-                All
-              </div>
-            )}
-          </div>
-          {categories.map((categoryName, index) => (
-            <div key={index} className='category-item-filter'>
+          {categories.length > 0 && (
+            <button
+              onClick={() => handleAll()}
+              className='category-item-filter recipes-categories-all-btn'
+            >
               <div className='category-item-circle-foods'>
-                <input
-                  type='image'
+                <img src={All} alt='All' data-testid='All-category-filter' />
+              </div>
+              All
+            </button>
+          )}
+          {categories.map((categoryName, index) => (
+            <button
+              onClick={() => handleCategory(categoryName.strCategory)}
+              key={index}
+              className='category-item-filter '
+            >
+              <div className='category-item-circle-foods'>
+                <img
                   src={getCategoryImage(categoryName.strCategory)}
                   alt={categoryName.strCategory}
                   data-testid={`${categoryName.strCategory}-category-filter`}
-                  onClick={() => handleCategory(categoryName.strCategory)}
                 />
               </div>
-              <p>{categoryName.strCategory}</p>
-            </div>
+              <div className='category-text'>
+                <p>{categoryName.strCategory}</p>
+              </div>
+            </button>
           ))}
         </div>
         <div className='cards-container'>

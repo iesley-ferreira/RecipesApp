@@ -52,27 +52,6 @@
   height: 22px;
 }
 
-.category-item-circle-inprogress-container-2 {
-  align-items: center;
-  display: flex;
-  gap: 15px;
-  justify-content: center;
-}
-
-.category-item-circle-inprogress-container-2 p {
-  align-content: center;
-  color: #fcc436;
-  display: flex;
-  font-family: Epilogue, sans-serif;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 700;
-  justify-content: center;
-  line-height: normal;
-  padding-top: 20px;
-  text-decoration: none;
-}
-
 .category-item-circle-inprogress {
   align-items: center;
   background-color: transparent;
